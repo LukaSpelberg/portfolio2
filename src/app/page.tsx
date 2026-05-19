@@ -6,23 +6,52 @@ export default function DesignSystemTest() {
     <div className={styles.root}>
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/*  SECTION 1 — SCALE & LAYERING                                     */}
-      {/*  Demonstrates: ghost text as texture, paint field, scale range    */}
+      {/*  SECTION 1 — HERO / SCALE & LAYERING                             */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section className={styles.hero}>
 
-        {/* Ghost text layers — background typography as texture */}
+        {/* Ghost text — background typography as texture */}
         <span className={`${styles.ghostBg} ghost`} aria-hidden>SPELBERG</span>
         <span className={`${styles.ghostBgMid} ghost`} aria-hidden>PORTFOLIO</span>
         <span className={`${styles.ghostBgLow} ghost`} aria-hidden>DESIGN</span>
 
-        {/* Paint field — dominant red region, left side, bleeds off top */}
+        {/* ── PAINT LAYER (z-index 1) ──── */}
+
+        {/* Red field — dominant left region */}
+        <PaintBlob variant="field" className={styles.heroField} />
+
+        {/* Large red splatter — upper right, chaotic, violent */}
         <PaintBlob
-          variant="field"
-          className={styles.heroField}
+          variant="splatter"
+          className={styles.heroSplatBig}
+          color="var(--color-accent)"
         />
 
-        {/* Foreground composition */}
+        {/* Gold splatter — overlapping content area, mid-canvas */}
+        <PaintBlob
+          variant="splatter"
+          className={styles.heroSplatGold}
+          color="var(--color-gold)"
+          opacity={0.7}
+        />
+
+        {/* Teal splatter — lower area, behind body text */}
+        <PaintBlob
+          variant="splatter"
+          className={styles.heroSplatTeal}
+          color="var(--color-teal)"
+          opacity={0.5}
+        />
+
+        {/* Slash behind body intro */}
+        <PaintBlob
+          variant="slash"
+          className={styles.heroSlash}
+          color="var(--color-accent)"
+          opacity={0.35}
+        />
+
+        {/* ── FOREGROUND CONTENT (z-index 2) ── */}
         <div className={styles.heroContent}>
           <p className={styles.sysLabel}>— ONTWERP SYSTEEM · DESIGN SYSTEM TEST</p>
 
@@ -32,7 +61,6 @@ export default function DesignSystemTest() {
           </div>
 
           <div className={styles.subBlock}>
-            {/* Stroke blob under the subheading */}
             <PaintBlob
               variant="stroke"
               className={styles.strokeUnder}
@@ -52,9 +80,9 @@ export default function DesignSystemTest() {
           </p>
 
           <p className={styles.metaRow}>
-            <span>Bebas Neue</span>
+            <span>Playfair Display</span>
             <span>·</span>
-            <span>Syne</span>
+            <span>Bebas Neue</span>
             <span>·</span>
             <span>Space Mono</span>
           </p>
@@ -63,20 +91,34 @@ export default function DesignSystemTest() {
 
       {/* ══════════════════════════════════════════════════════════════════ */}
       {/*  SECTION 2 — TYPOGRAPHY SCALE                                     */}
-      {/*  Bebas Neue from 320px ghost → 13px mono. Same font, all sizes.  */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section className={styles.typeSection}>
+        {/* Large accent splatter — right side, behind the type stack */}
+        <PaintBlob
+          variant="splatter"
+          className={styles.typeSplatBig}
+          color="var(--color-accent)"
+          opacity={0.28}
+        />
+        {/* Gold splatter — lower-left corner accent */}
+        <PaintBlob
+          variant="splatter"
+          className={styles.typeSplatGold}
+          color="var(--color-gold)"
+          opacity={0.22}
+        />
+
         <p className={styles.sectionLabel}>01 — TYPOGRAFIE</p>
 
         <div className={styles.typeStack}>
-          {/* 320px ghost — background texture level */}
+          {/* 320px ghost level */}
           <div className={styles.typeRow}>
             <span className={styles.typeSize}>320px</span>
             <span className={styles.typeSizeLabel}>Achtergrond / textuur</span>
             <div className={styles.typeSample320}>ONTWERP</div>
           </div>
 
-          {/* 160px — hero headline */}
+          {/* 160px hero */}
           <div className={styles.typeRow}>
             <span className={styles.typeSize}>160px</span>
             <span className={styles.typeSizeLabel}>Hero koptekst</span>
@@ -86,21 +128,21 @@ export default function DesignSystemTest() {
             </div>
           </div>
 
-          {/* 80px — section heading */}
+          {/* 80px section heading */}
           <div className={styles.typeRow}>
             <span className={styles.typeSize}>80px</span>
             <span className={styles.typeSizeLabel}>Sectiekoptekst</span>
             <div className={styles.typeSample80}>PROJECTEN</div>
           </div>
 
-          {/* 48px — card title */}
+          {/* 48px card title */}
           <div className={styles.typeRow}>
             <span className={styles.typeSize}>48px</span>
             <span className={styles.typeSizeLabel}>Kaart / project</span>
             <div className={styles.typeSample48}>DYNAMO</div>
           </div>
 
-          {/* 18px body — Syne */}
+          {/* 18px body */}
           <div className={styles.typeRow}>
             <span className={styles.typeSize}>18px Syne</span>
             <span className={styles.typeSizeLabel}>Broodtekst</span>
@@ -110,7 +152,7 @@ export default function DesignSystemTest() {
             </p>
           </div>
 
-          {/* 13px mono — Space Mono */}
+          {/* 13px mono */}
           <div className={styles.typeRow}>
             <span className={styles.typeSize}>13px Mono</span>
             <span className={styles.typeSizeLabel}>Metadata / labels</span>
@@ -123,15 +165,30 @@ export default function DesignSystemTest() {
 
       {/* ══════════════════════════════════════════════════════════════════ */}
       {/*  SECTION 3 — PAINT LANGUAGE                                       */}
-      {/*  All 4 blob variants shown in context, not as icons               */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section className={styles.paintSection}>
+        {/* Ghost text background */}
         <span className={`${styles.paintGhost} ghost`} aria-hidden>VERF</span>
+
+        {/* Splatters overlaid on this section for texture */}
+        <PaintBlob
+          variant="splatter"
+          className={styles.paintSplatHeader}
+          color="var(--color-teal)"
+          opacity={0.35}
+        />
+        <PaintBlob
+          variant="splatter"
+          className={styles.paintSplatCorner}
+          color="var(--color-gold)"
+          opacity={0.30}
+        />
+
         <p className={styles.sectionLabel}>02 — VERF</p>
 
         <div className={styles.blobGrid}>
 
-          {/* slash — full width, behind a sample headline */}
+          {/* slash demo */}
           <div className={styles.blobDemo}>
             <p className={styles.blobLabel}>slash — achter koptekst</p>
             <div className={styles.slashDemo}>
@@ -140,11 +197,18 @@ export default function DesignSystemTest() {
             </div>
           </div>
 
-          {/* field — takes up space, is the background */}
+          {/* field demo */}
           <div className={styles.blobDemo}>
             <p className={styles.blobLabel}>field — sectie-achtergrond</p>
             <div className={styles.fieldDemo}>
               <PaintBlob variant="field" className={styles.fieldBlob} color="var(--color-accent)" />
+              {/* Extra splatter on top of the field for chaos */}
+              <PaintBlob
+                variant="splatter"
+                className={styles.fieldSplat}
+                color="var(--color-gold)"
+                opacity={0.7}
+              />
               <div className={styles.fieldText}>
                 <span className={styles.fieldNum}>01</span>
                 <span className={styles.fieldTitle}>DYNAMO</span>
@@ -152,7 +216,7 @@ export default function DesignSystemTest() {
             </div>
           </div>
 
-          {/* splatter + stroke side by side */}
+          {/* splatter + stroke */}
           <div className={styles.blobRow2}>
             <div className={styles.blobDemo}>
               <p className={styles.blobLabel}>splatter — punctuatie</p>
@@ -178,17 +242,23 @@ export default function DesignSystemTest() {
       {/*  SECTION 4 — KLEUREN                                              */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section className={styles.colorsSection}>
+        <PaintBlob
+          variant="splatter"
+          className={styles.colorsSplat}
+          color="var(--color-accent)"
+          opacity={0.25}
+        />
         <p className={styles.sectionLabel}>03 — KLEUREN</p>
 
         <div className={styles.colorGrid}>
           {([
-            ['--color-bg',      '#0d0f0c', 'BG'],
-            ['--color-surface', '#161a14', 'SURFACE'],
+            ['--color-bg',      '#0d201e', 'BG'],
+            ['--color-surface', '#132c28', 'SURFACE'],
             ['--color-accent',  '#c0281a', 'ACCENT'],
             ['--color-gold',    '#d4a854', 'GOLD'],
             ['--color-teal',    '#3db8b0', 'TEAL'],
             ['--color-text',    '#f0ece0', 'TEXT'],
-            ['--color-muted',   '#6b7a68', 'MUTED'],
+            ['--color-muted',   '#5e7870', 'MUTED'],
           ] as const).map(([v, hex, label]) => (
             <div key={v} className={styles.swatch}>
               <div className={styles.swatchBlock} style={{ background: `var(${v})` }} />

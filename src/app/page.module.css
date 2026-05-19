@@ -1,7 +1,7 @@
 /* ─── Root ───────────────────────────────────────────────────────────────── */
 .root {
   position: relative;
-  z-index: 1; /* sit above bg-smear layer */
+  z-index: 1;
 }
 
 /* ─── Section label (small mono header) ─────────────────────────────────── */
@@ -36,23 +36,22 @@
   justify-content: flex-end;
 }
 
-/* Ghost text layers — background typography as texture */
+/* Ghost text layers */
 .ghostBg {
   position: absolute;
   font-size: clamp(240px, 28vw, 380px);
-  opacity: 0.07;
+  opacity: 0.08;
   right: -60px;
   top: -30px;
   z-index: 0;
   color: var(--color-text);
-  /* Clipped at right edge — the Metaphor move */
   overflow: hidden;
 }
 
 .ghostBgMid {
   position: absolute;
   font-size: clamp(100px, 14vw, 190px);
-  opacity: 0.06;
+  opacity: 0.08;
   right: 40px;
   bottom: 200px;
   z-index: 0;
@@ -63,22 +62,67 @@
 .ghostBgLow {
   position: absolute;
   font-size: clamp(200px, 22vw, 300px);
-  opacity: 0.055;
+  opacity: 0.07;
   left: -20px;
   bottom: 80px;
   z-index: 0;
   color: var(--color-muted);
 }
 
-/* Paint field — dominant left region, bleeds off top */
+/* ── Paint blobs in hero (z-index 1) ──── */
+
+/* Red field — dominant left region, bleeds off top */
 .heroField {
   position: absolute;
-  left: -40px;
-  top: -60px;
-  width: 45%;
-  height: 80%;
+  left: -60px;
+  top: -80px;
+  width: 52%;
+  height: 92%;
   z-index: 1;
-  opacity: 0.88;
+  opacity: 0.90;
+}
+
+/* Large red splatter — upper right, violent */
+.heroSplatBig {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  top: 20px;
+  right: 50px;
+  z-index: 1;
+  transform: rotate(-22deg);
+}
+
+/* Gold splatter — mid canvas, partially overlaps name */
+.heroSplatGold {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  bottom: 260px;
+  left: 38%;
+  z-index: 1;
+  transform: rotate(38deg);
+}
+
+/* Teal splatter — lower area, behind body text block */
+.heroSplatTeal {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  bottom: 120px;
+  left: 60px;
+  z-index: 1;
+  transform: rotate(-10deg);
+}
+
+/* Slash behind body copy */
+.heroSlash {
+  position: absolute;
+  width: 480px;
+  height: 80px;
+  bottom: 220px;
+  left: 40px;
+  z-index: 1;
 }
 
 /* Foreground content */
@@ -101,6 +145,7 @@
   display: block;
   mix-blend-mode: screen;
   letter-spacing: -0.02em;
+  filter: url('#ink-rough');
 }
 
 .nameBottom {
@@ -114,6 +159,7 @@
   margin-left: 5vw;
   white-space: nowrap;
   margin-right: -80px;
+  filter: url('#ink-rough');
 }
 
 .subBlock {
@@ -134,7 +180,6 @@
   z-index: -1;
 }
 
-/* Subhead in Bebas — condensed sans clashes with the Playfair serif above */
 .subhead {
   font-family: var(--font-display);
   font-size: clamp(48px, 6vw, 80px);
@@ -147,7 +192,6 @@
   width: 80px;
   height: 80px;
   flex-shrink: 0;
-  /* Slight downward offset — breaking the baseline grid */
   margin-top: 24px;
 }
 
@@ -178,9 +222,33 @@
   position: relative;
   background: var(--color-surface);
   border-top: 1px solid rgba(240, 236, 224, 0.06);
+  overflow: hidden;
+}
+
+/* Decorative splatters in the type section */
+.typeSplatBig {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  right: -40px;
+  top: 40px;
+  z-index: 0;
+  transform: rotate(-12deg) scaleX(-1);
+}
+
+.typeSplatGold {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  left: 20px;
+  bottom: 80px;
+  z-index: 0;
+  transform: rotate(55deg);
 }
 
 .typeStack {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -212,8 +280,7 @@
   text-transform: uppercase;
 }
 
-/* 320px ghost — takes up its own space, visible but dimmed */
-/* Ghost level — Playfair serif at enormous size, barely visible */
+/* Ghost level */
 .typeSample320 {
   font-family: var(--font-serif);
   font-weight: 900;
@@ -226,9 +293,10 @@
   white-space: nowrap;
   margin-right: -60px;
   pointer-events: none;
+  filter: url('#ink-rough');
 }
 
-/* Hero level — Playfair serif, full weight, dramatic */
+/* Hero level */
 .typeSample160 {
   font-family: var(--font-serif);
   font-weight: 900;
@@ -240,6 +308,7 @@
   display: inline-flex;
   align-items: center;
   gap: 16px;
+  filter: url('#ink-rough');
 }
 
 .inlineSplat {
@@ -249,7 +318,7 @@
   margin-top: 12px;
 }
 
-/* Section heading — Playfair, slightly smaller */
+/* Section heading */
 .typeSample80 {
   font-family: var(--font-serif);
   font-weight: 900;
@@ -257,9 +326,10 @@
   line-height: 0.9;
   color: var(--color-text);
   letter-spacing: -0.01em;
+  filter: url('#ink-rough');
 }
 
-/* Card / accent — Bebas Neue. Condensed, all-caps. The "clash" partner. */
+/* Card/accent — Bebas Neue */
 .typeSample48 {
   font-family: var(--font-display);
   font-size: clamp(32px, 4vw, 48px);
@@ -298,14 +368,37 @@
 .paintGhost {
   position: absolute;
   font-size: clamp(200px, 28vw, 380px);
-  opacity: 0.055;
+  opacity: 0.07;
   right: -40px;
   top: 40px;
   pointer-events: none;
   user-select: none;
 }
 
+/* Splatters scattered in the paint section */
+.paintSplatHeader {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  top: 30px;
+  left: 200px;
+  z-index: 0;
+  transform: rotate(20deg);
+}
+
+.paintSplatCorner {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  bottom: 40px;
+  left: 40px;
+  z-index: 0;
+  transform: rotate(-25deg) scaleX(-1);
+}
+
 .blobGrid {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 80px;
@@ -349,6 +442,7 @@
   z-index: 1;
   mix-blend-mode: screen;
   letter-spacing: -0.02em;
+  filter: url('#ink-rough');
 }
 
 /* field demo */
@@ -366,6 +460,17 @@
   width: 65%;
   height: 120%;
   opacity: 0.9;
+}
+
+/* Splatter ON TOP of the field blob for layered chaos */
+.fieldSplat {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: 20px;
+  left: 100px;
+  z-index: 1;
+  transform: rotate(-15deg);
 }
 
 .fieldText {
@@ -393,6 +498,7 @@
   mix-blend-mode: screen;
   line-height: 0.9;
   letter-spacing: -0.02em;
+  filter: url('#ink-rough');
 }
 
 /* splatter + stroke row */
@@ -413,8 +519,8 @@
   position: absolute;
   left: -20px;
   top: 10px;
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: 180px;
 }
 
 .splatterLabel {
@@ -424,7 +530,7 @@
   color: var(--color-text);
   position: relative;
   z-index: 1;
-  padding-left: 120px;
+  padding-left: 140px;
 }
 
 .strokeDemo {
@@ -442,6 +548,7 @@
   color: var(--color-text);
   line-height: 0.9;
   letter-spacing: -0.02em;
+  filter: url('#ink-rough');
 }
 
 .strokeBlob {
@@ -464,9 +571,23 @@
   padding: 100px 60px 160px;
   background: var(--color-surface);
   border-top: 1px solid rgba(240, 236, 224, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.colorsSplat {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: -40px;
+  right: 60px;
+  z-index: 0;
+  transform: rotate(10deg) scaleX(-1);
 }
 
 .colorGrid {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -481,7 +602,6 @@
 .swatchBlock {
   width: 100px;
   height: 100px;
-  /* Rough edge — no border-radius, 1px offset shadow */
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
 }
 

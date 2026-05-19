@@ -100,98 +100,88 @@ function Field() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── */
-/*  splatter — central mass + 7 radiating arms (thin, tapered) + droplets.   */
-/*  Built like real paint impact: arms flung outward, drops catch air.        */
-/*  viewBox 0 0 340 340, center ≈ (165, 165)                                  */
+/*  splatter — asymmetric impact mass + uneven trails + gravity drip.         */
+/*  Real splatters: paint flung in ONE dominant direction, ricochet opposite, */
+/*  gravity drip down. NO evenly-spaced arms (that reads as a sun).           */
+/*  viewBox 0 0 340 340                                                        */
 /* ─────────────────────────────────────────────────────────────────────────── */
 function Splatter() {
   return (
     <svg viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden>
 
-      {/* Central irregular mass */}
+      {/* Central impact mass — elongated, irregular, off-center */}
       <path d="
-        M 168,138
-        C 180,124 198,120 210,132
-        C 224,146 220,168 205,180
-        C 194,188 178,190 164,183
-        C 146,174 138,158 144,144
-        C 148,134 160,148 168,138 Z
+        M 142,152
+        C 150,136 170,130 186,140
+        C 202,150 208,170 198,184
+        C 188,196 168,202 152,194
+        C 134,186 126,170 130,158
+        C 132,148 136,158 142,152 Z
       " />
 
-      {/* Arm 1 — upper-right, long */}
+      {/* Secondary blob — paint that bounced back on impact */}
       <path d="
-        M 208,134
-        C 220,120 244,100 274,82
-        C 280,78 284,82 280,88
-        C 266,102 240,120 218,138
-        C 212,142 206,140 208,134 Z
+        M 124,162
+        C 120,150 130,144 138,148
+        C 146,152 146,166 137,168
+        C 128,170 122,170 124,162 Z
       " />
 
-      {/* Arm 2 — right, medium */}
+      {/* Trail 1 — upper-right, longest. The main fling direction. */}
       <path d="
-        M 220,162
-        C 236,156 266,148 300,140
-        C 308,138 310,144 306,150
-        C 288,160 256,166 228,172
-        C 220,174 214,168 220,162 Z
+        M 188,144
+        C 212,122 252,98 292,72
+        C 299,67 303,75 297,81
+        C 264,104 222,126 204,148
+        C 197,156 188,152 188,144 Z
       " />
 
-      {/* Arm 3 — lower-right, long drip */}
+      {/* Blob at tip of Trail 1 — paint mass that flew and landed */}
       <path d="
-        M 204,182
-        C 214,196 228,232 236,268
-        C 238,276 232,280 226,274
-        C 216,256 202,220 196,188
-        C 194,180 200,176 204,182 Z
+        M 290,66
+        C 296,58 308,56 314,65
+        C 319,74 311,84 302,82
+        C 293,80 286,74 290,66 Z
       " />
 
-      {/* Arm 4 — downward, thin drip */}
+      {/* Trail 2 — right, shorter, droops with gravity */}
       <path d="
-        M 168,186
-        C 166,202 162,234 164,264
-        C 164,272 156,274 154,266
-        C 152,246 156,212 158,188
-        C 159,182 168,180 168,186 Z
+        M 200,174
+        C 226,168 268,164 304,174
+        C 313,176 312,186 303,188
+        C 268,180 228,184 210,188
+        C 202,190 196,184 200,174 Z
       " />
 
-      {/* Arm 5 — lower-left */}
+      {/* Trail 3 — lower-left, ricochet. Opposite the main fling. */}
       <path d="
-        M 146,182
-        C 136,196 112,222 88,250
-        C 82,258 74,256 76,248
-        C 88,228 114,204 136,182
-        C 140,176 148,176 146,182 Z
+        M 138,180
+        C 122,202 94,236 62,272
+        C 55,281 46,278 51,271
+        C 70,250 100,218 130,186
+        C 135,178 141,174 138,180 Z
       " />
 
-      {/* Arm 6 — left, medium */}
+      {/* Drip — straight down from mass. Gravity. */}
       <path d="
-        M 140,160
-        C 124,154 92,146 58,136
-        C 50,133 48,139 54,144
-        C 70,156 104,162 132,168
-        C 140,170 144,166 140,160 Z
+        M 163,196
+        C 161,218 157,256 159,286
+        C 159,295 150,295 149,287
+        C 147,264 152,228 154,202
+        C 155,192 163,190 163,196 Z
       " />
 
-      {/* Arm 7 — upper-left, short */}
-      <path d="
-        M 150,138
-        C 138,124 118,100 96,78
-        C 90,72 94,66 100,72
-        C 118,90 138,114 154,136
-        C 158,142 154,146 150,138 Z
-      " />
-
-      {/* Satellite droplets — scattered by the impact */}
-      <circle cx="288" cy="196" r="8" />
-      <circle cx="242" cy="284" r="6" />
-      <circle cx="62"  cy="218" r="5" />
-      <circle cx="270" cy="66"  r="9" />
-      <circle cx="78"  cy="270" r="4" />
-      <circle cx="316" cy="148" r="5" />
-      <circle cx="158" cy="278" r="6" />
-      <circle cx="38"  cy="155" r="4" />
-      <circle cx="252" cy="108" r="4" />
-      <circle cx="100" cy="58"  r="5" />
+      {/* Satellite droplets — clustered in fling direction (upper-right) */}
+      <circle cx="298" cy="96"  r="5" />
+      <circle cx="274" cy="54"  r="4" />
+      <circle cx="316" cy="126" r="3" />
+      <circle cx="320" cy="74"  r="7" />
+      <circle cx="254" cy="66"  r="3" />
+      <circle cx="55"  cy="282" r="4" />
+      <circle cx="42"  cy="264" r="3" />
+      <circle cx="168" cy="300" r="3" />
+      <circle cx="88"  cy="288" r="2" />
+      <circle cx="306" cy="50"  r="4" />
 
     </svg>
   );

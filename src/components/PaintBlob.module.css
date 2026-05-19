@@ -1,0 +1,19 @@
+.blob {
+  display: block;
+  line-height: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--blob-opacity, 1);
+}
+
+.blob svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible; /* drips and lobes can spill outside the SVG bounds */
+}
+
+.blob svg path,
+.blob svg circle {
+  fill: var(--blob-color, var(--color-accent));
+}

@@ -1,0 +1,66 @@
+# .gitignore for Next.js / Node.js projects
+
+# Node modules
+/node_modules/
+
+# Next.js build output
+/.next/
+/.next/cache/
+
+# Vercel / hosting
+/.vercel/
+.vercel_output/
+
+# Build output
+/dist/
+/build/
+
+# Static export
+/out/
+
+# Environment files
+.env
+.env.*.local
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+logs/
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Testing
+/coverage/
+/.nyc_output/
+
+# TypeScript incremental build
+# *.tsbuildinfo
+
+# Caches
+/.cache/
+/.parcel-cache/
+
+# Editors and IDEs
+/.vscode/
+/.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ESLint cache
+.eslintcache
+
+# Misc
+*.tgz
+.history/

@@ -50,6 +50,7 @@ export interface Project {
   tags: string[];       // e.g. ['UX', 'Game Design']
   date: string;         // e.g. 'September 2024'
   duration: string;     // e.g. '4 weken'
+  featured?: boolean;
   heroImage: string;    // path inside /public, e.g. '/projects/dynamo/hero.webp'
   heroBg: string;       // fallback gradient for card background
   intro: {
@@ -70,6 +71,7 @@ export const projects: Project[] = [
     tags: ['UX', 'Game Design'],
     date: 'September 2024',
     duration: '4 weken',
+    featured: true,
     heroImage: '/projects/dynamo/hero.webp',
     heroBg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
     intro: {
@@ -108,12 +110,58 @@ export const projects: Project[] = [
   },
 
   {
+    slug: 'MyJam',
+    num: '01',
+    title: 'MyJam',
+    tags: ['UX/UI', 'Backend'],
+    date: 'April 2025',
+    duration: '5 weken',
+    featured: true,
+    heroImage: '/projects/myjam/hero.webp',
+    heroBg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
+    intro: {
+      heading: 'MyJam biedt een gepersonaliseerd aanbod aan muziek om te leren op jouw instrument.',
+      body: 'MyJam is een platform dat beginnende tot gevorderde muzikanten helpt om muziek te vinden die past bij hun niveau en voorkeuren. Door de data van spotify te combineren met de input van de gebruiker, geeft MyJam een uniek aanbod aan muziek.',
+      links: [
+        { label: 'Bekijk op GitHub', href: '#https://github.com/Manueldh/MyJam' },
+      ],
+    },
+    sections: [
+      {
+        type: 'text-image',
+        heading: 'NodeJS, Express en Spotify API',
+        text: 'Dit project werd geintroduceerd als kennismaking met backend development. We bouwden een server in NodeJS met Express, die communiceerde met onze Spotify Scraper om muziekdata op te halen en te verwerken. De frontend maakte gebruik van deze data om gepersonaliseerde aanbevelingen te tonen.',
+        image: '/projects/myjam/box.webp',
+        imageAlt: 'myjam interface',
+      },
+      {
+        type: 'full-image',
+        src: '/projects/myjam/overview.webp',
+        alt: 'myjam platform overzicht',
+      },
+      {
+        type: 'centered-text',
+        heading: 'Nieuwe uitdagingen.',
+        body: 'Het nuttige aan dit project was dat het ons liet experimenteren met security, iets wat op de frontend niet aan bod komt. We implementeerden login, registratie met hashing, het resetten van wachtwoorden op een veilige manier, en we zorgden ervoor dat de sleutels niet in de frontend terechtkwamen.',
+      },
+      {
+        type: 'image-grid',
+        images: [
+          { src: '/projects/myjam/box.webp', alt: 'myjam interface aanzicht 1' },
+          { src: '/projects/myjam/box2.webp', alt: 'myjam interface aanzicht 2' },
+        ],
+      },
+    ],
+  },
+
+  {
     slug: 'public-city-jazz',
     num: '02',
     title: 'Public City Jazz',
     tags: ['Branding', 'UX'],
     date: 'November 2024',
     duration: '6 weken',
+    featured: true,
     heroImage: '/projects/pcj/hero.webp',
     heroBg: 'linear-gradient(135deg, #1e1a0e 0%, #2a1e08 100%)',
     intro: {
@@ -149,6 +197,7 @@ export const projects: Project[] = [
     tags: ['Frontend', 'Web'],
     date: 'Januari 2023',
     duration: '3 weken',
+    featured: true,
     heroImage: '/projects/p3r/hero.webp',
     heroBg: 'linear-gradient(135deg, #0e1a30 0%, #0a1220 100%)',
     intro: {

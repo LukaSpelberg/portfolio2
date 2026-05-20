@@ -6,6 +6,8 @@ import { projects } from '@/lib/projects';
 import styles from './page.module.css';
 
 export default function HomePage() {
+  const featuredProjects = projects.filter((project) => project.featured);
+
   return (
     <>
       {/* Client-side animation engine — renders nothing, wires up GSAP */}
@@ -101,7 +103,7 @@ export default function HomePage() {
           </div>
 
           <div className={styles.projectsList}>
-            {projects.map((project) => (
+              {featuredProjects.map((project) => (
               <Link
                 key={project.slug}
                 href={`/projecten/${project.slug}`}

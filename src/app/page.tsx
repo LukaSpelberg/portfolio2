@@ -2,31 +2,8 @@ import Link from 'next/link';
 import PaintBlob from '@/components/PaintBlob';
 import PaintMark from '@/components/PaintMark';
 import PageAnimations from '@/components/PageAnimations';
+import { projects } from '@/lib/projects';
 import styles from './page.module.css';
-
-const projects = [
-  {
-    slug: 'dynamo',
-    num: '01',
-    name: 'Dynamo',
-    meta: 'UX · Game Design · 2024',
-    bg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
-  },
-  {
-    slug: 'public-city-jazz',
-    num: '02',
-    name: 'Public City Jazz',
-    meta: 'Branding · UX · 2024',
-    bg: 'linear-gradient(135deg, #1e1a0e 0%, #2a1e08 100%)',
-  },
-  {
-    slug: 'persona3-reload',
-    num: '03',
-    name: 'Persona 3',
-    meta: 'Frontend · Web · 2023',
-    bg: 'linear-gradient(135deg, #0e1a30 0%, #0a1220 100%)',
-  },
-];
 
 export default function HomePage() {
   return (
@@ -132,7 +109,7 @@ export default function HomePage() {
               >
                 <div
                   className={styles.projectCardBg}
-                  style={{ background: project.bg }}
+                  style={{ background: project.heroBg }}
                 />
                 <div className={styles.projectCardOverlay} />
                 <span className={styles.projectGhostNum} aria-hidden>
@@ -140,8 +117,8 @@ export default function HomePage() {
                 </span>
                 <div className={styles.projectCardContent}>
                   <span className={styles.projectCardNum}>{project.num}</span>
-                  <span className={styles.projectCardName}>{project.name}</span>
-                  <span className={styles.projectCardMeta}>{project.meta}</span>
+                  <span className={styles.projectCardName}>{project.title}</span>
+                  <span className={styles.projectCardMeta}>{project.tags.join(' · ')} · {project.date.split(' ')[1]}</span>
                 </div>
                 <div className={styles.projectCardAccent} />
               </Link>

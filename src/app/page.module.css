@@ -285,17 +285,22 @@
   transform: scale(1.03);
 }
 
-/* Dark overlay so text reads */
+/* Dark overlay so text reads — fades on hover to reveal image behind */
 .projectCardOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(11, 30, 27, 0.72) 0%,
-    rgba(11, 30, 27, 0.20) 60%,
-    transparent 100%
+    rgba(11, 30, 27, 0.82) 0%,
+    rgba(11, 30, 27, 0.30) 55%,
+    rgba(11, 30, 27, 0.10) 100%
   );
   z-index: 1;
+  transition: opacity 0.55s var(--ease-game);
+}
+
+.projectCard:hover .projectCardOverlay {
+  opacity: 0.35;
 }
 
 /* Ghost project number — background texture */
@@ -501,4 +506,201 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(206,44,26,0.06) 0%, rgba(221,182,92,0.04) 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  RESPONSIVE — TABLET (≤ 900px)                                             */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .hero {
+    padding: 72px 44px 88px;
+  }
+
+  .aboutSection {
+    grid-template-columns: 1fr;
+    gap: 56px;
+    padding: 80px 44px 96px;
+  }
+
+  .aboutBody {
+    max-width: 100%;
+  }
+
+  .projectsSection {
+    padding: 72px 44px 88px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  RESPONSIVE — MOBILE (≤ 600px)                                             */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+
+  /* ── Hero ──────────────────────────────────────────────────────────── */
+  .hero {
+    /* Top-align content — kills the dead void that flex-end creates on mobile */
+    justify-content: flex-start;
+    padding: 80px 24px 64px;
+    min-height: 0;           /* don't force full-screen height on mobile */
+  }
+
+  /* The red field blob looks like a flat painted wall on narrow screens —
+     hide it. The splatter marks provide enough paint drama. */
+  .heroField {
+    display: none;
+  }
+
+  /* Reposition ghost text so it frames the content from above */
+  .ghostBg {
+    font-size: clamp(110px, 38vw, 200px);
+    right: -16px;
+    top: -8px;
+  }
+
+  .ghostBgMid {
+    font-size: clamp(52px, 16vw, 100px);
+    right: 12px;
+    bottom: 80px;
+  }
+
+  .ghostBgLow {
+    font-size: clamp(80px, 28vw, 150px);
+    left: -8px;
+    bottom: 20px;
+  }
+
+  /* Paint marks: smaller, pulled toward the edges so they frame not dominate */
+  .heroMarkBig {
+    width: 220px;
+    height: 220px;
+    top: -28px;
+    left: -48px;
+  }
+
+  .heroMarkDeco {
+    width: 160px;
+    height: 160px;
+    top: 0px;
+    right: -12px;
+  }
+
+  /* Slash was positioned relative to bottom — unpredictable with top-align.
+     Hide it on mobile; the corner splatters carry the paint drama. */
+  .heroSlash {
+    display: none;
+  }
+
+  /* The clamp minimum (110px) is too large at 375px viewport. */
+  .nameTop,
+  .nameBottom {
+    font-size: clamp(54px, 15vw, 110px);
+  }
+
+  .nameBottom {
+    margin-left: 3vw;
+    margin-right: -16px;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .subBlock {
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 24px;
+  }
+
+  .subhead {
+    font-size: clamp(22px, 6.5vw, 38px);
+  }
+
+  .heroPunct {
+    width: 40px;
+    height: 40px;
+    margin-top: 12px;
+  }
+
+  .bodyIntro {
+    font-size: 0.92rem;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .metaRow {
+    font-size: 0.68rem;
+    gap: 8px;
+  }
+
+  /* ── Projects ──────────────────────────────────────────────────────── */
+  .projectsSection {
+    padding: 56px 24px 72px;
+  }
+
+  /* Stack the header label + button vertically */
+  .projectsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+
+  .projectCard {
+    height: clamp(130px, 34vw, 210px);
+  }
+
+  .projectCardName {
+    font-size: clamp(32px, 10vw, 60px);
+  }
+
+  .projectCardContent {
+    left: 20px;
+    bottom: 16px;
+  }
+
+  .projectGhostNum {
+    font-size: clamp(90px, 26vw, 160px);
+    right: -8px;
+  }
+
+  /* ── About ─────────────────────────────────────────────────────────── */
+  .aboutSection {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 56px 24px 72px;
+  }
+
+  .aboutHeading {
+    font-size: clamp(34px, 9vw, 52px);
+    margin-bottom: 20px;
+  }
+
+  .aboutBody {
+    max-width: 100%;
+    font-size: 0.95rem;
+  }
+
+  /* On mobile: fixed-height container, no aspect-ratio fighting grid/flex */
+  .aboutPhotos {
+    grid-template-columns: 0.65fr 1fr;
+    gap: 12px;
+    height: 240px;       /* fixed total height — both columns lock to this */
+    align-items: stretch;
+  }
+
+  .photoTall {
+    aspect-ratio: unset; /* let the grid cell define height, not aspect-ratio */
+    height: 100%;
+  }
+
+  .photosRightCol {
+    gap: 12px;
+    height: 100%;
+  }
+
+  .photoThumb {
+    aspect-ratio: unset; /* same — fill the flex slot, not a ratio */
+    flex: 1;
+    min-height: 0;       /* prevent flex blowout */
+  }
 }

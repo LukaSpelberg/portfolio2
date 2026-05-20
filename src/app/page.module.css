@@ -4,16 +4,7 @@
   z-index: 1;
 }
 
-/* ─── Section label (small mono header) ─────────────────────────────────── */
-.sectionLabel {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  color: var(--color-teal);
-  text-transform: uppercase;
-  margin-bottom: 48px;
-}
-
+/* ─── Shared label style ─────────────────────────────────────────────────── */
 .sysLabel {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -40,7 +31,7 @@
 .ghostBg {
   position: absolute;
   font-size: clamp(240px, 28vw, 380px);
-  opacity: 0.08;
+  opacity: 0.04;
   right: -60px;
   top: -30px;
   z-index: 0;
@@ -51,7 +42,7 @@
 .ghostBgMid {
   position: absolute;
   font-size: clamp(100px, 14vw, 190px);
-  opacity: 0.08;
+  opacity: 0.05;
   right: 40px;
   bottom: 200px;
   z-index: 0;
@@ -62,16 +53,14 @@
 .ghostBgLow {
   position: absolute;
   font-size: clamp(200px, 22vw, 300px);
-  opacity: 0.07;
+  opacity: 0.04;
   left: -20px;
   bottom: 80px;
   z-index: 0;
   color: var(--color-muted);
 }
 
-/* ── Paint blobs in hero (z-index 1) ──── */
-
-/* Red field — dominant left region, bleeds off top */
+/* Red field — dominant left region */
 .heroField {
   position: absolute;
   left: -60px;
@@ -82,37 +71,26 @@
   opacity: 0.90;
 }
 
-/* Large red splatter — upper right, violent */
-.heroSplatBig {
+/* Dominant red blob — upper-left, bleeds off edge */
+.heroMarkBig {
   position: absolute;
-  width: 380px;
-  height: 380px;
-  top: 20px;
-  right: 50px;
+  width: 560px;
+  height: 560px;
+  top: -80px;
+  left: -120px;
   z-index: 1;
-  transform: rotate(-22deg);
+  transform: rotate(-8deg);
 }
 
-/* Gold splatter — mid canvas, partially overlaps name */
-.heroSplatGold {
+/* Gold deco — upper-right counter-balance */
+.heroMarkDeco {
   position: absolute;
-  width: 240px;
-  height: 240px;
-  bottom: 260px;
-  left: 38%;
+  width: 360px;
+  height: 360px;
+  top: 30px;
+  right: -40px;
   z-index: 1;
-  transform: rotate(38deg);
-}
-
-/* Teal splatter — lower area, behind body text block */
-.heroSplatTeal {
-  position: absolute;
-  width: 160px;
-  height: 160px;
-  bottom: 120px;
-  left: 60px;
-  z-index: 1;
-  transform: rotate(-10deg);
+  transform: rotate(-18deg) scaleX(-1);
 }
 
 /* Slash behind body copy */
@@ -181,11 +159,13 @@
 }
 
 .subhead {
-  font-family: var(--font-display);
-  font-size: clamp(48px, 6vw, 80px);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(38px, 5vw, 66px);
   color: var(--color-text);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  filter: url('#ink-rough');
 }
 
 .heroPunct {
@@ -215,406 +195,310 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
-/*  TYPOGRAPHY SCALE                                                           */
+/*  PROJECTS                                                                   */
 /* ═══════════════════════════════════════════════════════════════════════════ */
-.typeSection {
-  padding: 100px 60px;
+.projectsSection {
+  padding: 80px 60px 100px;
   position: relative;
   background: var(--color-surface);
-  border-top: 1px solid rgba(240, 236, 224, 0.06);
+  border-top: 1px solid rgba(246, 242, 228, 0.06);
   overflow: hidden;
 }
 
-/* Decorative splatters in the type section */
-.typeSplatBig {
+/* Subtle red mark — upper-right of section */
+.projectsMark {
   position: absolute;
-  width: 420px;
-  height: 420px;
+  width: 320px;
+  height: 320px;
+  top: -60px;
   right: -40px;
-  top: 40px;
   z-index: 0;
-  transform: rotate(-12deg) scaleX(-1);
+  transform: rotate(12deg) scaleX(-1);
 }
 
-.typeSplatGold {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  left: 20px;
-  bottom: 80px;
-  z-index: 0;
-  transform: rotate(55deg);
+.projectsHeader {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 48px;
 }
 
-.typeStack {
+.sectionLabel {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--color-teal);
+  text-transform: uppercase;
+}
+
+.allProjectsBtn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--color-text);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(246, 242, 228, 0.2);
+  padding: 10px 20px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.allProjectsBtn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ── Project card list ── */
+.projectsList {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
-.typeRow {
-  display: grid;
-  grid-template-columns: 110px 180px 1fr;
-  align-items: baseline;
-  gap: 24px;
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(240, 236, 224, 0.05);
-}
-
-.typeSize {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  color: var(--color-teal);
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.typeSizeLabel {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  color: var(--color-muted);
-  text-transform: uppercase;
-}
-
-/* Ghost level */
-.typeSample320 {
-  font-family: var(--font-serif);
-  font-weight: 900;
-  font-size: clamp(160px, 22vw, 320px);
-  line-height: 0.85;
-  color: var(--color-text);
-  opacity: 0.09;
-  letter-spacing: -0.03em;
-  overflow: hidden;
-  white-space: nowrap;
-  margin-right: -60px;
-  pointer-events: none;
-  filter: url('#ink-rough');
-}
-
-/* Hero level */
-.typeSample160 {
-  font-family: var(--font-serif);
-  font-weight: 900;
-  font-size: clamp(80px, 12vw, 160px);
-  line-height: 0.88;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
+.projectCard {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  filter: url('#ink-rough');
-}
-
-.inlineSplat {
-  width: 100px;
-  height: 100px;
-  flex-shrink: 0;
-  margin-top: 12px;
-}
-
-/* Section heading */
-.typeSample80 {
-  font-family: var(--font-serif);
-  font-weight: 900;
-  font-size: clamp(48px, 7vw, 80px);
-  line-height: 0.9;
-  color: var(--color-text);
-  letter-spacing: -0.01em;
-  filter: url('#ink-rough');
-}
-
-/* Card/accent — Bebas Neue */
-.typeSample48 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 48px);
-  line-height: 0.9;
-  color: var(--color-gold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.typeSampleBody {
-  font-family: var(--font-ui);
-  font-size: 1.125rem;
-  font-weight: 400;
-  line-height: 1.68;
-  color: var(--color-text);
-  max-width: 520px;
-}
-
-.typeSampleMono {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  color: var(--color-muted);
-  text-transform: uppercase;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════ */
-/*  PAINT LANGUAGE                                                             */
-/* ═══════════════════════════════════════════════════════════════════════════ */
-.paintSection {
-  padding: 100px 60px;
-  position: relative;
+  height: clamp(180px, 28vh, 300px);
   overflow: hidden;
+  border-top: 1px solid rgba(246, 242, 228, 0.06);
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
 }
 
-.paintGhost {
+.projectCard:last-child {
+  border-bottom: 1px solid rgba(246, 242, 228, 0.06);
+}
+
+/* Colored/image background — swap background for real image later */
+.projectCardBg {
   position: absolute;
-  font-size: clamp(200px, 28vw, 380px);
-  opacity: 0.07;
-  right: -40px;
-  top: 40px;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s var(--ease-game);
+}
+
+.projectCard:hover .projectCardBg {
+  transform: scale(1.03);
+}
+
+/* Dark overlay so text reads */
+.projectCardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(11, 30, 27, 0.72) 0%,
+    rgba(11, 30, 27, 0.20) 60%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+/* Ghost project number — background texture */
+.projectGhostNum {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(140px, 20vw, 260px);
+  line-height: 1;
+  color: var(--color-text);
+  opacity: 0.06;
+  z-index: 1;
   pointer-events: none;
   user-select: none;
 }
 
-/* Splatters scattered in the paint section */
-.paintSplatHeader {
+/* Text content, pinned bottom-left */
+.projectCardContent {
   position: absolute;
-  width: 280px;
-  height: 280px;
-  top: 30px;
-  left: 200px;
-  z-index: 0;
-  transform: rotate(20deg);
-}
-
-.paintSplatCorner {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  bottom: 40px;
-  left: 40px;
-  z-index: 0;
-  transform: rotate(-25deg) scaleX(-1);
-}
-
-.blobGrid {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-}
-
-.blobDemo {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.blobLabel {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--color-muted);
-  text-transform: uppercase;
-}
-
-/* slash demo */
-.slashDemo {
-  position: relative;
-  height: 140px;
-  display: flex;
-  align-items: center;
-}
-
-.slashBlob {
-  position: absolute;
-  inset: 0;
-  width: 85%;
-  height: 100%;
-}
-
-.slashText {
-  position: relative;
-  font-family: var(--font-serif);
-  font-weight: 900;
-  font-size: clamp(72px, 10vw, 120px);
-  color: var(--color-text);
-  z-index: 1;
-  mix-blend-mode: screen;
-  letter-spacing: -0.02em;
-  filter: url('#ink-rough');
-}
-
-/* field demo */
-.fieldDemo {
-  position: relative;
-  height: 400px;
-  overflow: hidden;
-  border: 1px solid rgba(240, 236, 224, 0.05);
-}
-
-.fieldBlob {
-  position: absolute;
-  left: -40px;
-  top: -60px;
-  width: 65%;
-  height: 120%;
-  opacity: 0.9;
-}
-
-/* Splatter ON TOP of the field blob for layered chaos */
-.fieldSplat {
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  top: 20px;
-  left: 100px;
-  z-index: 1;
-  transform: rotate(-15deg);
-}
-
-.fieldText {
-  position: absolute;
-  bottom: 32px;
+  bottom: 28px;
   left: 40px;
   z-index: 2;
 }
 
-.fieldNum {
+.projectCardNum {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
   color: var(--color-gold);
-  margin-bottom: 4px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
-.fieldTitle {
+.projectCardName {
   display: block;
   font-family: var(--font-serif);
   font-weight: 900;
-  font-size: clamp(60px, 9vw, 110px);
+  font-size: clamp(48px, 7vw, 96px);
   color: var(--color-text);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
   mix-blend-mode: screen;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
   filter: url('#ink-rough');
+  transition: color 0.2s;
 }
 
-/* splatter + stroke row */
-.blobRow2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-}
-
-.splatterDemo {
-  position: relative;
-  height: 240px;
-  display: flex;
-  align-items: center;
-}
-
-.splatterBlob {
-  position: absolute;
-  left: -20px;
-  top: 10px;
-  width: 180px;
-  height: 180px;
-}
-
-.splatterLabel {
-  font-family: var(--font-display);
-  font-size: 52px;
-  line-height: 0.9;
+.projectCard:hover .projectCardName {
   color: var(--color-text);
-  position: relative;
-  z-index: 1;
-  padding-left: 140px;
 }
 
-.strokeDemo {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  justify-content: center;
-  height: 240px;
-}
-
-.strokeText {
-  font-family: var(--font-serif);
-  font-weight: 900;
-  font-size: 64px;
-  color: var(--color-text);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  filter: url('#ink-rough');
-}
-
-.strokeBlob {
-  width: 220px;
-  height: 28px;
-}
-
-.strokeTextSmall {
+.projectCardMeta {
+  display: block;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
   color: var(--color-muted);
   text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* Red accent stroke that slides in on hover */
+.projectCardAccent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--color-accent);
+  z-index: 3;
+  transition: width 0.4s var(--ease-game);
+}
+
+.projectCard:hover .projectCardAccent {
+  width: 100%;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
-/*  COLORS                                                                     */
+/*  ABOUT                                                                      */
 /* ═══════════════════════════════════════════════════════════════════════════ */
-.colorsSection {
-  padding: 100px 60px 160px;
-  background: var(--color-surface);
-  border-top: 1px solid rgba(240, 236, 224, 0.06);
+.aboutSection {
+  padding: 100px 60px 120px;
   position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
   overflow: hidden;
 }
 
-.colorsSplat {
+/* Gold mark — lower-left corner accent */
+.aboutMark {
   position: absolute;
-  width: 320px;
-  height: 320px;
-  top: -40px;
-  right: 60px;
+  width: 280px;
+  height: 280px;
+  bottom: -40px;
+  left: -40px;
   z-index: 0;
-  transform: rotate(10deg) scaleX(-1);
+  transform: rotate(-15deg);
 }
 
-.colorGrid {
+/* ── Text column ── */
+.aboutText {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
 }
 
-.swatch {
+.aboutLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--color-teal);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: block;
+}
+
+.aboutHeading {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(40px, 5vw, 72px);
+  color: var(--color-text);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+  filter: url('#ink-rough');
+}
+
+.aboutBody {
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  opacity: 0.85;
+  max-width: 440px;
+}
+
+.aboutBody + .aboutBody {
+  margin-top: 16px;
+}
+
+/* ── Photos column ── */
+.aboutPhotos {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* Tall vertical photo — left column, spans full height */
+.photoTall {
+  aspect-ratio: 2 / 3;
+  background: var(--color-surface);
+  border: 1px solid rgba(246, 242, 228, 0.06);
+  overflow: hidden;
+  position: relative;
+}
+
+.photoTall img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photoTall::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(206,44,26,0.06) 0%, rgba(221,182,92,0.04) 100%);
+}
+
+/* Right column — two small horizontal photos stacked */
+.photosRightCol {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
-.swatchBlock {
-  width: 100px;
-  height: 100px;
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+.photoThumb {
+  flex: 1;
+  aspect-ratio: 4 / 3;
+  background: var(--color-surface);
+  border: 1px solid rgba(246, 242, 228, 0.06);
+  overflow: hidden;
+  position: relative;
 }
 
-.swatchName {
-  font-family: var(--font-display);
-  font-size: 18px;
-  color: var(--color-text);
-  letter-spacing: 0.06em;
+.photoThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.swatchHex {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--color-muted);
-  letter-spacing: 0.08em;
+.photoThumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(206,44,26,0.06) 0%, rgba(221,182,92,0.04) 100%);
 }

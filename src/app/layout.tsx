@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Bebas_Neue, Syne, Space_Mono } from 'next/font/google';
+import { Playfair_Display, Bebas_Neue, Courier_Prime } from 'next/font/google';
 import PaintBlob from '@/components/PaintBlob';
+import PaintMark from '@/components/PaintMark';
 import './globals.css';
 
 const playfairDisplay = Playfair_Display({
@@ -18,17 +19,12 @@ const bebasNeue = Bebas_Neue({
   display: 'swap',
 });
 
-const syne = Syne({
-  weight: ['400', '600', '700', '800'],
-  subsets: ['latin'],
-  variable: '--font-syne',
-  display: 'swap',
-});
 
-const spaceMono = Space_Mono({
+const courierPrime = Courier_Prime({
   weight: ['400', '700'],
+  style: ['normal', 'italic'],
   subsets: ['latin'],
-  variable: '--font-space-mono',
+  variable: '--font-courier',
   display: 'swap',
 });
 
@@ -41,8 +37,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="nl"
-      className={`${playfairDisplay.variable} ${bebasNeue.variable} ${syne.variable} ${spaceMono.variable}`}
+      className={`${playfairDisplay.variable} ${bebasNeue.variable} ${courierPrime.variable}`}
     >
+      <head>
+        {/* Cambria via Adobe Fonts — used as body/UI text */}
+        <link rel="stylesheet" href="https://use.typekit.net/bjz0cor.css" />
+      </head>
       <body>
         {/*
          * SVG filter definitions — referenced via CSS filter: url('#id')
@@ -63,64 +63,57 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="bg-stains" aria-hidden />
 
         {/*
-         * bg-paint-marks: large SVG paint marks baked into the canvas.
+         * bg-paint-marks: real paint-photo marks baked into the canvas.
          * These appear on every page, behind all content.
-         * Low opacity — they're texture, not foreground elements.
+         * Low opacity — they're canvas-level texture, not foreground elements.
+         *
+         * Controlled chaos composition:
+         * - Upper-left: dominant red deco blob — the main canvas "accident"
+         * - Right side: teal field, atmospheric, very low opacity
+         * - Lower-right: gold deco, anchors the corner
+         * - Mid-left: secondary red, lower opacity, off the main blob
          */}
         <div className="bg-paint-marks" aria-hidden>
-          {/* Large red splatter — upper-left canvas mark */}
-          <PaintBlob
-            variant="splatter"
+          {/* Dominant red deco blob — upper-left, large, bleeds off edge */}
+          <PaintMark
+            src="/splatters/PaintDecoBlob.webp"
             color="var(--color-accent)"
-            opacity={0.18}
+            opacity={0.12}
             style={{
               position: 'absolute',
-              width: '520px',
-              height: '520px',
-              top: '-100px',
-              left: '-80px',
-              transform: 'rotate(-30deg)',
+              width: '540px',
+              height: '540px',
+              top: '-120px',
+              left: '-100px',
+              transform: 'rotate(-28deg)',
             }}
           />
-          {/* Teal field — right side, partial canvas stain */}
-          <PaintBlob
-            variant="field"
-            color="var(--color-teal)"
-            opacity={0.06}
-            style={{
-              position: 'absolute',
-              width: '48%',
-              height: '85%',
-              right: '-60px',
-              top: '-40px',
-            }}
-          />
-          {/* Gold splatter — lower-right corner */}
-          <PaintBlob
-            variant="splatter"
+          {/* Gold deco — lower-right corner, loose rotation */}
+          <PaintMark
+            src="/splatters/splatter4DecoBackground.webp"
             color="var(--color-gold)"
-            opacity={0.14}
+            opacity={0.09}
             style={{
               position: 'absolute',
-              width: '380px',
-              height: '380px',
-              bottom: '-60px',
-              right: '-40px',
-              transform: 'rotate(18deg) scaleX(-1)',
+              width: '400px',
+              height: '400px',
+              bottom: '-80px',
+              right: '-60px',
+              transform: 'rotate(22deg) scaleX(-1)',
             }}
           />
-          {/* Red splatter — lower-left, offset from main one */}
-          <PaintBlob
-            variant="splatter"
+          {/* Secondary red deco — lower-left, offset from dominant blob */}
+          <PaintMark
+            src="/splatters/splatter3DecoBackground.webp"
             color="var(--color-accent)"
-            opacity={0.10}
+            opacity={0.07}
             style={{
               position: 'absolute',
-              width: '280px',
-              height: '280px',
-              bottom: '20%',
-              left: '5%',
-              transform: 'rotate(45deg)',
+              width: '300px',
+              height: '300px',
+              bottom: '18%',
+              left: '4%',
+              transform: 'rotate(40deg)',
             }}
           />
         </div>

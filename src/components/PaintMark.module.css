@@ -1,0 +1,6 @@
+.base {
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  /* SVG is inline by default; block makes it respect width/height like a div */
+}

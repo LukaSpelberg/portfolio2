@@ -1,274 +1,190 @@
+import Link from 'next/link';
 import PaintBlob from '@/components/PaintBlob';
+import PaintMark from '@/components/PaintMark';
+import PageAnimations from '@/components/PageAnimations';
 import styles from './page.module.css';
 
-export default function DesignSystemTest() {
+const projects = [
+  {
+    slug: 'dynamo',
+    num: '01',
+    name: 'Dynamo',
+    meta: 'UX · Game Design · 2024',
+    bg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
+  },
+  {
+    slug: 'public-city-jazz',
+    num: '02',
+    name: 'Public City Jazz',
+    meta: 'Branding · UX · 2024',
+    bg: 'linear-gradient(135deg, #1e1a0e 0%, #2a1e08 100%)',
+  },
+  {
+    slug: 'persona3-reload',
+    num: '03',
+    name: 'Persona 3',
+    meta: 'Frontend · Web · 2023',
+    bg: 'linear-gradient(135deg, #0e1a30 0%, #0a1220 100%)',
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className={styles.root}>
+    <>
+      {/* Client-side animation engine — renders nothing, wires up GSAP */}
+      <PageAnimations />
 
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      {/*  SECTION 1 — HERO / SCALE & LAYERING                             */}
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      <section className={styles.hero}>
+      <main className={styles.root}>
 
-        {/* Ghost text — background typography as texture */}
-        <span className={`${styles.ghostBg} ghost`} aria-hidden>SPELBERG</span>
-        <span className={`${styles.ghostBgMid} ghost`} aria-hidden>PORTFOLIO</span>
-        <span className={`${styles.ghostBgLow} ghost`} aria-hidden>DESIGN</span>
+        {/* ═══════════════════════════════ HERO ═══════════════════════════════ */}
+        <section className={styles.hero}>
 
-        {/* ── PAINT LAYER (z-index 1) ──── */}
+          {/* Ghost text — background typography as texture */}
+          <span className={`${styles.ghostBg} ghost js-ghost`} aria-hidden>SPELBERG</span>
+          <span className={`${styles.ghostBgMid} ghost js-ghost`} aria-hidden>PORTFOLIO</span>
+          <span className={`${styles.ghostBgLow} ghost js-ghost`} aria-hidden>DESIGN</span>
 
-        {/* Red field — dominant left region */}
-        <PaintBlob variant="field" className={styles.heroField} />
+          {/* Red field — left dominant region; GSAP wipes this in via clip-path */}
+          <PaintBlob
+            variant="field"
+            className={`${styles.heroField} js-hero-field`}
+          />
 
-        {/* Large red splatter — upper right, chaotic, violent */}
-        <PaintBlob
-          variant="splatter"
-          className={styles.heroSplatBig}
-          color="var(--color-accent)"
-        />
+          {/* Dominant red mark — upper-left */}
+          <PaintMark
+            src="/splatters/splatter1HugeBlob.webp"
+            color="var(--color-accent)"
+            opacity={0.68}
+            className={`${styles.heroMarkBig} js-hero-mark-red`}
+          />
 
-        {/* Gold splatter — overlapping content area, mid-canvas */}
-        <PaintBlob
-          variant="splatter"
-          className={styles.heroSplatGold}
-          color="var(--color-gold)"
-          opacity={0.7}
-        />
+          {/* Gold deco — upper-right counter-balance */}
+          <PaintMark
+            src="/splatters/splatter 1-deco.webp"
+            color="var(--color-gold)"
+            opacity={0.48}
+            className={`${styles.heroMarkDeco} js-hero-mark-gold`}
+          />
 
-        {/* Teal splatter — lower area, behind body text */}
-        <PaintBlob
-          variant="splatter"
-          className={styles.heroSplatTeal}
-          color="var(--color-teal)"
-          opacity={0.5}
-        />
+          {/* Slash behind body copy */}
+          <PaintBlob
+            variant="slash"
+            color="var(--color-accent)"
+            opacity={0.35}
+            className={styles.heroSlash}
+          />
 
-        {/* Slash behind body intro */}
-        <PaintBlob
-          variant="slash"
-          className={styles.heroSlash}
-          color="var(--color-accent)"
-          opacity={0.35}
-        />
-
-        {/* ── FOREGROUND CONTENT (z-index 2) ── */}
-        <div className={styles.heroContent}>
-          <p className={styles.sysLabel}>— ONTWERP SYSTEEM · DESIGN SYSTEM TEST</p>
-
-          <div className={styles.nameBlock}>
-            <h1 className={styles.nameTop}>LUKA</h1>
-            <h1 className={styles.nameBottom}>SPELBERG</h1>
-          </div>
-
-          <div className={styles.subBlock}>
-            <PaintBlob
-              variant="stroke"
-              className={styles.strokeUnder}
-              color="var(--color-accent)"
-            />
-            <h2 className={styles.subhead}>Digital Designer</h2>
-            <PaintBlob
-              variant="splatter"
-              className={styles.heroPunct}
-              color="var(--color-gold)"
-            />
-          </div>
-
-          <p className={styles.bodyIntro}>
-            Ik ontwerp interfaces die ergens over gaan — niet netjes, maar raak.
-            Gevonden via games. Gebouwd voor mensen.
-          </p>
-
-          <p className={styles.metaRow}>
-            <span>Playfair Display</span>
-            <span>·</span>
-            <span>Bebas Neue</span>
-            <span>·</span>
-            <span>Space Mono</span>
-          </p>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      {/*  SECTION 2 — TYPOGRAPHY SCALE                                     */}
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      <section className={styles.typeSection}>
-        {/* Large accent splatter — right side, behind the type stack */}
-        <PaintBlob
-          variant="splatter"
-          className={styles.typeSplatBig}
-          color="var(--color-accent)"
-          opacity={0.28}
-        />
-        {/* Gold splatter — lower-left corner accent */}
-        <PaintBlob
-          variant="splatter"
-          className={styles.typeSplatGold}
-          color="var(--color-gold)"
-          opacity={0.22}
-        />
-
-        <p className={styles.sectionLabel}>01 — TYPOGRAFIE</p>
-
-        <div className={styles.typeStack}>
-          {/* 320px ghost level */}
-          <div className={styles.typeRow}>
-            <span className={styles.typeSize}>320px</span>
-            <span className={styles.typeSizeLabel}>Achtergrond / textuur</span>
-            <div className={styles.typeSample320}>ONTWERP</div>
-          </div>
-
-          {/* 160px hero */}
-          <div className={styles.typeRow}>
-            <span className={styles.typeSize}>160px</span>
-            <span className={styles.typeSizeLabel}>Hero koptekst</span>
-            <div className={styles.typeSample160}>
-              CASES
-              <PaintBlob variant="splatter" className={styles.inlineSplat} color="var(--color-accent)" />
+          {/* Foreground content */}
+          <div className={styles.heroContent}>
+            <div className={styles.nameBlock}>
+              <span className={`${styles.nameTop} js-name-line`}>LUKA</span>
+              <span className={`${styles.nameBottom} js-name-line`}>SPELBERG</span>
             </div>
-          </div>
 
-          {/* 80px section heading */}
-          <div className={styles.typeRow}>
-            <span className={styles.typeSize}>80px</span>
-            <span className={styles.typeSizeLabel}>Sectiekoptekst</span>
-            <div className={styles.typeSample80}>PROJECTEN</div>
-          </div>
-
-          {/* 48px card title */}
-          <div className={styles.typeRow}>
-            <span className={styles.typeSize}>48px</span>
-            <span className={styles.typeSizeLabel}>Kaart / project</span>
-            <div className={styles.typeSample48}>DYNAMO</div>
-          </div>
-
-          {/* 18px body */}
-          <div className={styles.typeRow}>
-            <span className={styles.typeSize}>18px Syne</span>
-            <span className={styles.typeSizeLabel}>Broodtekst</span>
-            <p className={styles.typeSampleBody}>
-              Een voetbal bordspel met een eigen universe en visuele identiteit,
-              ontworpen als een volledig UX + game design project.
-            </p>
-          </div>
-
-          {/* 13px mono */}
-          <div className={styles.typeRow}>
-            <span className={styles.typeSize}>13px Mono</span>
-            <span className={styles.typeSizeLabel}>Metadata / labels</span>
-            <p className={styles.typeSampleMono}>
-              UX DESIGN · SEPTEMBER 2024 · 4 WEKEN · DYNAMO
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      {/*  SECTION 3 — PAINT LANGUAGE                                       */}
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      <section className={styles.paintSection}>
-        {/* Ghost text background */}
-        <span className={`${styles.paintGhost} ghost`} aria-hidden>VERF</span>
-
-        {/* Splatters overlaid on this section for texture */}
-        <PaintBlob
-          variant="splatter"
-          className={styles.paintSplatHeader}
-          color="var(--color-teal)"
-          opacity={0.35}
-        />
-        <PaintBlob
-          variant="splatter"
-          className={styles.paintSplatCorner}
-          color="var(--color-gold)"
-          opacity={0.30}
-        />
-
-        <p className={styles.sectionLabel}>02 — VERF</p>
-
-        <div className={styles.blobGrid}>
-
-          {/* slash demo */}
-          <div className={styles.blobDemo}>
-            <p className={styles.blobLabel}>slash — achter koptekst</p>
-            <div className={styles.slashDemo}>
-              <PaintBlob variant="slash" className={styles.slashBlob} />
-              <span className={styles.slashText}>PROJECTEN</span>
-            </div>
-          </div>
-
-          {/* field demo */}
-          <div className={styles.blobDemo}>
-            <p className={styles.blobLabel}>field — sectie-achtergrond</p>
-            <div className={styles.fieldDemo}>
-              <PaintBlob variant="field" className={styles.fieldBlob} color="var(--color-accent)" />
-              {/* Extra splatter on top of the field for chaos */}
+            <div className={`${styles.subBlock} js-subblock`}>
+              <span className={styles.subhead}>Digital Designer</span>
               <PaintBlob
                 variant="splatter"
-                className={styles.fieldSplat}
                 color="var(--color-gold)"
-                opacity={0.7}
+                opacity={0.65}
+                className={styles.heroPunct}
               />
-              <div className={styles.fieldText}>
-                <span className={styles.fieldNum}>01</span>
-                <span className={styles.fieldTitle}>DYNAMO</span>
-              </div>
+            </div>
+
+            <p className={`${styles.bodyIntro} js-hero-copy`}>
+              Ik ontwerp digitale ervaringen die ergens over gaan. Games, posters,
+              interfaces — zolang er een verhaal achter zit, ben ik erin.
+            </p>
+
+            <div className={`${styles.metaRow} js-hero-copy`}>
+              <span>Rotterdam</span>
+              <span>·</span>
+              <span>Digital Design</span>
+              <span>·</span>
+              <span>2024</span>
             </div>
           </div>
+        </section>
 
-          {/* splatter + stroke */}
-          <div className={styles.blobRow2}>
-            <div className={styles.blobDemo}>
-              <p className={styles.blobLabel}>splatter — punctuatie</p>
-              <div className={styles.splatterDemo}>
-                <PaintBlob variant="splatter" className={styles.splatterBlob} color="var(--color-gold)" />
-                <p className={styles.splatterLabel}>PUBLIC CITY<br />JAZZ</p>
-              </div>
-            </div>
+        {/* ════════════════════════════ PROJECTS ══════════════════════════════ */}
+        <section className={`${styles.projectsSection} js-projects-section`}>
 
-            <div className={styles.blobDemo}>
-              <p className={styles.blobLabel}>stroke — scheidingslijn</p>
-              <div className={styles.strokeDemo}>
-                <p className={styles.strokeText}>Dynamo</p>
-                <PaintBlob variant="stroke" className={styles.strokeBlob} />
-                <p className={styles.strokeTextSmall}>UX Design · 2024</p>
-              </div>
+          <PaintMark
+            src="/splatters/splatter2Deco.webp"
+            color="var(--color-accent)"
+            opacity={0.14}
+            className={styles.projectsMark}
+          />
+
+          <div className={`${styles.projectsHeader} js-projects-header`}>
+            <span className={styles.sectionLabel}>// Projecten</span>
+            <Link href="/projecten" className={styles.allProjectsBtn}>
+              Bekijk alle projecten →
+            </Link>
+          </div>
+
+          <div className={styles.projectsList}>
+            {projects.map((project) => (
+              <Link
+                key={project.slug}
+                href={`/projecten/${project.slug}`}
+                className={`${styles.projectCard} js-project-card`}
+              >
+                <div
+                  className={styles.projectCardBg}
+                  style={{ background: project.bg }}
+                />
+                <div className={styles.projectCardOverlay} />
+                <span className={styles.projectGhostNum} aria-hidden>
+                  {project.num}
+                </span>
+                <div className={styles.projectCardContent}>
+                  <span className={styles.projectCardNum}>{project.num}</span>
+                  <span className={styles.projectCardName}>{project.name}</span>
+                  <span className={styles.projectCardMeta}>{project.meta}</span>
+                </div>
+                <div className={styles.projectCardAccent} />
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ══════════════════════════════ ABOUT ═══════════════════════════════ */}
+        <section className={`${styles.aboutSection} js-about-section`}>
+
+          <PaintMark
+            src="/splatters/splatter4Deco.webp"
+            color="var(--color-gold)"
+            opacity={0.13}
+            className={styles.aboutMark}
+          />
+
+          <div className={`${styles.aboutText} js-about-text`}>
+            <span className={styles.aboutLabel}>// Over mij</span>
+            <h2 className={styles.aboutHeading}>
+              Ik ben<br />Luka Spelberg
+            </h2>
+            <p className={styles.aboutBody}>
+              Design vond ik via games. De interfaces van Persona, de poster-energie
+              van Metaphor, de systemen achter Cyberpunk — dat is wat me leerde dat
+              visuele taal iets kan betekenen.
+            </p>
+            <p className={styles.aboutBody}>
+              Ik studeer Digital Design en combineer UX, branding en front-end
+              development. Ik speel piano. Ik houd van verhalen die ergens heen gaan.
+            </p>
+          </div>
+
+          <div className={styles.aboutPhotos}>
+            <div className={`${styles.photoTall} js-about-photo`} />
+            <div className={styles.photosRightCol}>
+              <div className={`${styles.photoThumb} js-about-photo`} />
+              <div className={`${styles.photoThumb} js-about-photo`} />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      {/*  SECTION 4 — KLEUREN                                              */}
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      <section className={styles.colorsSection}>
-        <PaintBlob
-          variant="splatter"
-          className={styles.colorsSplat}
-          color="var(--color-accent)"
-          opacity={0.25}
-        />
-        <p className={styles.sectionLabel}>03 — KLEUREN</p>
-
-        <div className={styles.colorGrid}>
-          {([
-            ['--color-bg',      '#0d201e', 'BG'],
-            ['--color-surface', '#132c28', 'SURFACE'],
-            ['--color-accent',  '#c0281a', 'ACCENT'],
-            ['--color-gold',    '#d4a854', 'GOLD'],
-            ['--color-teal',    '#3db8b0', 'TEAL'],
-            ['--color-text',    '#f0ece0', 'TEXT'],
-            ['--color-muted',   '#5e7870', 'MUTED'],
-          ] as const).map(([v, hex, label]) => (
-            <div key={v} className={styles.swatch}>
-              <div className={styles.swatchBlock} style={{ background: `var(${v})` }} />
-              <span className={styles.swatchName}>{label}</span>
-              <span className={styles.swatchHex}>{hex}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-    </div>
+      </main>
+    </>
   );
 }

@@ -1,0 +1,637 @@
+/* ─── Root ───────────────────────────────────────────────────────────────── */
+.root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Section label (small mono header) ─────────────────────────────────── */
+.sectionLabel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--color-teal);
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+
+.sysLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--color-teal);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  HERO                                                                       */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 80px 60px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Ghost text layers */
+.ghostBg {
+  position: absolute;
+  font-size: clamp(240px, 28vw, 380px);
+  opacity: 0.04;
+  right: -60px;
+  top: -30px;
+  z-index: 0;
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.ghostBgMid {
+  position: absolute;
+  font-size: clamp(100px, 14vw, 190px);
+  opacity: 0.05;
+  right: 40px;
+  bottom: 200px;
+  z-index: 0;
+  color: var(--color-gold);
+  letter-spacing: 0.04em;
+}
+
+.ghostBgLow {
+  position: absolute;
+  font-size: clamp(200px, 22vw, 300px);
+  opacity: 0.04;
+  left: -20px;
+  bottom: 80px;
+  z-index: 0;
+  color: var(--color-muted);
+}
+
+/* ── Paint layer in hero (z-index 1) ──── */
+
+/* Red field — dominant left region, bleeds off top */
+.heroField {
+  position: absolute;
+  left: -60px;
+  top: -80px;
+  width: 52%;
+  height: 92%;
+  z-index: 1;
+  opacity: 0.90;
+}
+
+/*
+ * REAL IMAGE MARKS — controlled chaos composition logic:
+ * 1. One dominant mark (huge blob) — upper-left, red, anchors the composition
+ * 2. Counter-balance (deco splatter) — upper-right, gold, diagonal tension
+ * 3. Atmospheric mark — lower-right, teal, low opacity, bleeds off edge
+ * All marks cluster near content, not in empty void.
+ */
+
+/* Dominant red blob — upper-left, massive, bleeds off left + top edges */
+.heroMarkBig {
+  position: absolute;
+  width: 560px;
+  height: 560px;
+  top: -80px;
+  left: -120px;
+  z-index: 1;
+  transform: rotate(-8deg);
+}
+
+/* Counter-balance deco — upper-right, gold, diagonal tension with blob */
+.heroMarkDeco {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  top: 30px;
+  right: -40px;
+  z-index: 1;
+  transform: rotate(-18deg) scaleX(-1);
+}
+
+/* Atmospheric teal — lower right, low opacity, bleeds off right edge */
+.heroMarkAtmo {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  bottom: 80px;
+  right: -60px;
+  z-index: 1;
+  transform: rotate(12deg);
+}
+
+/* Slash behind body copy */
+.heroSlash {
+  position: absolute;
+  width: 480px;
+  height: 80px;
+  bottom: 220px;
+  left: 40px;
+  z-index: 1;
+}
+
+/* Foreground content */
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.nameBlock {
+  margin-bottom: 0;
+  line-height: 0.88;
+}
+
+.nameTop {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(110px, 17vw, 220px);
+  color: var(--color-text);
+  display: block;
+  mix-blend-mode: screen;
+  letter-spacing: -0.02em;
+  filter: url('#ink-rough');
+}
+
+.nameBottom {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(110px, 17vw, 220px);
+  color: var(--color-text);
+  display: block;
+  mix-blend-mode: screen;
+  letter-spacing: -0.02em;
+  margin-left: 5vw;
+  white-space: nowrap;
+  margin-right: -80px;
+  filter: url('#ink-rough');
+}
+
+.subBlock {
+  position: relative;
+  margin-top: 28px;
+  margin-bottom: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.strokeUnder {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 14px;
+  z-index: -1;
+}
+
+.subhead {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(38px, 5vw, 66px);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  filter: url('#ink-rough');
+}
+
+.heroPunct {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  margin-top: 24px;
+}
+
+.bodyIntro {
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--color-text);
+  max-width: 480px;
+  margin-bottom: 28px;
+}
+
+.metaRow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  display: flex;
+  gap: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  TYPOGRAPHY SCALE                                                           */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+.typeSection {
+  padding: 100px 60px;
+  position: relative;
+  background: var(--color-surface);
+  border-top: 1px solid rgba(240, 236, 224, 0.06);
+  overflow: hidden;
+}
+
+/* Real image marks in the type section */
+
+/* Red deco blob — right side, partially bleeds off edge */
+.typeMarkBig {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  right: -60px;
+  top: 20px;
+  z-index: 0;
+  transform: rotate(-10deg) scaleX(-1);
+}
+
+/* Gold deco — lower-left corner, rotated, anchors bottom of section */
+.typeMarkGold {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  left: -30px;
+  bottom: 60px;
+  z-index: 0;
+  transform: rotate(42deg);
+}
+
+.typeStack {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.typeRow {
+  display: grid;
+  grid-template-columns: 110px 180px 1fr;
+  align-items: baseline;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(240, 236, 224, 0.05);
+}
+
+.typeSize {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--color-teal);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.typeSizeLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+/* Ghost level */
+.typeSample320 {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(160px, 22vw, 320px);
+  line-height: 0.85;
+  color: var(--color-text);
+  opacity: 0.09;
+  letter-spacing: -0.03em;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: -60px;
+  pointer-events: none;
+  filter: url('#ink-rough');
+}
+
+/* Hero level */
+.typeSample160 {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(80px, 12vw, 160px);
+  line-height: 0.88;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  filter: url('#ink-rough');
+}
+
+.inlineSplat {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  margin-top: 12px;
+}
+
+/* Section heading */
+.typeSample80 {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(48px, 7vw, 80px);
+  line-height: 0.9;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  filter: url('#ink-rough');
+}
+
+/* Card/accent — Bebas Neue */
+.typeSample48 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 0.9;
+  color: var(--color-gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  filter: url('#ink-rough');
+}
+
+.typeSampleBody {
+  font-family: var(--font-ui);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.68;
+  color: var(--color-text);
+  max-width: 520px;
+}
+
+.typeSampleMono {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  PAINT LANGUAGE                                                             */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+.paintSection {
+  padding: 100px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.paintGhost {
+  position: absolute;
+  font-size: clamp(200px, 28vw, 380px);
+  opacity: 0.07;
+  right: -40px;
+  top: 40px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Real image marks in the paint section */
+
+/* Teal deco — upper area, near section label, loose rotation */
+.paintMarkHeader {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 20px;
+  left: 180px;
+  z-index: 0;
+  transform: rotate(16deg);
+}
+
+/* Gold deco — lower-left corner, bleeds off edge */
+.paintMarkCorner {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  bottom: 20px;
+  left: -30px;
+  z-index: 0;
+  transform: rotate(-22deg) scaleX(-1);
+}
+
+.blobGrid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.blobDemo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.blobLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+/* slash demo */
+.slashDemo {
+  position: relative;
+  height: 140px;
+  display: flex;
+  align-items: center;
+}
+
+.slashBlob {
+  position: absolute;
+  inset: 0;
+  width: 85%;
+  height: 100%;
+}
+
+.slashText {
+  position: relative;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(72px, 10vw, 120px);
+  color: var(--color-text);
+  z-index: 1;
+  mix-blend-mode: screen;
+  letter-spacing: -0.02em;
+  filter: url('#ink-rough');
+}
+
+/* field demo */
+.fieldDemo {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  border: 1px solid rgba(240, 236, 224, 0.05);
+}
+
+.fieldBlob {
+  position: absolute;
+  left: -40px;
+  top: -60px;
+  width: 65%;
+  height: 120%;
+  opacity: 0.9;
+}
+
+/* Real splatter mark ON TOP of the field blob for layered chaos */
+.fieldSplat {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 10px;
+  left: 80px;
+  z-index: 1;
+  transform: rotate(-12deg);
+}
+
+.fieldText {
+  position: absolute;
+  bottom: 32px;
+  left: 40px;
+  z-index: 2;
+}
+
+.fieldNum {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--color-gold);
+  margin-bottom: 4px;
+}
+
+.fieldTitle {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(60px, 9vw, 110px);
+  color: var(--color-text);
+  mix-blend-mode: screen;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  filter: url('#ink-rough');
+}
+
+/* splatter + stroke row */
+.blobRow2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.splatterDemo {
+  position: relative;
+  height: 240px;
+  display: flex;
+  align-items: center;
+}
+
+.splatterBlob {
+  position: absolute;
+  left: -20px;
+  top: 10px;
+  width: 180px;
+  height: 180px;
+}
+
+.splatterLabel {
+  font-family: var(--font-display);
+  font-size: 52px;
+  line-height: 0.9;
+  color: var(--color-text);
+  position: relative;
+  z-index: 1;
+  padding-left: 140px;
+}
+
+.strokeDemo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  height: 240px;
+}
+
+.strokeText {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: 64px;
+  color: var(--color-text);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  filter: url('#ink-rough');
+}
+
+.strokeBlob {
+  width: 220px;
+  height: 28px;
+}
+
+.strokeTextSmall {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  COLORS                                                                     */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+.colorsSection {
+  padding: 100px 60px 160px;
+  background: var(--color-surface);
+  border-top: 1px solid rgba(240, 236, 224, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.colorsMark {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  top: -50px;
+  right: 40px;
+  z-index: 0;
+  transform: rotate(8deg) scaleX(-1);
+}
+
+.colorGrid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.swatchBlock {
+  width: 100px;
+  height: 100px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.swatchName {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--color-text);
+  letter-spacing: 0.06em;
+}
+
+.swatchHex {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-muted);
+  letter-spacing: 0.08em;
+}

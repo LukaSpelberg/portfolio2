@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Bebas_Neue, Courier_Prime } from 'next/font/google';
-import PaintBlob from '@/components/PaintBlob';
 import PaintMark from '@/components/PaintMark';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';

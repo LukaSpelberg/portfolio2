@@ -96,7 +96,7 @@ export default function HomePage() {
           />
 
           <div className={`${styles.projectsHeader} js-projects-header`}>
-            <span className={styles.sectionLabel}>// Projecten</span>
+            <span className={styles.sectionLabel}>Projecten</span>
             <Link href="/projecten" className={styles.allProjectsBtn}>
               Bekijk alle projecten →
             </Link>
@@ -139,7 +139,7 @@ export default function HomePage() {
           />
 
           <div className={`${styles.aboutText} js-about-text`}>
-            <span className={styles.aboutLabel}>// Over mij</span>
+            <span className={styles.aboutLabel}>Over mij</span>
             <h2 className={styles.aboutHeading}>
               Ik ben<br />Luka Spelberg
             </h2>

@@ -160,7 +160,7 @@ export default async function ProjectPage({
       {/* ══════════════════════ RECOMMENDED ═══════════════════════════════ */}
       <section className={styles.recommended}>
         <div className={styles.recommendedHeader}>
-          <span className={styles.recommendedLabel}>// Meer projecten</span>
+          <span className={styles.recommendedLabel}>Meer projecten</span>
         </div>
 
         <div className={styles.recList}>

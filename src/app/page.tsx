@@ -71,16 +71,15 @@ export default function HomePage() {
             </div>
 
             <p className={`${styles.bodyIntro} js-hero-copy`}>
-              Ik ontwerp digitale ervaringen die ergens over gaan. Games, posters,
-              interfaces — zolang er een verhaal achter zit, ben ik erin.
+              Ik ben Luka, een Digital Designer uit Amsterdam. Ik werk nu anderhalf jaar als Designer & developer, en studeer momenteel aan mijn derde jaar bij de HVA. Met specialisatie in Techniek kan ik op veel verschillende velden uit de voeten, wat je ook terugziet op dit portfolio.
             </p>
 
             <div className={`${styles.metaRow} js-hero-copy`}>
-              <span>Rotterdam</span>
+              <span>Amsterdam</span>
               <span>·</span>
               <span>Digital Design</span>
               <span>·</span>
-              <span>2024</span>
+              <span>2026</span>
             </div>
           </div>
         </section>
@@ -144,13 +143,12 @@ export default function HomePage() {
               Ik ben<br />Luka Spelberg
             </h2>
             <p className={styles.aboutBody}>
-              Design vond ik via games. De interfaces van Persona, de poster-energie
-              van Metaphor, de systemen achter Cyberpunk — dat is wat me leerde dat
-              visuele taal iets kan betekenen.
+               Ik was al sinds vrij jonge leeftijd geinteresseerd in de digitale wereld, en dat zie je ook terug in mijn hobbies.
+              Ik speel namelijk veel games, die voornamelijk narratief gedreven zijn. Naast games heb ik ook een passie voor muziek, ik speel zelf piano en ben sinds kort begonnen aan eigen muziek schrijven.
             </p>
             <p className={styles.aboutBody}>
-              Ik studeer Digital Design en combineer UX, branding en front-end
-              development. Ik speel piano. Ik houd van verhalen die ergens heen gaan.
+              Ik ben inmiddels in mijn derde jaar van CMD. In het derde jaar heb ik gekozen om de minor Emerging technologies en Applied Game Design te volgen. Vooral bij die laatste heb ik ontdekt hoe leuk ik
+              het vind om dingen te maken. Creatief zijn is voor mij heel belangrijk.
             </p>
           </div>
 

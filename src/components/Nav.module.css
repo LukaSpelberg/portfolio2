@@ -32,7 +32,7 @@
 /* ── Logo ── */
 .logo {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   letter-spacing: 0.26em;
   color: var(--color-text);
   text-transform: uppercase;
@@ -57,7 +57,7 @@
 /* ── Projects link ── */
 .projectsLink {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.16em;
   color: var(--color-text);
   text-transform: uppercase;
@@ -75,7 +75,7 @@
 /* ── Separator dot ── */
 .divider {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--color-muted);
   opacity: 0.6;
 }
@@ -89,7 +89,7 @@
 
 .langBtn {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   letter-spacing: 0.14em;
   color: var(--color-muted);
   background: none;
@@ -112,7 +112,7 @@
 
 .langSep {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   color: var(--color-muted);
   opacity: 0.5;
   pointer-events: none;

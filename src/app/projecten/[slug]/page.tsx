@@ -1,8 +1,12 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import PaintMark from '@/components/PaintMark';
-import { projects, getProject, getRecommended } from '@/lib/projects';
+import { projects, getProject, getRecommended, t } from '@/lib/projects';
+import type { Locale } from '@/lib/projects';
 import styles from './page.module.css';
+
+/* ── Hardcoded locale — swap to Next.js i18n param when ready ── */
+const locale: Locale = 'nl';
 
 /* ── Static params — tells Next.js which slugs to pre-render ── */
 export async function generateStaticParams() {
@@ -20,7 +24,7 @@ export async function generateMetadata({
   if (!project) return {};
   return {
     title: `${project.title} — Luka Spelberg`,
-    description: project.intro.heading,
+    description: t(project.intro.heading, locale),
   };
 }
 
@@ -63,7 +67,7 @@ export default async function ProjectPage({
             <span aria-hidden>·</span>
             <span>{project.date}</span>
             <span aria-hidden>·</span>
-            <span>{project.duration}</span>
+            <span>{t(project.duration, locale)}</span>
           </div>
         </div>
 
@@ -82,8 +86,8 @@ export default async function ProjectPage({
 
       {/* ═══════════════════════════ INTRO ════════════════════════════════ */}
       <section className={styles.intro}>
-        <h2 className={styles.introHeading}>{project.intro.heading}</h2>
-        <p className={styles.introBody}>{project.intro.body}</p>
+        <h2 className={styles.introHeading}>{t(project.intro.heading, locale)}</h2>
+        <p className={styles.introBody}>{t(project.intro.body, locale)}</p>
 
         {project.intro.links && project.intro.links.length > 0 && (
           <div className={styles.introLinks}>
@@ -95,7 +99,7 @@ export default async function ProjectPage({
                 rel="noopener noreferrer"
                 className={styles.introLink}
               >
-                {link.label} →
+                {t(link.label, locale)} →
               </a>
             ))}
           </div>
@@ -111,13 +115,17 @@ export default async function ProjectPage({
             <section key={i} className={styles.sectionTextImage}>
               <div className={styles.sectionText}>
                 {section.heading && (
-                  <h3 className={styles.sectionHeading}>{section.heading}</h3>
+                  <h3 className={styles.sectionHeading}>{t(section.heading, locale)}</h3>
                 )}
-                <p className={styles.sectionBody}>{section.text}</p>
+                <p className={styles.sectionBody}>{t(section.text, locale)}</p>
               </div>
               <div className={styles.sectionImageWrap}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={section.image} alt={section.imageAlt} className={styles.sectionImg} />
+                <img
+                  src={section.image}
+                  alt={t(section.imageAlt, locale)}
+                  className={styles.sectionImg}
+                />
               </div>
             </section>
           );
@@ -126,9 +134,9 @@ export default async function ProjectPage({
           if (section.type === 'full-image') return (
             <section key={i} className={styles.sectionFullImage}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={section.src} alt={section.alt} />
+              <img src={section.src} alt={t(section.alt, locale)} />
               {section.caption && (
-                <p className={styles.caption}>{section.caption}</p>
+                <p className={styles.caption}>{t(section.caption, locale)}</p>
               )}
             </section>
           );
@@ -136,8 +144,8 @@ export default async function ProjectPage({
           /* Centered text */
           if (section.type === 'centered-text') return (
             <section key={i} className={styles.sectionCentered}>
-              <h3 className={styles.centeredHeading}>{section.heading}</h3>
-              <p className={styles.centeredBody}>{section.body}</p>
+              <h3 className={styles.centeredHeading}>{t(section.heading, locale)}</h3>
+              <p className={styles.centeredBody}>{t(section.body, locale)}</p>
             </section>
           );
 
@@ -147,7 +155,7 @@ export default async function ProjectPage({
               {section.images.map((img, j) => (
                 <div key={j} className={styles.gridImage}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img.src} alt={img.alt} />
+                  <img src={img.src} alt={t(img.alt, locale)} />
                 </div>
               ))}
             </section>

@@ -3,14 +3,14 @@ import styles from './Footer.module.css';
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <span className={styles.name}>Luka Spelberg · 2024</span>
+      <span className={styles.name}>Luka Spelberg · 2026</span>
 
       <div className={styles.links}>
         <a
-          href="mailto:hallo@lukaspelberg.nl"
+          href="mailto:luka.spelberg@outlook.com"
           className={styles.link}
         >
-          hallo@lukaspelberg.nl
+          luka.spelberg@outlook.com
         </a>
         <span className={styles.sep} aria-hidden>·</span>
         <a

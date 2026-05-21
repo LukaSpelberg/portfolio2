@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 60px;
+  padding: 0 clamp(40px, 5vw, 100px);
 
   /* Default: fully transparent — sits over the hero without interrupting it */
   background: transparent;
@@ -32,7 +32,7 @@
 /* ── Logo ── */
 .logo {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: clamp(0.82rem, 0.9vw, 1.1rem);
   letter-spacing: 0.26em;
   color: var(--color-text);
   text-transform: uppercase;
@@ -57,7 +57,7 @@
 /* ── Projects link ── */
 .projectsLink {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: clamp(0.75rem, 0.82vw, 1rem);
   letter-spacing: 0.16em;
   color: var(--color-text);
   text-transform: uppercase;
@@ -75,7 +75,7 @@
 /* ── Separator dot ── */
 .divider {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: clamp(0.75rem, 0.82vw, 1rem);
   color: var(--color-muted);
   opacity: 0.6;
 }
@@ -89,7 +89,7 @@
 
 .langBtn {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: clamp(0.7rem, 0.76vw, 0.95rem);
   letter-spacing: 0.14em;
   color: var(--color-muted);
   background: none;
@@ -112,7 +112,7 @@
 
 .langSep {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: clamp(0.7rem, 0.76vw, 0.95rem);
   color: var(--color-muted);
   opacity: 0.5;
   pointer-events: none;

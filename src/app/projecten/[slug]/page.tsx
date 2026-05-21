@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import PaintMark from '@/components/PaintMark';
+import ProjectAnimations from '@/components/ProjectAnimations';
 import { projects, getProject, getRecommended, t } from '@/lib/projects';
 import type { Locale } from '@/lib/projects';
 import styles from './page.module.css';
@@ -40,7 +41,6 @@ export default async function ProjectPage({
   const { slug } = await params;
   const { lang } = await searchParams;
 
-  /* Derive locale from ?lang= — falls back to Dutch */
   const locale: Locale = lang === 'en' ? 'en' : 'nl';
   const langSuffix = locale === 'en' ? '?lang=en' : '';
 
@@ -52,9 +52,12 @@ export default async function ProjectPage({
   return (
     <main className={styles.root}>
 
+      {/* Client-side animation engine — renders nothing, wires up GSAP */}
+      <ProjectAnimations />
+
       {/* ══════════════════════════════ HERO ══════════════════════════════ */}
       <section className={styles.hero}>
-        <span className={`${styles.ghostTitle} ghost`} aria-hidden>
+        <span className={`${styles.ghostTitle} ghost js-proj-ghost`} aria-hidden>
           {project.title.toUpperCase()}
         </span>
 
@@ -62,15 +65,14 @@ export default async function ProjectPage({
           src="/splatters/splatter1HugeBlob.webp"
           color="var(--color-accent)"
           opacity={0.18}
-          className={styles.heroMark}
+          className={`${styles.heroMark} js-proj-hero-mark`}
         />
 
-        {/* heroInner: same max-width + centering as .sections and .introInner */}
         <div className={styles.heroInner}>
           <div className={styles.heroContent}>
-            <h1 className={styles.title}>{project.title}</h1>
+            <h1 className={`${styles.title} js-proj-title`}>{project.title}</h1>
 
-            <div className={styles.metaRow}>
+            <div className={`${styles.metaRow} js-proj-meta`}>
               {project.tags.flatMap((tag, i) => [
                 i > 0 ? <span key={`sep-${i}`} aria-hidden>·</span> : null,
                 <span key={tag}>{tag}</span>,
@@ -82,9 +84,8 @@ export default async function ProjectPage({
             </div>
           </div>
 
-          {/* Hero image — full width within heroInner */}
           {project.heroImage && (
-            <div className={styles.heroImageWrap}>
+            <div className={`${styles.heroImageWrap} js-proj-hero-img`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={project.heroImage}
@@ -98,7 +99,7 @@ export default async function ProjectPage({
 
       {/* ═══════════════════════════ INTRO ════════════════════════════════ */}
       <section className={styles.intro}>
-        <div className={styles.introInner}>
+        <div className={`${styles.introInner} js-proj-intro`}>
           <h2 className={styles.introHeading}>{t(project.intro.heading, locale)}</h2>
           <p className={styles.introBody}>{t(project.intro.body, locale)}</p>
 
@@ -124,9 +125,8 @@ export default async function ProjectPage({
       <div className={styles.sections}>
         {project.sections.map((section, i) => {
 
-          /* Text left + image right */
           if (section.type === 'text-image') return (
-            <section key={i} className={styles.sectionTextImage}>
+            <section key={i} className={`${styles.sectionTextImage} js-proj-section`}>
               <div className={styles.sectionText}>
                 {section.heading && (
                   <h3 className={styles.sectionHeading}>{t(section.heading, locale)}</h3>
@@ -144,9 +144,8 @@ export default async function ProjectPage({
             </section>
           );
 
-          /* Full-width image */
           if (section.type === 'full-image') return (
-            <section key={i} className={styles.sectionFullImage}>
+            <section key={i} className={`${styles.sectionFullImage} js-proj-section`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={section.src} alt={t(section.alt, locale)} />
               {section.caption && (
@@ -155,17 +154,15 @@ export default async function ProjectPage({
             </section>
           );
 
-          /* Centered text */
           if (section.type === 'centered-text') return (
-            <section key={i} className={styles.sectionCentered}>
+            <section key={i} className={`${styles.sectionCentered} js-proj-section`}>
               <h3 className={styles.centeredHeading}>{t(section.heading, locale)}</h3>
               <p className={styles.centeredBody}>{t(section.body, locale)}</p>
             </section>
           );
 
-          /* Optional 2-image grid */
           if (section.type === 'image-grid') return (
-            <section key={i} className={styles.sectionGrid}>
+            <section key={i} className={`${styles.sectionGrid} js-proj-section`}>
               {section.images.map((img, j) => (
                 <div key={j} className={styles.gridImage}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -180,9 +177,9 @@ export default async function ProjectPage({
       </div>
 
       {/* ══════════════════════ RECOMMENDED ═══════════════════════════════ */}
-      <section className={styles.recommended}>
+      <section className={`${styles.recommended} js-proj-rec-section`}>
         <div className={styles.recommendedHeader}>
-          <span className={styles.recommendedLabel}>
+          <span className={`${styles.recommendedLabel} js-proj-rec-label`}>
             {locale === 'en' ? 'More projects' : 'Meer projecten'}
           </span>
         </div>
@@ -192,7 +189,7 @@ export default async function ProjectPage({
             <Link
               key={p.slug}
               href={`/projecten/${p.slug}${langSuffix}`}
-              className={styles.recCard}
+              className={`${styles.recCard} js-proj-rec-card`}
             >
               <div
                 className={styles.recCardBg}

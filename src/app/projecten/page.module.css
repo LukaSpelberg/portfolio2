@@ -179,6 +179,7 @@
   letter-spacing: -0.02em;
   mix-blend-mode: screen;
   filter: url('#ink-rough');
+  padding-bottom: 18px; /* clears descenders (y, j, g) before meta row */
 }
 
 .cardMeta {
@@ -188,7 +189,7 @@
   letter-spacing: 0.14em;
   color: var(--color-muted);
   text-transform: uppercase;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 /* Red accent stroke — slides in from left on hover */

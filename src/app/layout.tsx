@@ -30,7 +30,7 @@ const courierPrime = Courier_Prime({
 });
 
 export const metadata: Metadata = {
-  title: 'Luka Spelberg — Digital Designer',
+  title: 'Luka Spelberg Portfolio',
   description: 'Portfolio van Luka Spelberg, digital designer.',
 };
 

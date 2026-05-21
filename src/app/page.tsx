@@ -153,10 +153,19 @@ export default function HomePage() {
           </div>
 
           <div className={styles.aboutPhotos}>
-            <div className={`${styles.photoTall} js-about-photo`} />
+            <div className={`${styles.photoTall} js-about-photo`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/lukapiano.png" alt="Luka portret" />
+            </div>
             <div className={styles.photosRightCol}>
-              <div className={`${styles.photoThumb} js-about-photo`} />
-              <div className={`${styles.photoThumb} js-about-photo`} />
+              <div className={`${styles.photoThumb} js-about-photo`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/lukabureau.jpg" alt="Luka aan het bureau" />
+              </div>
+              <div className={`${styles.photoThumb} js-about-photo`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/lukadak.jpg" alt="Luka achter de piano" />
+              </div>
             </div>
           </div>
         </section>

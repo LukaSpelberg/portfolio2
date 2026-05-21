@@ -9,8 +9,18 @@
 /* ═══════════════════════════════════════════════════════════════════════════ */
 .hero {
   position: relative;
-  padding: 88px 60px 32px;
   overflow: visible;
+  /* Horizontal padding lives in .heroInner — keeps absolute children
+     (ghostTitle, heroMark) anchored to the full section width */
+}
+
+/* Constrained inner — same max-width/centering as .sections and .introInner */
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 88px 60px 32px;
 }
 
 /* Giant faded project name — background texture */
@@ -73,6 +83,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
+  /* max-width handled by parent .heroInner */
 }
 
 .heroImg {
@@ -87,9 +98,25 @@
 /*  INTRO                                                                       */
 /* ═══════════════════════════════════════════════════════════════════════════ */
 .intro {
-  padding: 52px 60px 64px;
-  max-width: 860px;
+  /* Full-width so border-bottom spans edge-to-edge */
   border-bottom: 1px solid rgba(246, 242, 228, 0.07);
+}
+
+/* Constrained container — same max-width + centering as .sections so left
+   edges align on wide screens */
+.introInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 52px 60px 64px;
+}
+
+/* Limit text line-length within the aligned container — ~75% of 1400px */
+.introInner .introHeading {
+  max-width: 960px;
+}
+
+.introInner .introBody {
+  max-width: 780px;
 }
 
 .introHeading {
@@ -143,6 +170,9 @@
   flex-direction: column;
   gap: 88px;
   padding: 88px 60px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ── A: Text left + image right ── */
@@ -357,6 +387,7 @@
   letter-spacing: -0.02em;
   mix-blend-mode: screen;
   filter: url('#ink-rough');
+  padding-bottom: 18px; /* clears descenders (y, j, g) before meta row */
 }
 
 .recCardMeta {
@@ -366,7 +397,8 @@
   letter-spacing: 0.12em;
   color: var(--color-muted);
   text-transform: uppercase;
-  margin-top: 10px;
+  /* Extra margin clears descenders on letters like y, j, g */
+  margin-top: 20px;
 }
 
 .recCardAccent {
@@ -388,8 +420,8 @@
 /*  RESPONSIVE — TABLET (≤ 900px)                                              */
 /* ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .hero         { padding: 100px 44px 28px; }
-  .intro        { padding: 60px 44px 60px; }
+  .heroInner    { padding: 100px 44px 28px; }
+  .introInner   { padding: 60px 44px 60px; }
   .sections     { padding: 72px 44px; gap: 72px; }
   .recommended  { padding: 72px 44px 88px; }
 
@@ -405,9 +437,9 @@
 /*  RESPONSIVE — MOBILE (≤ 600px)                                              */
 /* ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 600px) {
-  .hero { padding: 80px 24px 24px; }
+  .heroInner    { padding: 80px 24px 24px; }
 
-  .intro        { padding: 48px 24px 48px; }
+  .introInner   { padding: 48px 24px 48px; }
   .sections     { padding: 56px 24px; gap: 56px; }
   .recommended  { padding: 56px 24px 72px; }
 

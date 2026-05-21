@@ -349,6 +349,7 @@
   mix-blend-mode: screen;
   filter: url('#ink-rough');
   transition: color 0.2s;
+  padding-bottom: 18px; /* clears descenders (y, j, g) before meta row */
 }
 
 .projectCard:hover .projectCardName {
@@ -362,7 +363,7 @@
   letter-spacing: 0.12em;
   color: var(--color-muted);
   text-transform: uppercase;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 /* Red accent stroke that slides in on hover */

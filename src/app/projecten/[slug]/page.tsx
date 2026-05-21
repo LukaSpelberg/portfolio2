@@ -5,9 +5,6 @@ import { projects, getProject, getRecommended, t } from '@/lib/projects';
 import type { Locale } from '@/lib/projects';
 import styles from './page.module.css';
 
-/* ── Hardcoded locale — swap to Next.js i18n param when ready ── */
-const locale: Locale = 'nl';
-
 /* ── Static params — tells Next.js which slugs to pre-render ── */
 export async function generateStaticParams() {
   return projects.map(p => ({ slug: p.slug }));
@@ -16,10 +13,14 @@ export async function generateStaticParams() {
 /* ── Metadata ── */
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ lang?: string }>;
 }) {
   const { slug } = await params;
+  const { lang } = await searchParams;
+  const locale: Locale = lang === 'en' ? 'en' : 'nl';
   const project = getProject(slug);
   if (!project) return {};
   return {
@@ -31,14 +32,22 @@ export async function generateMetadata({
 /* ── Page ── */
 export default async function ProjectPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ lang?: string }>;
 }) {
   const { slug } = await params;
+  const { lang } = await searchParams;
+
+  /* Derive locale from ?lang= — falls back to Dutch */
+  const locale: Locale = lang === 'en' ? 'en' : 'nl';
+  const langSuffix = locale === 'en' ? '?lang=en' : '';
+
   const project = getProject(slug);
   if (!project) notFound();
 
-  const recommended = getRecommended(slug);
+  const recommended = getRecommended(slug, 3);
 
   return (
     <main className={styles.root}>
@@ -56,54 +65,59 @@ export default async function ProjectPage({
           className={styles.heroMark}
         />
 
-        <div className={styles.heroContent}>
-          <h1 className={styles.title}>{project.title}</h1>
+        {/* heroInner: same max-width + centering as .sections and .introInner */}
+        <div className={styles.heroInner}>
+          <div className={styles.heroContent}>
+            <h1 className={styles.title}>{project.title}</h1>
 
-          <div className={styles.metaRow}>
-            {project.tags.flatMap((tag, i) => [
-              i > 0 ? <span key={`sep-${i}`} aria-hidden>·</span> : null,
-              <span key={tag}>{tag}</span>,
-            ])}
-            <span aria-hidden>·</span>
-            <span>{project.date}</span>
-            <span aria-hidden>·</span>
-            <span>{t(project.duration, locale)}</span>
+            <div className={styles.metaRow}>
+              {project.tags.flatMap((tag, i) => [
+                i > 0 ? <span key={`sep-${i}`} aria-hidden>·</span> : null,
+                <span key={tag}>{tag}</span>,
+              ])}
+              <span aria-hidden>·</span>
+              <span>{project.date}</span>
+              <span aria-hidden>·</span>
+              <span>{t(project.duration, locale)}</span>
+            </div>
           </div>
+
+          {/* Hero image — full width within heroInner */}
+          {project.heroImage && (
+            <div className={styles.heroImageWrap}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={project.heroImage}
+                alt={project.title}
+                className={styles.heroImg}
+              />
+            </div>
+          )}
         </div>
-
-        {/* Hero image — full content width, sits tight below the title */}
-        {project.heroImage && (
-          <div className={styles.heroImageWrap}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.heroImage}
-              alt={project.title}
-              className={styles.heroImg}
-            />
-          </div>
-        )}
       </section>
 
       {/* ═══════════════════════════ INTRO ════════════════════════════════ */}
       <section className={styles.intro}>
-        <h2 className={styles.introHeading}>{t(project.intro.heading, locale)}</h2>
-        <p className={styles.introBody}>{t(project.intro.body, locale)}</p>
+        <div className={styles.introInner}>
+          <h2 className={styles.introHeading}>{t(project.intro.heading, locale)}</h2>
+          <p className={styles.introBody}>{t(project.intro.body, locale)}</p>
 
-        {project.intro.links && project.intro.links.length > 0 && (
-          <div className={styles.introLinks}>
-            {project.intro.links.map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.introLink}
-              >
-                {t(link.label, locale)} →
-              </a>
-            ))}
-          </div>
-        )}
+          {project.intro.links && project.intro.links.length > 0 && (
+            <div className={styles.introLinks}>
+              {project.intro.links.map(link => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.introLink}
+                >
+                  {t(link.label, locale)} →
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
       {/* ══════════════════════ CONTENT SECTIONS ══════════════════════════ */}
@@ -168,14 +182,16 @@ export default async function ProjectPage({
       {/* ══════════════════════ RECOMMENDED ═══════════════════════════════ */}
       <section className={styles.recommended}>
         <div className={styles.recommendedHeader}>
-          <span className={styles.recommendedLabel}>Meer projecten</span>
+          <span className={styles.recommendedLabel}>
+            {locale === 'en' ? 'More projects' : 'Meer projecten'}
+          </span>
         </div>
 
         <div className={styles.recList}>
           {recommended.map(p => (
             <Link
               key={p.slug}
-              href={`/projecten/${p.slug}`}
+              href={`/projecten/${p.slug}${langSuffix}`}
               className={styles.recCard}
             >
               <div

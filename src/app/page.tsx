@@ -5,7 +5,15 @@ import PageAnimations from '@/components/PageAnimations';
 import { projects } from '@/lib/projects';
 import styles from './page.module.css';
 
-export default function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string }>;
+}) {
+  const { lang } = await searchParams;
+  const isEn = lang === 'en';
+  const langSuffix = isEn ? '?lang=en' : '';
+
   const featuredProjects = projects.filter((project) => project.featured);
 
   return (
@@ -23,18 +31,12 @@ export default function HomePage() {
           <span className={`${styles.ghostBgMid} ghost js-ghost`} aria-hidden>PORTFOLIO</span>
           <span className={`${styles.ghostBgLow} ghost js-ghost`} aria-hidden>DESIGN</span>
 
-          {/* Red field — left dominant region; GSAP wipes this in via clip-path */}
-          <PaintBlob
-            variant="field"
-            className={`${styles.heroField} js-hero-field`}
-          />
-
-          {/* Dominant red mark — upper-left */}
+          {/* Red field — left dominant region; real splatter photo masked to accent color */}
           <PaintMark
             src="/splatters/splatter1HugeBlob.webp"
             color="var(--color-accent)"
-            opacity={0.68}
-            className={`${styles.heroMarkBig} js-hero-mark-red`}
+            opacity={0.92}
+            className={`${styles.heroField} js-hero-field`}
           />
 
           {/* Gold deco — upper-right counter-balance */}
@@ -62,16 +64,12 @@ export default function HomePage() {
 
             <div className={`${styles.subBlock} js-subblock`}>
               <span className={styles.subhead}>Digital Designer</span>
-              <PaintBlob
-                variant="splatter"
-                color="var(--color-gold)"
-                opacity={0.65}
-                className={styles.heroPunct}
-              />
             </div>
 
             <p className={`${styles.bodyIntro} js-hero-copy`}>
-              Ik ben Luka, een Digital Designer uit Amsterdam. Ik werk nu anderhalf jaar als Designer & developer, en studeer momenteel aan mijn derde jaar bij de HVA. Met specialisatie in Techniek kan ik op veel verschillende velden uit de voeten, wat je ook terugziet op dit portfolio.
+              {isEn
+                ? "I'm Luka, a Digital Designer from Amsterdam. I've been working as a Designer & Developer for a year and a half, and I'm currently in my third year at the HVA. With a specialisation in Technology I can work across many different fields, which you can also see in this portfolio."
+                : 'Ik ben Luka, een Digital Designer uit Amsterdam. Ik werk nu anderhalf jaar als Designer & developer, en studeer momenteel aan mijn derde jaar bij de HVA. Met specialisatie in Techniek kan ik op veel verschillende velden uit de voeten, wat je ook terugziet op dit portfolio.'}
             </p>
 
             <div className={`${styles.metaRow} js-hero-copy`}>
@@ -95,17 +93,19 @@ export default function HomePage() {
           />
 
           <div className={`${styles.projectsHeader} js-projects-header`}>
-            <span className={styles.sectionLabel}>Projecten</span>
-            <Link href="/projecten" className={styles.allProjectsBtn}>
-              Bekijk alle projecten →
+            <span className={styles.sectionLabel}>
+              {isEn ? 'Projects' : 'Projecten'}
+            </span>
+            <Link href={`/projecten${langSuffix}`} className={styles.allProjectsBtn}>
+              {isEn ? 'View all projects →' : 'Bekijk alle projecten →'}
             </Link>
           </div>
 
           <div className={styles.projectsList}>
-              {featuredProjects.map((project) => (
+            {featuredProjects.map((project) => (
               <Link
                 key={project.slug}
-                href={`/projecten/${project.slug}`}
+                href={`/projecten/${project.slug}${langSuffix}`}
                 className={`${styles.projectCard} js-project-card`}
               >
                 <div
@@ -138,33 +138,37 @@ export default function HomePage() {
           />
 
           <div className={`${styles.aboutText} js-about-text`}>
-            <span className={styles.aboutLabel}>Over mij</span>
+            <span className={styles.aboutLabel}>
+              {isEn ? 'About me' : 'Over mij'}
+            </span>
             <h2 className={styles.aboutHeading}>
-              Ik ben<br />Luka Spelberg
+              {isEn ? <>I&apos;m<br />Luka Spelberg</> : <>Ik ben<br />Luka Spelberg</>}
             </h2>
             <p className={styles.aboutBody}>
-               Ik was al sinds vrij jonge leeftijd geinteresseerd in de digitale wereld, en dat zie je ook terug in mijn hobbies.
-              Ik speel namelijk veel games, die voornamelijk narratief gedreven zijn. Naast games heb ik ook een passie voor muziek, ik speel zelf piano en ben sinds kort begonnen aan eigen muziek schrijven.
+              {isEn
+                ? "I've been interested in the digital world from a fairly young age, and you can also see that in my hobbies. I play a lot of games, which are mainly story-driven. Besides games I also have a passion for music, I play piano myself and have recently started writing my own music."
+                : 'Ik was al sinds vrij jonge leeftijd geinteresseerd in de digitale wereld, en dat zie je ook terug in mijn hobbies. Ik speel namelijk veel games, die voornamelijk narratief gedreven zijn. Naast games heb ik ook een passie voor muziek, ik speel zelf piano en ben sinds kort begonnen aan eigen muziek schrijven.'}
             </p>
             <p className={styles.aboutBody}>
-              Ik ben inmiddels in mijn derde jaar van CMD. In het derde jaar heb ik gekozen om de minor Emerging technologies en Applied Game Design te volgen. Vooral bij die laatste heb ik ontdekt hoe leuk ik
-              het vind om dingen te maken. Creatief zijn is voor mij heel belangrijk.
+              {isEn
+                ? "I'm now in my third year of CMD. In my third year I chose to follow the Emerging Technologies and Applied Game Design minors. Especially with the latter I discovered how much I enjoy making things. Being creative is very important to me."
+                : 'Ik ben inmiddels in mijn derde jaar van CMD. In het derde jaar heb ik gekozen om de minor Emerging technologies en Applied Game Design te volgen. Vooral bij die laatste heb ik ontdekt hoe leuk ik het vind om dingen te maken. Creatief zijn is voor mij heel belangrijk.'}
             </p>
           </div>
 
           <div className={styles.aboutPhotos}>
             <div className={`${styles.photoTall} js-about-photo`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/lukapiano.png" alt="Luka portret" />
+              <img src="/lukapiano.png" alt={isEn ? 'Luka portrait' : 'Luka portret'} />
             </div>
             <div className={styles.photosRightCol}>
               <div className={`${styles.photoThumb} js-about-photo`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/lukabureau.jpg" alt="Luka aan het bureau" />
+                <img src="/lukabureau.jpg" alt={isEn ? 'Luka at his desk' : 'Luka aan het bureau'} />
               </div>
               <div className={`${styles.photoThumb} js-about-photo`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/lukadak.jpg" alt="Luka achter de piano" />
+                <img src="/lukadak.jpg" alt={isEn ? 'Luka on the rooftop' : 'Luka achter de piano'} />
               </div>
             </div>
           </div>

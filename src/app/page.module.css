@@ -60,15 +60,16 @@
   color: var(--color-muted);
 }
 
-/* Red field — dominant left region */
+/* Real splatter photo used as dominant top-left field.
+   82vw scales with viewport; high cap (1700px) lets it grow on wide/zoomed-out
+   screens without becoming uncapped and overwhelming at normal sizes. */
 .heroField {
   position: absolute;
-  left: -60px;
-  top: -80px;
-  width: 52%;
-  height: 92%;
+  left: -430px;
+  top: -380px;
+  width: clamp(800px, 82vw, 1700px);
+  height: clamp(800px, 82vw, 1700px);
   z-index: 1;
-  opacity: 0.90;
 }
 
 /* Dominant red blob — upper-left, bleeds off edge */
@@ -93,12 +94,12 @@
   transform: rotate(-18deg) scaleX(-1);
 }
 
-/* Slash behind body copy */
+/* Slash sits just below "Digital Designer", not overlapping body copy */
 .heroSlash {
   position: absolute;
   width: 480px;
   height: 80px;
-  bottom: 220px;
+  bottom: 330px;
   left: 40px;
   z-index: 1;
 }
@@ -517,6 +518,14 @@
     padding: 72px 44px 88px;
   }
 
+  /* Tablet: less aggressive offsets for the narrower viewport */
+  .heroField {
+    left: -180px;
+    top: -200px;
+    width: clamp(600px, 80vw, 900px);
+    height: clamp(600px, 80vw, 900px);
+  }
+
   .aboutSection {
     grid-template-columns: 1fr;
     gap: 56px;
@@ -545,10 +554,15 @@
     min-height: 0;           /* don't force full-screen height on mobile */
   }
 
-  /* The red field blob looks like a flat painted wall on narrow screens —
-     hide it. The splatter marks provide enough paint drama. */
+  /* Mobile: smaller corner accent, noticeably more transparent so it doesn't
+     overwhelm the text. !important overrides the GSAP inline style. */
   .heroField {
-    display: none;
+    display: block;
+    left: -50px;
+    top: -50px;
+    width: 340px;
+    height: 340px;
+    opacity: 0.45 !important;
   }
 
   /* Reposition ghost text so it frames the content from above */

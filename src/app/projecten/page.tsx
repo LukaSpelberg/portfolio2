@@ -3,19 +3,39 @@ import PaintMark from '@/components/PaintMark';
 import { projects } from '@/lib/projects';
 import styles from './page.module.css';
 
-export const metadata = {
-  title: 'Projecten — Luka Spelberg',
-  description: 'Alle design cases van Luka Spelberg — UX, branding, game design en front-end.',
-};
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string }>;
+}) {
+  const { lang } = await searchParams;
+  const isEn = lang === 'en';
+  return {
+    title: isEn ? 'Projects — Luka Spelberg' : 'Projecten — Luka Spelberg',
+    description: isEn
+      ? 'All design cases by Luka Spelberg — UX, branding, game design and front-end.'
+      : 'Alle design cases van Luka Spelberg — UX, branding, game design en front-end.',
+  };
+}
 
-export default function ProjectenPage() {
+export default async function ProjectenPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string }>;
+}) {
+  const { lang } = await searchParams;
+  const isEn = lang === 'en';
+  const langSuffix = isEn ? '?lang=en' : '';
+
   return (
     <main className={styles.root}>
 
       {/* ══════════════════════════════ HEADER ═══════════════════════════════ */}
       <section className={styles.header}>
         {/* Background ghost word */}
-        <span className={`${styles.ghostTitle} ghost`} aria-hidden>PROJECTEN</span>
+        <span className={`${styles.ghostTitle} ghost`} aria-hidden>
+          {isEn ? 'PROJECTS' : 'PROJECTEN'}
+        </span>
 
         <PaintMark
           src="/splatters/splatter1HugeBlob.webp"
@@ -26,9 +46,13 @@ export default function ProjectenPage() {
 
         <div className={styles.headerContent}>
           <span className={styles.headerLabel}>Cases</span>
-          <h1 className={styles.headerHeading}>Projecten</h1>
+          <h1 className={styles.headerHeading}>
+            {isEn ? 'Projects' : 'Projecten'}
+          </h1>
           <p className={styles.headerSub}>
-            UX, branding, game design, front-end — een overzicht van wat ik heb gemaakt.
+            {isEn
+              ? 'UX, branding, game design, front-end — an overview of what I have made.'
+              : 'UX, branding, game design, front-end — een overzicht van wat ik heb gemaakt.'}
           </p>
         </div>
       </section>
@@ -39,7 +63,7 @@ export default function ProjectenPage() {
           {projects.map((project) => (
             <Link
               key={project.slug}
-              href={`/projecten/${project.slug}`}
+              href={`/projecten/${project.slug}${langSuffix}`}
               className={styles.card}
             >
               {/* Coloured / image background */}

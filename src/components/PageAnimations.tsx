@@ -30,9 +30,8 @@ export default function PageAnimations() {
     // Ghost text — scale only. Opacity is owned by CSS (0.04/0.05). NEVER set it.
     gsap.set('.js-ghost', { scale: 0.9, transformOrigin: 'center center' });
 
-    // Hero paint — field fades in (preserves organic blob edges), marks burst in
+    // Hero paint — field fades in (preserves organic blob edges), gold mark bursts in
     gsap.set('.js-hero-field',     { opacity: 0 });
-    gsap.set('.js-hero-mark-red',  { opacity: 0 });
     gsap.set('.js-hero-mark-gold', { opacity: 0 });
 
     // Hero text
@@ -57,20 +56,14 @@ export default function PageAnimations() {
       ease: 'power2.out',
     }, 0);
 
-    // 2 — Red field fades in — organic blob edges preserved throughout
+    // 2 — Red splatter field fades in — organic edges preserved throughout
     tl.to('.js-hero-field', {
-      opacity: 1,
+      opacity: 0.92,
       duration: 0.85,
       ease: 'power2.inOut',
     }, 0.1);
 
-    // 3 — Paint marks burst in at their exact component opacity values
-    tl.to('.js-hero-mark-red', {
-      opacity: 0.68,
-      duration: 0.55,
-      ease: 'power3.out',
-    }, 0.38);
-
+    // 3 — Gold mark bursts in at its exact component opacity value
     tl.to('.js-hero-mark-gold', {
       opacity: 0.48,
       duration: 0.55,

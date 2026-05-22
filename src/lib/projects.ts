@@ -91,72 +91,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'dynamo',
-    num: '05',
-    title: 'Dynamo',
-    tags: ['UX', 'Game Design'],
-    date: 'September 2024',
-    duration: { nl: '4 weken', en: '4 weeks' },
-    featured: false,
-    heroImage: '/projects/dynamo/hero.webp',
-    heroBg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
-    intro: {
-      heading: {
-        nl: 'Een bordspel ontworpen om de voetbalwereld in te stappen',
-        en: 'A board game designed to step into the world of football',
-      },
-      body: {
-        nl: 'Dynamo is een educatief bordspel dat jongeren kennis laat maken met de wereld van professioneel voetbal — van transfermarkten tot spelerscontracten. Het project combineerde UX-research, game design en visuele vormgeving tot één samenhangend ontwerp.',
-        en: 'Dynamo is an educational board game that introduces young people to the world of professional football — from transfer markets to player contracts. The project combined UX research, game design and visual design into one cohesive product.',
-      },
-      links: [
-        {
-          label: { nl: 'Bekijk op GitHub', en: 'View on GitHub' },
-          href: '#',
-        },
-      ],
-    },
-    sections: [
-      {
-        type: 'text-image',
-        heading: {
-          nl: 'Testing, testing en nog meer testing',
-          en: 'Testing, testing and more testing',
-        },
-        text: {
-          nl: 'We testten het spel in meerdere rondes met echte gebruikers. Elke iteratie bracht nieuwe inzichten over de spelbalans, de leesbaarheid van de kaarten en de flow van het spel. De feedback werd direct verwerkt in het volgende prototype.',
-          en: 'We tested the game in multiple rounds with real users. Each iteration brought new insights about game balance, card readability and the flow of the game. Feedback was immediately incorporated into the next prototype.',
-        },
-        image: '/projects/dynamo/box.webp',
-        imageAlt: { nl: 'Dynamo doos', en: 'Dynamo box' },
-      },
-      {
-        type: 'full-image',
-        src: '/projects/dynamo/overview.webp',
-        alt: { nl: 'Dynamo spel overzicht', en: 'Dynamo game overview' },
-      },
-      {
-        type: 'centered-text',
-        heading: {
-          nl: 'Testing, testing en nog meer testing',
-          en: 'Testing, testing and more testing',
-        },
-        body: {
-          nl: 'Na drie testrondes hadden we een spel dat intuïtief aanvoelde, visueel sterk was en een duidelijke leercurve had. De spelregels werden vereenvoudigd zonder de diepgang te verliezen.',
-          en: 'After three test rounds we had a game that felt intuitive, looked visually strong and had a clear learning curve. The rules were simplified without losing depth.',
-        },
-      },
-      {
-        type: 'image-grid',
-        images: [
-          { src: '/projects/dynamo/box.webp', alt: { nl: 'Dynamo doos aanzicht 1', en: 'Dynamo box view 1' } },
-          { src: '/projects/dynamo/box2.webp', alt: { nl: 'Dynamo doos aanzicht 2', en: 'Dynamo box view 2' } },
-        ],
-      },
-    ],
-  },
-
-  {
     slug: 'myjam',
     num: '01',
     title: 'MyJam',
@@ -209,7 +143,7 @@ export const projects: Project[] = [
         },
         body: {
           nl: 'Het nuttige aan dit project was dat het ons liet experimenteren met security, iets wat op de frontend niet aan bod komt. We implementeerden login, registratie met hashing, het resetten van wachtwoorden op een veilige manier, en we zorgden ervoor dat de sleutels niet in de frontend terechtkwamen.',
-          en: 'The great thing about this project was that it let us experiment with security — something you rarely encounter on the frontend. We implemented login, registration with hashing, secure password reset flows, and made sure keys never ended up in the frontend.',
+          en: 'The great thing about this project was that it let us experiment with security, something you rarely encounter on the frontend. We implemented login, registration with hashing, secure password reset flows, and made sure keys never ended up in the frontend.',
         },
       },
     ],
@@ -223,7 +157,7 @@ export const projects: Project[] = [
     date: 'Januari 2026',
     duration: { nl: '6 weken', en: '6 weeks' },
     featured: true,
-    heroImage: '/projects/coduet/CoduetChat.jpg',
+    heroImage: '/projects/coduet/coduetposter.png',
     heroBg: 'linear-gradient(135deg, #182d3a 0%, #0b141a 100%)',
     intro: {
       heading: {
@@ -293,8 +227,8 @@ export const projects: Project[] = [
     heroBg: 'linear-gradient(135deg, #2a2214 0%, #14110c 100%)',
     intro: {
       heading: {
-        nl: 'Mijn eerste game, en mijn eerste game in teamverband.',
-        en: 'My first game, and my first game as part of a team.',
+        nl: 'Mijn eerste games.',
+        en: 'My first games.',
       },
       body: {
         nl: 'Tijdens de minor applied game design zijn we op snelle sprints van 4 tot 5 weken gaan bouwen aan onze eigen games. Eerst helemaal alleen, en daarna in teams van 4. Ik voelde dat ik in deze periode best uitgekeken was op het technische vlak, daarom was mijn doel om vooral te oefenen op het visuele aspect.',
@@ -322,7 +256,7 @@ export const projects: Project[] = [
           nl: 'De twee spellen hebben totaal verschillende direction in art. 8Survivors probeert de PSX stijl te raken, terwijl Treescend eerder voor het charmante handgemaakt gevoel gaat. Ik ontdekte bij het maken van de spellen ook hoe belangrijk audio is in games. Hier begon ik ook met muziek componeren waar ik erg veel plezier uit haalde.',
           en: 'The two games have completely different art directions. 8Survivors aims for the PSX style, while Treescend goes for a charming handmade feel. Making the games also made me realise how important audio is in games. This is where I started composing music, which I found enormously enjoyable.',
         },
-        image: '/projects/AppliedGameDesign/8survivorsAtmosphere.jpg',
+        image: '/projects/AppliedGameDesign/8survivorsatmosphere.jpg',
         imageAlt: { nl: '8 Survivors atmosfeer', en: '8 Survivors atmosphere' },
       },
       {
@@ -412,6 +346,72 @@ export const projects: Project[] = [
         images: [
           { src: '/projects/EigenProject_EP/EPhappy.jpg', alt: { nl: 'EP happy track cover', en: 'EP happy track cover' } },
           { src: '/projects/EigenProject_EP/EPSleepy.jpg', alt: { nl: 'EP sleepy track cover', en: 'EP sleepy track cover' } },
+        ],
+      },
+    ],
+  },
+
+   {
+    slug: 'dynamo',
+    num: '05',
+    title: 'Dynamo',
+    tags: ['UX', 'Game Design'],
+    date: 'September 2024',
+    duration: { nl: '4 weken', en: '4 weeks' },
+    featured: false,
+    heroImage: '/projects/dynamo/hero.webp',
+    heroBg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
+    intro: {
+      heading: {
+        nl: 'Een bordspel ontworpen om de voetbalwereld in te stappen',
+        en: 'A board game designed to step into the world of football',
+      },
+      body: {
+        nl: 'Dynamo is een educatief bordspel dat jongeren kennis laat maken met de wereld van professioneel voetbal — van transfermarkten tot spelerscontracten. Het project combineerde UX-research, game design en visuele vormgeving tot één samenhangend ontwerp.',
+        en: 'Dynamo is an educational board game that introduces young people to the world of professional football — from transfer markets to player contracts. The project combined UX research, game design and visual design into one cohesive product.',
+      },
+      links: [
+        {
+          label: { nl: 'Bekijk op GitHub', en: 'View on GitHub' },
+          href: '#',
+        },
+      ],
+    },
+    sections: [
+      {
+        type: 'text-image',
+        heading: {
+          nl: 'Testing, testing en nog meer testing',
+          en: 'Testing, testing and more testing',
+        },
+        text: {
+          nl: 'We testten het spel in meerdere rondes met echte gebruikers. Elke iteratie bracht nieuwe inzichten over de spelbalans, de leesbaarheid van de kaarten en de flow van het spel. De feedback werd direct verwerkt in het volgende prototype.',
+          en: 'We tested the game in multiple rounds with real users. Each iteration brought new insights about game balance, card readability and the flow of the game. Feedback was immediately incorporated into the next prototype.',
+        },
+        image: '/projects/dynamo/box.webp',
+        imageAlt: { nl: 'Dynamo doos', en: 'Dynamo box' },
+      },
+      {
+        type: 'full-image',
+        src: '/projects/dynamo/overview.webp',
+        alt: { nl: 'Dynamo spel overzicht', en: 'Dynamo game overview' },
+      },
+      {
+        type: 'centered-text',
+        heading: {
+          nl: 'Testing, testing en nog meer testing',
+          en: 'Testing, testing and more testing',
+        },
+        body: {
+          nl: 'Na drie testrondes hadden we een spel dat intuïtief aanvoelde, visueel sterk was en een duidelijke leercurve had. De spelregels werden vereenvoudigd zonder de diepgang te verliezen.',
+          en: 'After three test rounds we had a game that felt intuitive, looked visually strong and had a clear learning curve. The rules were simplified without losing depth.',
+        },
+      },
+      {
+        type: 'image-grid',
+        images: [
+          { src: '/projects/dynamo/box.webp', alt: { nl: 'Dynamo doos aanzicht 1', en: 'Dynamo box view 1' } },
+          { src: '/projects/dynamo/box2.webp', alt: { nl: 'Dynamo doos aanzicht 2', en: 'Dynamo box view 2' } },
         ],
       },
     ],

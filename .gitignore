@@ -64,3 +64,7 @@ desktop.ini
 # Misc
 *.tgz
 .history/
+
+# Claude
+.claude/
+CLAUDE.md

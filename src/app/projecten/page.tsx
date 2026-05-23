@@ -72,11 +72,11 @@ export default async function ProjectenPage({
                 style={{ background: project.heroBg }}
               />
 
-              {/* Film-effect image — flashes in on hover like old film footage */}
-              {project.heroImage && (
+              {/* Film-effect image — cardImage if supplied, else heroImage */}
+              {(project.cardImage ?? project.heroImage) && (
                 <div className={styles.cardFilmImg} aria-hidden>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={project.heroImage} alt="" />
+                  <img src={project.cardImage ?? project.heroImage} alt="" />
                 </div>
               )}
 

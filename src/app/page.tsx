@@ -114,11 +114,11 @@ export default async function HomePage({
                   className={styles.projectCardBg}
                   style={{ background: project.heroBg }}
                 />
-                {/* Film-effect image — flashes in on hover like an old projector */}
-                {project.heroImage && (
+                {/* Film-effect image — cardImage if supplied, else heroImage */}
+                {(project.cardImage ?? project.heroImage) && (
                   <div className={styles.projectCardFilmImg} aria-hidden>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={project.heroImage} alt="" />
+                    <img src={project.cardImage ?? project.heroImage} alt="" />
                   </div>
                 )}
                 <div className={styles.projectCardOverlay} />

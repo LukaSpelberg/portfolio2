@@ -78,6 +78,7 @@ export interface Project {
   duration: LocaleString; // e.g. { nl: '4 weken', en: '4 weeks' }
   featured?: boolean;
   heroImage: string;      // path inside /public, e.g. '/projects/dynamo/hero.webp'
+  cardImage?: string;     // optional darker/atmospheric image for card film effect — falls back to heroImage
   heroBg: string;         // fallback gradient for card background
   intro: {
     heading: LocaleString;
@@ -224,6 +225,7 @@ export const projects: Project[] = [
     duration: { nl: '10 weken', en: '10 weeks' },
     featured: true,
     heroImage: '/projects/AppliedGameDesign/8survivorswristdeck.jpg',
+    cardImage: '/projects/AppliedGameDesign/projectscover.png',
     heroBg: 'linear-gradient(135deg, #2a2214 0%, #14110c 100%)',
     intro: {
       heading: {

@@ -40,6 +40,24 @@ body {
   overflow-x: hidden;
 }
 
+/* ─── GSAP entrance pre-hide ────────────────────────────────────────────── */
+/* SSR renders these elements visible. Without pre-hiding, users see a flash:
+   element appears → GSAP hides it → GSAP fades it back in.
+   Setting opacity: 0 here means they start invisible from the very first
+   render, and GSAP only needs to animate them IN — no flash.
+
+   IMPORTANT: PaintMark components (js-hero-field, js-hero-mark-gold) use React
+   inline style={{ opacity }} which beats CSS class rules. Those elements must
+   receive opacity={0} as a component prop in page.tsx — CSS cannot reach them.
+   The rules below only work for plain DOM elements without inline styles.     */
+.js-name-line,
+.js-subblock,
+.js-hero-copy {
+  opacity: 0;
+}
+/* NOTE: .js-ghost is intentionally excluded — CSS owns its opacity (0.04/0.05).
+   Hiding it here would be overridden by the specificity of the module class anyway. */
+
 /* ═══════════════════════════════════════════════════════════════════════════ */
 /*  CANVAS BACKGROUND SYSTEM                                                  */
 /* ═══════════════════════════════════════════════════════════════════════════ */
@@ -200,3 +218,8 @@ img, video {
   display: block;
   max-width: 100%;
 }
+
+/* NOTE: card hover keyframes (cardBorderRage, overlayRage, filmGrain) are
+   defined directly inside page.module.css and projecten/page.module.css.
+   CSS Modules scopes animation names locally, so global @keyframes are
+   not reachable from module files — they must live in the same file. */

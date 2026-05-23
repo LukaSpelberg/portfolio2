@@ -267,26 +267,154 @@
   text-decoration: none;
   display: block;
   cursor: pointer;
+  /* Smooth exit when hover ends — animation takes over on hover,
+     transition fades the box-shadow back to none on mouse-out */
+  transition: box-shadow 0.35s ease;
 }
 
 .projectCard:last-child {
   border-bottom: 1px solid rgba(246, 242, 228, 0.06);
 }
 
-/* Colored/image background — swap background for real image later */
+/* ── Card hover: scratch texture ──────────────────────────────────────────
+   The card itself stays completely static on hover. The only things that
+   change:
+     1. The hero image fades in — very grey, desaturated, barely there.
+     2. A rough scratch/line texture appears over it via ::after, cycling
+        through 4 frames in slow stop-motion (~3fps).
+
+   Each frame is a different configuration of diagonal gradient lines at
+   slightly different angles and spacings — like celluloid scratches or
+   rough ink marks. No borders, no flashing, no container changes.
+
+   @keyframes must live here (CSS Modules cannot resolve globals.css names). */
+
+@keyframes scratchShift {
+  /* Frame 1 — medium crosshatch at -22°/68°, open diamond shapes */
+  0% {
+    background-image:
+      repeating-linear-gradient(
+        -22deg,
+        transparent 0px,  transparent 11px,
+        rgba(246,242,228,0.038) 11px, rgba(246,242,228,0.038) 13px,
+        transparent 13px, transparent 30px,
+        rgba(246,242,228,0.014) 30px, rgba(246,242,228,0.014) 31px
+      ),
+      repeating-linear-gradient(
+        68deg,
+        transparent 0px,  transparent 13px,
+        rgba(246,242,228,0.030) 13px, rgba(246,242,228,0.030) 15px,
+        transparent 15px, transparent 36px,
+        rgba(206,44,26,0.020) 36px, rgba(206,44,26,0.020) 38px
+      ),
+      radial-gradient(ellipse 50% 30% at 18% 72%, rgba(206,44,26,0.025) 0%, transparent 70%);
+  }
+  /* Frame 2 — near-horizontal raking lines (-8°), sparse vertical cross (82°) */
+  25% {
+    background-image:
+      repeating-linear-gradient(
+        -8deg,
+        transparent 0px,  transparent 7px,
+        rgba(246,242,228,0.042) 7px,  rgba(246,242,228,0.042) 9px,
+        transparent 9px,  transparent 14px,
+        rgba(246,242,228,0.016) 14px, rgba(246,242,228,0.016) 15px,
+        transparent 15px, transparent 22px
+      ),
+      repeating-linear-gradient(
+        82deg,
+        transparent 0px,  transparent 52px,
+        rgba(206,44,26,0.022) 52px, rgba(206,44,26,0.022) 54px
+      ),
+      radial-gradient(ellipse 38% 42% at 76% 24%, rgba(206,44,26,0.028) 0%, transparent 65%);
+  }
+  /* Frame 3 — wide-spaced large diamonds (-42°/48°), gold tint */
+  50% {
+    background-image:
+      repeating-linear-gradient(
+        -42deg,
+        transparent 0px,  transparent 22px,
+        rgba(246,242,228,0.032) 22px, rgba(246,242,228,0.032) 25px,
+        transparent 25px, transparent 58px
+      ),
+      repeating-linear-gradient(
+        48deg,
+        transparent 0px,  transparent 20px,
+        rgba(246,242,228,0.028) 20px, rgba(246,242,228,0.028) 23px,
+        transparent 23px, transparent 52px,
+        rgba(221,182,92,0.018) 52px, rgba(221,182,92,0.018) 54px
+      ),
+      radial-gradient(ellipse 46% 28% at 50% 52%, rgba(221,182,92,0.022) 0%, transparent 70%);
+  }
+  /* Frame 4 — dense tight crosshatch (-30°/60°), small diamonds */
+  75% {
+    background-image:
+      repeating-linear-gradient(
+        -30deg,
+        transparent 0px,  transparent 5px,
+        rgba(246,242,228,0.036) 5px,  rgba(246,242,228,0.036) 7px,
+        transparent 7px,  transparent 12px,
+        rgba(246,242,228,0.014) 12px, rgba(246,242,228,0.014) 13px,
+        transparent 13px, transparent 18px
+      ),
+      repeating-linear-gradient(
+        60deg,
+        transparent 0px,  transparent 6px,
+        rgba(246,242,228,0.030) 6px,  rgba(246,242,228,0.030) 8px,
+        transparent 8px,  transparent 18px,
+        rgba(206,44,26,0.022) 18px, rgba(206,44,26,0.022) 20px
+      ),
+      radial-gradient(ellipse 42% 38% at 82% 76%, rgba(206,44,26,0.022) 0%, transparent 62%);
+  }
+  /* 100% = frame 1, seamless loop */
+  100% {
+    background-image:
+      repeating-linear-gradient(
+        -22deg,
+        transparent 0px,  transparent 11px,
+        rgba(246,242,228,0.038) 11px, rgba(246,242,228,0.038) 13px,
+        transparent 13px, transparent 30px,
+        rgba(246,242,228,0.014) 30px, rgba(246,242,228,0.014) 31px
+      ),
+      repeating-linear-gradient(
+        68deg,
+        transparent 0px,  transparent 13px,
+        rgba(246,242,228,0.030) 13px, rgba(246,242,228,0.030) 15px,
+        transparent 15px, transparent 36px,
+        rgba(206,44,26,0.020) 36px, rgba(206,44,26,0.020) 38px
+      ),
+      radial-gradient(ellipse 50% 30% at 18% 72%, rgba(206,44,26,0.025) 0%, transparent 70%);
+  }
+}
+
+/* Scratch overlay — invisible at rest, animated on hover.
+   mix-blend-mode: screen shows the lines as faint light marks on the dark
+   card surface. z-index: 3 ensures it sits above the overlay and image
+   but pointer-events: none keeps it non-interactive.                        */
+.projectCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 0.5s ease;
+}
+
+.projectCard:hover::after {
+  opacity: 0.35;
+  animation: scratchShift 1.2s steps(4, end) infinite;
+}
+
+/* Colored/image background — static on hover, no more jitter */
 .projectCardBg {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: transform 0.6s var(--ease-game);
 }
 
-.projectCard:hover .projectCardBg {
-  transform: scale(1.03);
-}
-
-/* Dark overlay so text reads — fades on hover to reveal image behind */
+/* Dark overlay — completely static, no animation */
 .projectCardOverlay {
   position: absolute;
   inset: 0;
@@ -297,11 +425,39 @@
     rgba(11, 30, 27, 0.10) 100%
   );
   z-index: 1;
-  transition: opacity 0.55s var(--ease-game);
 }
 
-.projectCard:hover .projectCardOverlay {
-  opacity: 0.35;
+/* ── Film image — grey, barely-there ghost of the project visual ──────────
+   Very desaturated and dim so it reads as texture, not as a photo.
+   Screen blend means bright areas of the image project as faint light
+   onto the dark card. No filter animation — the scratchShift on ::after
+   provides all the motion.                                                  */
+.projectCardFilmImg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.projectCardFilmImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  filter: grayscale(1) contrast(1.8) brightness(0.65);
+  mix-blend-mode: screen;
+}
+
+.projectCard:hover .projectCardFilmImg img {
+  opacity: 0.14;
+}
+
+@media (hover: none) {
+  .projectCardFilmImg img { opacity: 0.08; }
 }
 
 /* Ghost project number — background texture */

@@ -31,19 +31,21 @@ export default async function HomePage({
           <span className={`${styles.ghostBgMid} ghost js-ghost`} aria-hidden>PORTFOLIO</span>
           <span className={`${styles.ghostBgLow} ghost js-ghost`} aria-hidden>DESIGN</span>
 
-          {/* Red field — left dominant region; real splatter photo masked to accent color */}
+          {/* Red field — left dominant region; real splatter photo masked to accent color.
+               opacity={0} here so SSR renders invisible — GSAP animates it to 0.92 on load. */}
           <PaintMark
             src="/splatters/splatter1HugeBlob.webp"
             color="var(--color-accent)"
-            opacity={0.92}
+            opacity={0}
             className={`${styles.heroField} js-hero-field`}
           />
 
-          {/* Gold deco — upper-right counter-balance */}
+          {/* Gold deco — upper-right counter-balance.
+               opacity={0} here so SSR renders invisible — GSAP animates it to 0.48 on load. */}
           <PaintMark
             src="/splatters/splatter 1-deco.webp"
             color="var(--color-gold)"
-            opacity={0.48}
+            opacity={0}
             className={`${styles.heroMarkDeco} js-hero-mark-gold`}
           />
 
@@ -68,8 +70,8 @@ export default async function HomePage({
 
             <p className={`${styles.bodyIntro} js-hero-copy`}>
               {isEn
-                ? "I'm Luka, a Digital Designer from Amsterdam. I've been working as a Designer & Developer for a year and a half, and I'm currently in my third year at the HVA. With a specialisation in Technology I can work across many different fields, which you can also see in this portfolio."
-                : 'Ik ben Luka, een Digital Designer uit Amsterdam. Ik werk nu anderhalf jaar als Designer & developer, en studeer momenteel aan mijn derde jaar bij de HVA. Met specialisatie in Techniek kan ik op veel verschillende velden uit de voeten, wat je ook terugziet op dit portfolio.'}
+                ? "I'm Luka, a Digital Designer from Amsterdam. I've been working as a Designer & Developer for a year and a half, and I'm currently in my third year CMD at the HVA. With a specialisation in Technology I can work across many different fields, which you can also see in this portfolio."
+                : 'Ik ben Luka, een Digital Designer uit Amsterdam. Ik werk nu anderhalf jaar als Designer & developer, en studeer momenteel aan mijn derde jaar CMD bij de HVA. Met specialisatie in Techniek kan ik op veel verschillende velden uit de voeten, wat je ook terugziet op dit portfolio.'}
             </p>
 
             <div className={`${styles.metaRow} js-hero-copy`}>
@@ -112,6 +114,13 @@ export default async function HomePage({
                   className={styles.projectCardBg}
                   style={{ background: project.heroBg }}
                 />
+                {/* Film-effect image — flashes in on hover like an old projector */}
+                {project.heroImage && (
+                  <div className={styles.projectCardFilmImg} aria-hidden>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={project.heroImage} alt="" />
+                  </div>
+                )}
                 <div className={styles.projectCardOverlay} />
                 <span className={styles.projectGhostNum} aria-hidden>
                   {project.num}

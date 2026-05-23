@@ -51,8 +51,8 @@ export default async function ProjectenPage({
           </h1>
           <p className={styles.headerSub}>
             {isEn
-              ? 'UX, branding, game design, front-end — an overview of what I have made.'
-              : 'UX, branding, game design, front-end — een overzicht van wat ik heb gemaakt.'}
+              ? 'UX, branding, game design, front-end. an overview of what I have made.'
+              : 'UX, branding, game design, front-end. een overzicht van wat ik heb gemaakt.'}
           </p>
         </div>
       </section>
@@ -71,6 +71,14 @@ export default async function ProjectenPage({
                 className={styles.cardBg}
                 style={{ background: project.heroBg }}
               />
+
+              {/* Film-effect image — flashes in on hover like old film footage */}
+              {project.heroImage && (
+                <div className={styles.cardFilmImg} aria-hidden>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={project.heroImage} alt="" />
+                </div>
+              )}
 
               {/* Dark gradient overlay */}
               <div className={styles.cardOverlay} />

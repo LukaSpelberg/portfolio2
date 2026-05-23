@@ -1,4 +1,3 @@
-import { useId } from 'react';
 import styles from './PaintMark.module.css';
 
 interface PaintMarkProps {
@@ -29,7 +28,13 @@ export default function PaintMark({
   className = '',
   style,
 }: PaintMarkProps) {
-  const uid = useId().replace(/:/g, '');
+  // Derive IDs from the src path — stable across all render types (SSR, RSC,
+  // client-side navigation) and guaranteed unique as long as each PaintMark
+  // instance visible simultaneously uses a different image file.
+  // useId() was replaced because its counter resets between the layout and page
+  // RSC payloads in Next.js App Router, causing filter/mask ID collisions that
+  // make PaintMarks steal each other's masks and show the wrong image on nav.
+  const uid      = src.replace(/[^a-zA-Z0-9]/g, '');
   const maskId   = `pm-mask-${uid}`;
   const filterId = `pm-filter-${uid}`;
 

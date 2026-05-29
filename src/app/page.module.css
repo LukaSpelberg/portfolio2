@@ -61,14 +61,15 @@
 }
 
 /* Real splatter photo used as dominant top-left field.
-   82vw scales with viewport; high cap (1700px) lets it grow on wide/zoomed-out
-   screens without becoming uncapped and overwhelming at normal sizes. */
+   Kept anchored off-screen left so the right edge never crosses into the
+   text column. 68vw + -500px offset keeps it in the left ~40% of the screen
+   at typical desktop widths while still feeling large and dramatic. */
 .heroField {
   position: absolute;
-  left: -430px;
+  left: -500px;
   top: -380px;
-  width: clamp(800px, 82vw, 1700px);
-  height: clamp(800px, 82vw, 1700px);
+  width: clamp(920px, 81vw, 1495px);
+  height: clamp(920px, 81vw, 1495px);
   z-index: 1;
 }
 
@@ -402,7 +403,7 @@
 }
 
 .projectCard:hover::after {
-  opacity: 0.35;
+  opacity: 0.48;
   animation: scratchShift 1.2s steps(4, end) infinite;
 }
 
@@ -453,7 +454,7 @@
 }
 
 .projectCard:hover .projectCardFilmImg img {
-  opacity: 0.14;
+  opacity: 0.19;
 }
 
 @media (hover: none) {
@@ -529,7 +530,7 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 3px;
+  height: 4px;
   background: var(--color-accent);
   z-index: 3;
   transition: width 0.4s var(--ease-game);
@@ -678,8 +679,8 @@
   .heroField {
     left: -180px;
     top: -200px;
-    width: clamp(600px, 80vw, 900px);
-    height: clamp(600px, 80vw, 900px);
+    width: clamp(690px, 88vw, 1035px);
+    height: clamp(690px, 88vw, 1035px);
   }
 
   .aboutSection {
@@ -716,8 +717,8 @@
     display: block;
     left: -50px;
     top: -50px;
-    width: 340px;
-    height: 340px;
+    width: 390px;
+    height: 390px;
     opacity: 0.45 !important;
   }
 

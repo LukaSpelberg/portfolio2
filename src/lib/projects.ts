@@ -174,6 +174,10 @@ export const projects: Project[] = [
           label: { nl: 'Bekijk op GitHub', en: 'View on GitHub' },
           href: 'https://github.com/LukaSpelberg/Coduet',
         },
+        {
+          label: { nl: 'bekijk de demo', en: 'View the demo' },
+          href: 'https://youtu.be/lbi_bW-RJkM',
+        },
       ],
     },
     sections: [
@@ -221,7 +225,7 @@ export const projects: Project[] = [
     num: '03',
     title: 'Applied GameDesign',
     tags: ['Game Design', 'Prototyping'],
-    date: 'Mei 2025',
+    date: 'Mei 2026',
     duration: { nl: '10 weken', en: '10 weeks' },
     featured: true,
     heroImage: '/projects/AppliedGameDesign/8survivorswristdeck.jpg',
@@ -292,10 +296,10 @@ export const projects: Project[] = [
     num: '04',
     title: 'Game Muziek EP',
     tags: ['Audio'],
-    date: 'mei 2025',
+    date: 'mei 2026',
     duration: { nl: '4 weken', en: '4 weeks' },
     featured: false,
-    heroImage: '/projects/EigenProject_EP/EPhappy.jpg',
+    heroImage: '/projects/EigenProject_EP/happy.jpg',
     heroBg: 'linear-gradient(135deg, #201b2f 0%, #0f0d16 100%)',
     intro: {
       heading: {
@@ -346,7 +350,7 @@ export const projects: Project[] = [
       {
         type: 'image-grid',
         images: [
-          { src: '/projects/EigenProject_EP/EPhappy.jpg', alt: { nl: 'EP happy track cover', en: 'EP happy track cover' } },
+          { src: '/projects/EigenProject_EP/happy.jpg', alt: { nl: 'EP happy track cover', en: 'EP happy track cover' } },
           { src: '/projects/EigenProject_EP/EPSleepy.jpg', alt: { nl: 'EP sleepy track cover', en: 'EP sleepy track cover' } },
         ],
       },
@@ -369,13 +373,13 @@ export const projects: Project[] = [
         en: 'A board game designed to step into the world of football',
       },
       body: {
-        nl: 'Dynamo is een educatief bordspel dat jongeren kennis laat maken met de wereld van professioneel voetbal — van transfermarkten tot spelerscontracten. Het project combineerde UX-research, game design en visuele vormgeving tot één samenhangend ontwerp.',
-        en: 'Dynamo is an educational board game that introduces young people to the world of professional football — from transfer markets to player contracts. The project combined UX research, game design and visual design into one cohesive product.',
+        nl: 'Dynamo is een bordspel dat mensen introduceerd tot de wereld van voetbal. Maak kennis met spelers, clubs en echte verhalen uit de voetbalwereld. Bij het ontwikkelen van het spel hadden we verschillende doelgroepen, wat het een interessante UX uitdaging maakte.',
+        en: 'Dynamo is a board game that introduces people to the world of football. Get to know players, clubs and real stories from the football world. Developing the game involved different target audiences, which made it an interesting UX challenge.',
       },
       links: [
         {
-          label: { nl: 'Bekijk op GitHub', en: 'View on GitHub' },
-          href: '#',
+          label: { nl: 'bekijk Figma bestand', en: 'View Figma File' },
+          href: 'https://www.figma.com/design/dYkh6eVfgBgPHogDFbzNJA/Untitled?node-id=0-1&t=wmH9B7RoUBhB7Pm2-1',
         },
       ],
     },
@@ -383,37 +387,37 @@ export const projects: Project[] = [
       {
         type: 'text-image',
         heading: {
-          nl: 'Testing, testing en nog meer testing',
-          en: 'Testing, testing and more testing',
+          nl: 'De introductie van de voetbalwereld.',
+          en: 'Introducing the world of football.',
         },
         text: {
-          nl: 'We testten het spel in meerdere rondes met echte gebruikers. Elke iteratie bracht nieuwe inzichten over de spelbalans, de leesbaarheid van de kaarten en de flow van het spel. De feedback werd direct verwerkt in het volgende prototype.',
-          en: 'We tested the game in multiple rounds with real users. Each iteration brought new insights about game balance, card readability and the flow of the game. Feedback was immediately incorporated into the next prototype.',
+          nl: 'Om nieuwe mensen in de voetbalwereld te introduceren, hebben we bij het ontwerpen van de kaarten allemaal echte verhalen uit de voetbalwereld gebruikt. Door deze verhalen te gebruiken ontdekken spelers direct de leuke en interessante kanten van voetbal.',
+          en: 'To introduce new people to the world of football, we used real stories from the football world in the design of the cards. By using these stories, players immediately discover the fun and interesting sides of football.',
         },
-        image: '/projects/dynamo/box.webp',
+        image: '/projects/dynamo/box.jpg',
         imageAlt: { nl: 'Dynamo doos', en: 'Dynamo box' },
       },
       {
         type: 'full-image',
-        src: '/projects/dynamo/overview.webp',
+        src: '/projects/dynamo/overview.jpg',
         alt: { nl: 'Dynamo spel overzicht', en: 'Dynamo game overview' },
       },
       {
         type: 'centered-text',
         heading: {
-          nl: 'Testing, testing en nog meer testing',
-          en: 'Testing, testing and more testing',
+          nl: 'Gameplay Loop en iteraties.',
+          en: 'Gameplay Loop and iterations.',
         },
         body: {
-          nl: 'Na drie testrondes hadden we een spel dat intuïtief aanvoelde, visueel sterk was en een duidelijke leercurve had. De spelregels werden vereenvoudigd zonder de diepgang te verliezen.',
-          en: 'After three test rounds we had a game that felt intuitive, looked visually strong and had a clear learning curve. The rules were simplified without losing depth.',
+          nl: 'Het ontwikkelen van de gameplay loop was een iteratief proces. We begonnen met een voetbal versie van monopoly, maar al snel groeide het uit tot een uniek spel dat elementen van de videogame Football Manager intregreerd in een bordspel. We hebben veel iteraties gedaan om het spel zo leuk mogelijk te maken.',
+          en: 'The development of the gameplay loop was an iterative process. We started with a football version of Monopoly, but it quickly evolved into a unique game that integrates elements of the video game Football Manager into a board game. We did many iterations to make the game as fun as possible.',
         },
       },
       {
         type: 'image-grid',
         images: [
-          { src: '/projects/dynamo/box.webp', alt: { nl: 'Dynamo doos aanzicht 1', en: 'Dynamo box view 1' } },
-          { src: '/projects/dynamo/box2.webp', alt: { nl: 'Dynamo doos aanzicht 2', en: 'Dynamo box view 2' } },
+          { src: '/projects/dynamo/box.jpg', alt: { nl: 'Dynamo doos aanzicht 1', en: 'Dynamo box view 1' } },
+          { src: '/projects/dynamo/box2.jpg', alt: { nl: 'Dynamo doos aanzicht 2', en: 'Dynamo box view 2' } },
         ],
       },
     ],

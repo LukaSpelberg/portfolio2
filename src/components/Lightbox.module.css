@@ -1,0 +1,83 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(6, 13, 11, 0.94);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lbFade 0.25s ease;
+  /* Fine grain over the backdrop to match the canvas */
+  cursor: zoom-out;
+}
+
+@keyframes lbFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.stage {
+  position: relative;
+  width: 92vw;
+  height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image {
+  max-width: 92vw;
+  max-height: 88vh;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  transition: transform 0.12s ease-out;
+  /* Thin warm frame like the rest of the site */
+  box-shadow: 0 0 0 1px rgba(246, 242, 228, 0.12), 0 30px 80px rgba(0, 0, 0, 0.6);
+  touch-action: none;
+}
+
+/* ── Close button ─────────────────────────────────────────────────────────── */
+.closeBtn {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(246, 242, 228, 0.2);
+  background: rgba(17, 41, 32, 0.6);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.closeBtn:hover {
+  border-color: var(--color-accent);
+  background: rgba(206, 44, 26, 0.18);
+}
+
+/* ── Hint line ────────────────────────────────────────────────────────────── */
+.hint {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .closeBtn { top: 14px; right: 14px; width: 42px; height: 42px; }
+  .hint { font-size: 0.58rem; }
+}

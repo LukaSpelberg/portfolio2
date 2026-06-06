@@ -235,6 +235,13 @@
   padding: 0 60px;
 }
 
+/* ── B2: Full-width video embed — same width as full-image ── */
+.sectionVideo {
+  width: 64vw;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 /* ── C: Centered text ── */
 .sectionCentered {
   max-width: 640px;
@@ -271,6 +278,21 @@
 .gridImage img {
   width: 100%;
   display: block;
+}
+
+/* Video cell inside a 2-up grid */
+.gridVideo {
+  display: flex;
+  flex-direction: column;
+}
+
+.gridCaption {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  margin-top: 12px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
@@ -430,7 +452,8 @@
     gap: 36px;
   }
 
-  .sectionFullImage { width: 70vw; }
+  .sectionFullImage,
+  .sectionVideo { width: 70vw; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
@@ -445,7 +468,8 @@
 
   .title        { font-size: clamp(44px, 13vw, 80px); }
 
-  .sectionFullImage { width: 85vw; }
+  .sectionFullImage,
+  .sectionVideo { width: 85vw; }
 
   .sectionGrid  { grid-template-columns: 1fr; gap: 16px; }
 

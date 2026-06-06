@@ -34,12 +34,38 @@ export function t(field: LocaleString, locale: Locale = 'nl'): string {
 
 /* ── Content section types ─────────────────────────────────────────────── */
 
+/**
+ * A YouTube embed. `youtube` may be a bare video id ("lbi_bW-RJkM") or any
+ * full YouTube URL — the YouTubeEmbed component normalises it.
+ */
+export interface VideoEmbed {
+  youtube: string;
+  title?: LocaleString;
+}
+
 export interface TextImageSection {
   type: 'text-image';
   heading?: LocaleString;
   text: LocaleString;
-  image: string;
-  imageAlt: LocaleString;
+  /** Provide EITHER an image… */
+  image?: string;
+  imageAlt?: LocaleString;
+  /** …OR a video. If `video` is set it renders instead of the image. */
+  video?: VideoEmbed;
+}
+
+/** Full-width YouTube embed, optionally captioned. */
+export interface VideoSection {
+  type: 'video';
+  youtube: string;
+  title?: LocaleString;
+  caption?: LocaleString;
+}
+
+/** 2-up grid of YouTube embeds side by side (mirrors image-grid). */
+export interface VideoGridSection {
+  type: 'video-grid';
+  videos: { youtube: string; title?: LocaleString; caption?: LocaleString }[];
 }
 
 export interface FullImageSection {
@@ -65,7 +91,9 @@ export type ContentSection =
   | TextImageSection
   | FullImageSection
   | CenteredTextSection
-  | ImageGridSection;
+  | ImageGridSection
+  | VideoSection
+  | VideoGridSection;
 
 /* ── Project type ───────────────────────────────────────────────────────── */
 
@@ -92,28 +120,33 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'myjam',
+    slug: 'applied-gamedesign',
     num: '01',
-    title: 'MyJam',
-    tags: ['UX/UI', 'Backend'],
-    date: 'April 2025',
-    duration: { nl: '5 weken', en: '5 weeks' },
+    title: 'Applied GameDesign',
+    tags: ['Game Design', 'Prototyping'],
+    date: 'Mei 2026',
+    duration: { nl: '10 weken', en: '10 weeks' },
     featured: true,
-    heroImage: '/projects/myjam/myjamHero.png',
-    heroBg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
+    heroImage: '/projects/AppliedGameDesign/8survivorswristdeck.jpg',
+    cardImage: '/projects/AppliedGameDesign/projectscover.png',
+    heroBg: 'linear-gradient(135deg, #2a2214 0%, #14110c 100%)',
     intro: {
       heading: {
-        nl: 'MyJam biedt een gepersonaliseerd aanbod aan muziek om te leren op jouw instrument.',
-        en: 'MyJam offers a personalised selection of music to learn on your instrument.',
+        nl: 'Mijn eerste games.',
+        en: 'My first games.',
       },
       body: {
-        nl: 'MyJam is een platform dat beginnende tot gevorderde muzikanten helpt om muziek te vinden die past bij hun niveau en voorkeuren. Door de data van spotify te combineren met de input van de gebruiker, geeft MyJam een uniek aanbod aan muziek.',
-        en: 'MyJam is a platform that helps beginner to advanced musicians find music that matches their level and preferences. By combining Spotify data with user input, MyJam provides a unique music selection.',
+        nl: 'Tijdens de minor applied game design zijn we op snelle sprints van 4 tot 5 weken gaan bouwen aan onze eigen games. Eerst helemaal alleen, en daarna in teams van 4. Ik voelde dat ik in deze periode best uitgekeken was op het technische vlak, daarom was mijn doel om vooral te oefenen op het visuele aspect.',
+        en: 'During the Applied Game Design minor we built our own games in fast sprints of 4 to 5 weeks — first entirely alone, then in teams of four. I felt fairly confident on the technical side by then, so my goal was primarily to practise the visual aspect.',
       },
       links: [
         {
-          label: { nl: 'Bekijk op GitHub', en: 'View on GitHub' },
-          href: 'https://github.com/Manueldh/MyJam',
+          label: { nl: 'Treescend op Itch', en: 'Treescend on Itch' },
+          href: 'https://futtyprime.itch.io/treescend',
+        },
+        {
+          label: { nl: '8 survivors op Itch', en: '8 Survivors on Itch' },
+          href: 'https://futtyprime.itch.io/8survivors',
         },
       ],
     },
@@ -121,35 +154,50 @@ export const projects: Project[] = [
       {
         type: 'text-image',
         heading: {
-          nl: 'NodeJS, Express en Spotify API',
-          en: 'NodeJS, Express and Spotify API',
+          nl: 'Art direction en Audio.',
+          en: 'Art direction and Audio.',
         },
         text: {
-          nl: 'Dit project werd geintroduceerd als kennismaking met backend development. We bouwden een server in NodeJS met Express, die communiceerde met onze Spotify Scraper om muziekdata op te halen en te verwerken. De frontend maakte gebruik van deze data om gepersonaliseerde aanbevelingen te tonen.',
-          en: 'This project was introduced as a first step into backend development. We built a server in NodeJS with Express that communicated with our Spotify Scraper to fetch and process music data. The frontend used this data to display personalised recommendations.',
+          nl: 'De twee spellen hebben totaal verschillende direction in art. 8Survivors probeert de PSX stijl te raken, terwijl Treescend eerder voor het charmante handgemaakt gevoel gaat. Ik ontdekte bij het maken van de spellen ook hoe belangrijk audio is in games. Hier begon ik ook met muziek componeren waar ik erg veel plezier uit haalde.',
+          en: 'The two games have completely different art directions. 8Survivors aims for the PSX style, while Treescend goes for a charming handmade feel. Making the games also made me realise how important audio is in games. This is where I started composing music, which I found enormously enjoyable.',
         },
-        image: '/projects/myjam/myjamUi.jpg',
-        imageAlt: { nl: 'MyJam interface', en: 'MyJam interface' },
+        image: '/projects/AppliedGameDesign/8survivorsatmosphere.jpg',
+        imageAlt: { nl: '8 Survivors atmosfeer', en: '8 Survivors atmosphere' },
       },
       {
         type: 'full-image',
-        src: '/projects/myjam/myjamSongs.png',
-        alt: { nl: 'MyJam platform overzicht', en: 'MyJam platform overview' },
+        src: '/projects/AppliedGameDesign/treescendImage.png',
+        alt: { nl: 'Treescend screenshot', en: 'Treescend screenshot' },
       },
       {
         type: 'centered-text',
         heading: {
-          nl: 'Nieuwe uitdagingen.',
-          en: 'New challenges.',
+          nl: 'Testen, testen en testen',
+          en: 'Test, test and test again',
         },
         body: {
-          nl: 'Het nuttige aan dit project was dat het ons liet experimenteren met security, iets wat op de frontend niet aan bod komt. We implementeerden login, registratie met hashing, het resetten van wachtwoorden op een veilige manier, en we zorgden ervoor dat de sleutels niet in de frontend terechtkwamen.',
-          en: 'The great thing about this project was that it let us experiment with security, something you rarely encounter on the frontend. We implemented login, registration with hashing, secure password reset flows, and made sure keys never ended up in the frontend.',
+          nl: 'Bij het ontwikkelen van games staat een ding vast: je zult bugs tegenkomen. Daarom was het key om je game door zoveel mogelijk mensen te laten testen. Ik had mijn games op sociale media gedeeld, naar echte game developers gestuurd en door vrienden laten testen. Hierdoor had ik al snel richting de 100 plays, waardoor ik veel data had om verder te itereren.',
+          en: 'When developing games, one thing is certain: you will run into bugs. That\'s why getting your game tested by as many people as possible is key. I shared my games on social media, sent them to actual game developers and had friends test them. This quickly brought me close to 100 plays, giving me plenty of data to iterate on.',
         },
+      },
+      {
+        type: 'video-grid',
+        videos: [
+          {
+            youtube: 'https://www.youtube.com/watch?v=_2Voyxx44sM',
+            title: { nl: '8 Survivors — trailer', en: '8 Survivors — trailer' },
+            caption: { nl: '8 Survivors', en: '8 Survivors' },
+          },
+          {
+            youtube: 'https://www.youtube.com/watch?v=fBbrcejkDuI',
+            title: { nl: 'Treescend — trailer', en: 'Treescend — trailer' },
+            caption: { nl: 'Treescend', en: 'Treescend' },
+          },
+        ],
       },
     ],
   },
-
+  
   {
     slug: 'coduet',
     num: '02',
@@ -221,33 +269,28 @@ export const projects: Project[] = [
   },
 
   {
-    slug: 'applied-gamedesign',
+    slug: 'myjam',
     num: '03',
-    title: 'Applied GameDesign',
-    tags: ['Game Design', 'Prototyping'],
-    date: 'Mei 2026',
-    duration: { nl: '10 weken', en: '10 weeks' },
+    title: 'MyJam',
+    tags: ['UX/UI', 'Backend'],
+    date: 'April 2025',
+    duration: { nl: '5 weken', en: '5 weeks' },
     featured: true,
-    heroImage: '/projects/AppliedGameDesign/8survivorswristdeck.jpg',
-    cardImage: '/projects/AppliedGameDesign/projectscover.png',
-    heroBg: 'linear-gradient(135deg, #2a2214 0%, #14110c 100%)',
+    heroImage: '/projects/myjam/myjamHero.png',
+    heroBg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
     intro: {
       heading: {
-        nl: 'Mijn eerste games.',
-        en: 'My first games.',
+        nl: 'MyJam biedt een gepersonaliseerd aanbod aan muziek om te leren op jouw instrument.',
+        en: 'MyJam offers a personalised selection of music to learn on your instrument.',
       },
       body: {
-        nl: 'Tijdens de minor applied game design zijn we op snelle sprints van 4 tot 5 weken gaan bouwen aan onze eigen games. Eerst helemaal alleen, en daarna in teams van 4. Ik voelde dat ik in deze periode best uitgekeken was op het technische vlak, daarom was mijn doel om vooral te oefenen op het visuele aspect.',
-        en: 'During the Applied Game Design minor we built our own games in fast sprints of 4 to 5 weeks — first entirely alone, then in teams of four. I felt fairly confident on the technical side by then, so my goal was primarily to practise the visual aspect.',
+        nl: 'MyJam is een platform dat beginnende tot gevorderde muzikanten helpt om muziek te vinden die past bij hun niveau en voorkeuren. Door de data van spotify te combineren met de input van de gebruiker, geeft MyJam een uniek aanbod aan muziek.',
+        en: 'MyJam is a platform that helps beginner to advanced musicians find music that matches their level and preferences. By combining Spotify data with user input, MyJam provides a unique music selection.',
       },
       links: [
         {
-          label: { nl: 'Treescend op Itch', en: 'Treescend on Itch' },
-          href: 'https://futtyprime.itch.io/treescend',
-        },
-        {
-          label: { nl: '8 survivors op Itch', en: '8 Survivors on Itch' },
-          href: 'https://futtyprime.itch.io/8survivors',
+          label: { nl: 'Bekijk op GitHub', en: 'View on GitHub' },
+          href: 'https://github.com/Manueldh/MyJam',
         },
       ],
     },
@@ -255,38 +298,31 @@ export const projects: Project[] = [
       {
         type: 'text-image',
         heading: {
-          nl: 'Art direction en Audio.',
-          en: 'Art direction and Audio.',
+          nl: 'NodeJS, Express en Spotify API',
+          en: 'NodeJS, Express and Spotify API',
         },
         text: {
-          nl: 'De twee spellen hebben totaal verschillende direction in art. 8Survivors probeert de PSX stijl te raken, terwijl Treescend eerder voor het charmante handgemaakt gevoel gaat. Ik ontdekte bij het maken van de spellen ook hoe belangrijk audio is in games. Hier begon ik ook met muziek componeren waar ik erg veel plezier uit haalde.',
-          en: 'The two games have completely different art directions. 8Survivors aims for the PSX style, while Treescend goes for a charming handmade feel. Making the games also made me realise how important audio is in games. This is where I started composing music, which I found enormously enjoyable.',
+          nl: 'Dit project werd geintroduceerd als kennismaking met backend development. We bouwden een server in NodeJS met Express, die communiceerde met onze Spotify Scraper om muziekdata op te halen en te verwerken. De frontend maakte gebruik van deze data om gepersonaliseerde aanbevelingen te tonen.',
+          en: 'This project was introduced as a first step into backend development. We built a server in NodeJS with Express that communicated with our Spotify Scraper to fetch and process music data. The frontend used this data to display personalised recommendations.',
         },
-        image: '/projects/AppliedGameDesign/8survivorsatmosphere.jpg',
-        imageAlt: { nl: '8 Survivors atmosfeer', en: '8 Survivors atmosphere' },
+        image: '/projects/myjam/myjamUi.jpg',
+        imageAlt: { nl: 'MyJam interface', en: 'MyJam interface' },
       },
       {
         type: 'full-image',
-        src: '/projects/AppliedGameDesign/treescendImage.png',
-        alt: { nl: 'Treescend screenshot', en: 'Treescend screenshot' },
+        src: '/projects/myjam/myjamSongs.png',
+        alt: { nl: 'MyJam platform overzicht', en: 'MyJam platform overview' },
       },
       {
         type: 'centered-text',
         heading: {
-          nl: 'Testen, testen en testen',
-          en: 'Test, test and test again',
+          nl: 'Nieuwe uitdagingen.',
+          en: 'New challenges.',
         },
         body: {
-          nl: 'Bij het ontwikkelen van games staat een ding vast: je zult bugs tegenkomen. Daarom was het key om je game door zoveel mogelijk mensen te laten testen. Ik had mijn games op sociale media gedeeld, naar echte game developers gestuurd en door vrienden laten testen. Hierdoor had ik al snel richting de 100 plays, waardoor ik veel data had om verder te itereren.',
-          en: 'When developing games, one thing is certain: you will run into bugs. That\'s why getting your game tested by as many people as possible is key. I shared my games on social media, sent them to actual game developers and had friends test them. This quickly brought me close to 100 plays, giving me plenty of data to iterate on.',
+          nl: 'Het nuttige aan dit project was dat het ons liet experimenteren met security, iets wat op de frontend niet aan bod komt. We implementeerden login, registratie met hashing, het resetten van wachtwoorden op een veilige manier, en we zorgden ervoor dat de sleutels niet in de frontend terechtkwamen.',
+          en: 'The great thing about this project was that it let us experiment with security, something you rarely encounter on the frontend. We implemented login, registration with hashing, secure password reset flows, and made sure keys never ended up in the frontend.',
         },
-      },
-      {
-        type: 'image-grid',
-        images: [
-          { src: '/projects/AppliedGameDesign/0_FUYA.png', alt: { nl: 'Applied Game Design aanzicht 1', en: 'Applied Game Design view 1' } },
-          { src: '/projects/AppliedGameDesign/treescendEnd.jpg', alt: { nl: 'Applied Game Design aanzicht 2', en: 'Applied Game Design view 2' } },
-        ],
       },
     ],
   },

@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import PaintMark from '@/components/PaintMark';
 import ProjectAnimations from '@/components/ProjectAnimations';
+import Lightbox from '@/components/Lightbox';
+import YouTubeEmbed from '@/components/YouTubeEmbed';
 import { projects, getProject, getRecommended, t } from '@/lib/projects';
 import type { Locale } from '@/lib/projects';
 import styles from './page.module.css';
@@ -55,6 +57,9 @@ export default async function ProjectPage({
       {/* Client-side animation engine — renders nothing, wires up GSAP */}
       <ProjectAnimations />
 
+      {/* Click any .js-zoomable image to open the zoomable lightbox */}
+      <Lightbox />
+
       {/* ══════════════════════════════ HERO ══════════════════════════════ */}
       <section className={styles.hero}>
         <span className={`${styles.ghostTitle} ghost js-proj-ghost`} aria-hidden>
@@ -90,7 +95,7 @@ export default async function ProjectPage({
               <img
                 src={project.heroImage}
                 alt={project.title}
-                className={styles.heroImg}
+                className={`${styles.heroImg} js-zoomable`}
               />
             </div>
           )}
@@ -134,12 +139,19 @@ export default async function ProjectPage({
                 <p className={styles.sectionBody}>{t(section.text, locale)}</p>
               </div>
               <div className={styles.sectionImageWrap}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={section.image}
-                  alt={t(section.imageAlt, locale)}
-                  className={styles.sectionImg}
-                />
+                {section.video ? (
+                  <YouTubeEmbed
+                    youtubeId={section.video.youtube}
+                    title={section.video.title ? t(section.video.title, locale) : undefined}
+                  />
+                ) : (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={section.image}
+                    alt={section.imageAlt ? t(section.imageAlt, locale) : ''}
+                    className={`${styles.sectionImg} js-zoomable`}
+                  />
+                )}
               </div>
             </section>
           );
@@ -147,10 +159,38 @@ export default async function ProjectPage({
           if (section.type === 'full-image') return (
             <section key={i} className={`${styles.sectionFullImage} js-proj-section`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={section.src} alt={t(section.alt, locale)} />
+              <img src={section.src} alt={t(section.alt, locale)} className="js-zoomable" />
               {section.caption && (
                 <p className={styles.caption}>{t(section.caption, locale)}</p>
               )}
+            </section>
+          );
+
+          if (section.type === 'video') return (
+            <section key={i} className={`${styles.sectionVideo} js-proj-section`}>
+              <YouTubeEmbed
+                youtubeId={section.youtube}
+                title={section.title ? t(section.title, locale) : undefined}
+              />
+              {section.caption && (
+                <p className={styles.caption}>{t(section.caption, locale)}</p>
+              )}
+            </section>
+          );
+
+          if (section.type === 'video-grid') return (
+            <section key={i} className={`${styles.sectionGrid} js-proj-section`}>
+              {section.videos.map((v, j) => (
+                <div key={j} className={styles.gridVideo}>
+                  <YouTubeEmbed
+                    youtubeId={v.youtube}
+                    title={v.title ? t(v.title, locale) : undefined}
+                  />
+                  {v.caption && (
+                    <p className={styles.gridCaption}>{t(v.caption, locale)}</p>
+                  )}
+                </div>
+              ))}
             </section>
           );
 
@@ -166,7 +206,7 @@ export default async function ProjectPage({
               {section.images.map((img, j) => (
                 <div key={j} className={styles.gridImage}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img.src} alt={t(img.alt, locale)} />
+                  <img src={img.src} alt={t(img.alt, locale)} className="js-zoomable" />
                 </div>
               ))}
             </section>

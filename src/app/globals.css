@@ -219,6 +219,16 @@ img, video {
   max-width: 100%;
 }
 
+/* Zoomable images — click to open the lightbox. The magnifier cursor and a
+   subtle hover lift signal that the image is interactive. */
+.js-zoomable {
+  cursor: zoom-in;
+  transition: filter 0.25s ease, transform 0.25s var(--ease-game);
+}
+.js-zoomable:hover {
+  filter: brightness(1.06) contrast(1.03);
+}
+
 /* NOTE: card hover keyframes (cardBorderRage, overlayRage, filmGrain) are
    defined directly inside page.module.css and projecten/page.module.css.
    CSS Modules scopes animation names locally, so global @keyframes are

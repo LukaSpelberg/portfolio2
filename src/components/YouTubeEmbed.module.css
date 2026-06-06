@@ -1,0 +1,103 @@
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+
+.iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ── Click-to-load poster ─────────────────────────────────────────────────── */
+.poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Desaturate a touch so it sits in the canvas palette until played */
+  filter: saturate(0.9) contrast(1.05);
+  transition: filter 0.3s ease;
+}
+
+.poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 30, 27, 0.15) 0%, rgba(11, 30, 27, 0.45) 100%);
+  transition: background 0.3s ease;
+}
+
+.poster:hover {
+  filter: saturate(1.05) contrast(1.08);
+}
+
+.poster:hover::after {
+  background: linear-gradient(180deg, rgba(11, 30, 27, 0.05) 0%, rgba(11, 30, 27, 0.3) 100%);
+}
+
+.playButton {
+  position: relative;
+  z-index: 1;
+  transform: scale(1);
+  transition: transform 0.25s var(--ease-game);
+}
+
+.poster:hover .playButton {
+  transform: scale(1.12);
+}
+
+/* YouTube play button — red bg turns to brand accent */
+.playBg {
+  fill: var(--color-accent);
+  opacity: 0.92;
+}
+
+/* ── Placeholder state ────────────────────────────────────────────────────── */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(206, 44, 26, 0.08) 0px, rgba(206, 44, 26, 0.08) 12px,
+      transparent 12px, transparent 24px
+    ),
+    var(--color-surface);
+  border: 1px dashed rgba(206, 44, 26, 0.4);
+  box-shadow: none;
+}
+
+.placeholderLabel {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 52px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.placeholderHint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}

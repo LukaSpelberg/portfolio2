@@ -107,6 +107,7 @@ export interface Project {
   featured?: boolean;
   heroImage: string;      // path inside /public, e.g. '/projects/dynamo/hero.webp'
   cardImage?: string;     // optional darker/atmospheric image for card film effect — falls back to heroImage
+  heroImageNatural?: boolean; // show hero at its natural aspect instead of the 5:2 cover crop
   heroBg: string;         // fallback gradient for card background
   intro: {
     heading: LocaleString;
@@ -128,7 +129,7 @@ export const projects: Project[] = [
     duration: { nl: '10 weken', en: '10 weeks' },
     featured: true,
     heroImage: '/projects/AppliedGameDesign/8survivorswristdeck.jpg',
-    cardImage: '/projects/AppliedGameDesign/projectscover.png',
+    cardImage: '/projects/AppliedGameDesign/games.png',
     heroBg: 'linear-gradient(135deg, #2a2214 0%, #14110c 100%)',
     intro: {
       heading: {
@@ -207,6 +208,7 @@ export const projects: Project[] = [
     duration: { nl: '6 weken', en: '6 weeks' },
     featured: true,
     heroImage: '/projects/coduet/coduetposter.png',
+    heroImageNatural: true,
     heroBg: 'linear-gradient(135deg, #182d3a 0%, #0b141a 100%)',
     intro: {
       heading: {

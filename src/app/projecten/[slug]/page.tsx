@@ -95,7 +95,7 @@ export default async function ProjectPage({
               <img
                 src={project.heroImage}
                 alt={project.title}
-                className={`${styles.heroImg} js-zoomable`}
+                className={`${styles.heroImg}${project.heroImageNatural ? ` ${styles.heroImgNatural}` : ''} js-zoomable`}
               />
             </div>
           )}
@@ -235,6 +235,13 @@ export default async function ProjectPage({
                 className={styles.recCardBg}
                 style={{ background: p.heroBg }}
               />
+              {/* Film-effect image — cardImage if supplied, else heroImage */}
+              {(p.cardImage ?? p.heroImage) && (
+                <div className={styles.recCardFilmImg} aria-hidden>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.cardImage ?? p.heroImage} alt="" />
+                </div>
+              )}
               <div className={styles.recCardOverlay} />
               <span className={styles.recGhostNum} aria-hidden>{p.num}</span>
               <div className={styles.recCardContent}>

@@ -30,8 +30,32 @@ const courierPrime = Courier_Prime({
 });
 
 export const metadata: Metadata = {
+  // Absolute base so relative OG/Twitter image paths resolve for social scrapers
+  metadataBase: new URL('https://lukaspelberg.nl'),
   title: 'Luka Spelberg Portfolio',
   description: 'Portfolio van Luka Spelberg, digital designer.',
+  openGraph: {
+    title: 'Luka Spelberg — Digital Designer',
+    description: 'Portfolio van Luka Spelberg, digital designer.',
+    url: 'https://lukaspelberg.nl',
+    siteName: 'Luka Spelberg',
+    locale: 'nl_NL',
+    type: 'website',
+    images: [
+      {
+        url: '/embed.png',
+        width: 2461,
+        height: 1351,
+        alt: 'Luka Spelberg — Digital Designer portfolio',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Luka Spelberg — Digital Designer',
+    description: 'Portfolio van Luka Spelberg, digital designer.',
+    images: ['/embed.png'],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

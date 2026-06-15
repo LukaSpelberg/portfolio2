@@ -31,13 +31,13 @@ const courierPrime = Courier_Prime({
 
 export const metadata: Metadata = {
   // Absolute base so relative OG/Twitter image paths resolve for social scrapers
-  metadataBase: new URL('https://lukaspelberg.nl'),
+  metadataBase: new URL('https://lukaspelberg.com'),
   title: 'Luka Spelberg Portfolio',
   description: 'Portfolio van Luka Spelberg, digital designer.',
   openGraph: {
     title: 'Luka Spelberg Portfolio',
     description: 'Portfolio van Luka Spelberg, digital designer.',
-    url: 'https://lukaspelberg.nl',
+    url: 'https://lukaspelberg.com',
     siteName: 'Luka Spelberg',
     locale: 'nl_NL',
     type: 'website',

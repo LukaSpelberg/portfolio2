@@ -155,12 +155,12 @@ export const projects: Project[] = [
       {
         type: 'text-image',
         heading: {
-          nl: 'Art direction en Audio.',
-          en: 'Art direction and Audio.',
+          nl: 'Asset Design',
+          en: 'Asset Design',
         },
         text: {
-          nl: 'De twee spellen hebben totaal verschillende direction in art. 8Survivors probeert de PSX stijl te raken, terwijl Treescend eerder voor het charmante handgemaakt gevoel gaat. Ik ontdekte bij het maken van de spellen ook hoe belangrijk audio is in games. Hier begon ik ook met muziek componeren waar ik erg veel plezier uit haalde.',
-          en: 'The two games have completely different art directions. 8Survivors aims for the PSX style, while Treescend goes for a charming handmade feel. Making the games also made me realise how important audio is in games. This is where I started composing music, which I found enormously enjoyable.',
+          nl: 'Bij beide spellen legde ik meer de focus op asset design om me daar in te ontwikkelen. Wat ik al snel ontdekte was dat assets veel verder gaan dan simpele sprites of 3D modellen. Particles, Audio, Post processing zijn allemaal onderdelen die bijna even belangrijk zijn.',
+          en: 'With both games I focused more on asset design to develop my skills in that area. I quickly discovered that assets go far beyond simple sprites or 3D models. Particles, audio, and post-processing are all components that are almost equally important.',
         },
         image: '/projects/AppliedGameDesign/8survivorsatmosphere.jpg',
         imageAlt: { nl: '8 Survivors atmosfeer', en: '8 Survivors atmosphere' },

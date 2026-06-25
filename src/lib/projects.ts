@@ -68,6 +68,24 @@ export interface VideoGridSection {
   videos: { youtube: string; title?: LocaleString; caption?: LocaleString }[];
 }
 
+/**
+ * Tabbed deep-dive — a "game/character select" switcher. Each variant has its
+ * own label and its own stack of sections; clicking a tab swaps the content.
+ * Use for a project that bundles multiple distinct sub-projects.
+ */
+export interface VariantSwitchSection {
+  type: 'variants';
+  label?: LocaleString;   // small heading above the switcher
+  variants: {
+    id: string;           // stable key, e.g. '8survivors'
+    label: string;        // tab text (proper noun — no translation needed)
+    thumb?: string;       // selector-card thumbnail
+    tag?: string;         // small label under the name, e.g. 'PSX horror'
+    links?: { label: LocaleString; href: string }[];  // per-game CTAs (e.g. Itch)
+    sections: ContentSection[];
+  }[];
+}
+
 export interface FullImageSection {
   type: 'full-image';
   src: string;
@@ -81,10 +99,15 @@ export interface CenteredTextSection {
   body: LocaleString;
 }
 
-/** Optional: 2-image side-by-side grid. Omit this section if not needed. */
+/** 2-up side-by-side grid. Each cell is an image OR a YouTube video, so you
+ *  can pack e.g. a screenshot next to a trailer on the same line. */
+export type GridItem =
+  | { src: string; alt: LocaleString }
+  | { video: string; title?: LocaleString };
+
 export interface ImageGridSection {
   type: 'image-grid';
-  images: { src: string; alt: LocaleString }[];
+  images: GridItem[];
 }
 
 export type ContentSection =
@@ -93,7 +116,8 @@ export type ContentSection =
   | CenteredTextSection
   | ImageGridSection
   | VideoSection
-  | VideoGridSection;
+  | VideoGridSection
+  | VariantSwitchSection;
 
 /* ── Project type ───────────────────────────────────────────────────────── */
 
@@ -121,8 +145,75 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'applied-gamedesign',
+    slug: 'dome-divers',
     num: '01',
+    title: 'Planetarium Artis - Dome Divers',
+    tags: ['Applied Game Design', 'Asset Design'],
+    date: 'Mei 2026',
+    duration: { nl: '5 weken', en: '5 weeks' },
+    featured: true,
+    heroImage: '/projects/DomeDivers/sfeerfotoDome.webp',
+    heroImageNatural: true,
+    heroBg: 'linear-gradient(135deg, #18183a 0%, #0b141a 100%)',
+    intro: {
+      heading: {
+        nl: 'Een game voor het Artis Planetarium',
+        en: 'A game for the Artis Planetarium',
+      },
+      body: {
+        nl: 'Dome Divers is een game die is ontworpen voor het planetarium van Artis. De opdracht was vrij breed: maak een game voor een jonge doelgroep die de waardes van Artis reflecteert. Wij hebben een game gemaakt die de impact van de mens op de oceaan laat zien, en de speler laat reflecteren op zijn rol daarin.',
+        en: 'Dome Divers is a game designed for the Artis Planetarium. The brief was quite broad: create a game for a young audience that reflects the values of Artis. We have created a game that shows the impact of humans on the ocean, and encourages players to reflect on their role in it.',
+      },
+      links: [
+        {
+          label: { nl: 'Bekijk de DesignRationale', en: 'View the DesignRationale' },
+          href: 'https://docs.google.com/document/d/1opFDAsGA1EDJSLZXDtCzWEcVZtQgOLCDgFfcWiWjYjg/edit?tab=t.0#heading=h.buamc98bkldi',
+        },
+      ],
+    },
+    sections: [
+      {
+        type: 'text-image',
+        heading: {
+          nl: 'Designen voor een dome',
+          en: 'Designing for a dome',
+        },
+        text: {
+          nl: 'Designen voor een dome was een uitdaging waar weinig referentiemateriaal voor was. Er zaten veel unieke design challenges aan verbonden. Hoe zorg je ervoor dat het voor elke zitplaats goed zichtbaar is? Hoe zorg je ervoor dat assets niet vervormen door de projectie? Hoe creeer je een gevoel van diepte in een projectie? Dit waren allemaal uitdagingen die we moesten tackelen.',
+          en: 'Designing for a dome was a challenge with little reference material. There were many unique design challenges involved. How do you ensure that it is visible from every seat? How do you prevent assets from distorting due to projection? How do you create a sense of depth in a projection? These were all challenges we had to tackle.',
+        },
+        image: '/projects/DomeDivers/scenepicture.png',
+        imageAlt: { nl: 'Dome Divers — scenepicture', en: 'Dome Divers — scenepicture' },
+      },
+      { 
+      type: 'video',
+      youtube: 'https://youtu.be/lyXokJO-upw',  
+      title:   { nl: 'planetarium gameplay', en: 'planetarium gameplay' },
+      },
+      {
+        type: 'centered-text',
+        heading: {
+          nl: 'Assets en contrast',
+          en: 'Assets and contrast',
+        },
+        body: {
+          nl: 'Het planetarium van Artis heeft een laag contrast en een lage helderheid. Daarom moesten we hier constant rekening mee houden bij het maken van de assets. We hebben alle assets getexture paint en met shader graphs gewerkt. We hadden tenslotte met een zelfgemaakte Dome Calibrator ultieme controle over de kleuren en het contrast van onze assets',
+          en: 'The Artis planetarium has low contrast and low brightness. Therefore, we had to constantly take this into account when creating the assets. We texture painted all assets and worked with shader graphs. After all, with a self-made Dome Calibrator, we had ultimate control over the colors and contrast of our assets.',
+        },
+      },
+      {
+        type: 'image-grid',
+        images: [
+          { src: '/projects/DomeDivers/nacht.png', alt: { nl: 'Dome Divers — nacht', en: 'Dome Divers — night' } },
+          { src: '/projects/DomeDivers/dag.png', alt: { nl: 'Dome Divers — dag', en: 'Dome Divers — day' } },
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: 'applied-gamedesign',
+    num: '02',
     title: 'Applied GameDesign',
     tags: ['Game Design', 'Prototyping'],
     date: 'Mei 2026',
@@ -146,62 +237,103 @@ export const projects: Project[] = [
           href: 'https://futtyprime.itch.io/treescend',
         },
         {
-          label: { nl: '8 survivors op Itch', en: '8 Survivors on Itch' },
+          label: { nl: '8 Survivors op Itch', en: '8 Survivors on Itch' },
           href: 'https://futtyprime.itch.io/8survivors',
         },
       ],
     },
     sections: [
       {
-        type: 'text-image',
-        heading: {
-          nl: 'Asset Design',
-          en: 'Asset Design',
-        },
-        text: {
-          nl: 'Bij beide spellen legde ik meer de focus op asset design om me daar in te ontwikkelen. Wat ik al snel ontdekte was dat assets veel verder gaan dan simpele sprites of 3D modellen. Particles, Audio, Post processing zijn allemaal onderdelen die bijna even belangrijk zijn.',
-          en: 'With both games I focused more on asset design to develop my skills in that area. I quickly discovered that assets go far beyond simple sprites or 3D models. Particles, audio, and post-processing are all components that are almost equally important.',
-        },
-        image: '/projects/AppliedGameDesign/8survivorsatmosphere.jpg',
-        imageAlt: { nl: '8 Survivors atmosfeer', en: '8 Survivors atmosphere' },
-      },
-      {
-        type: 'full-image',
-        src: '/projects/AppliedGameDesign/treescendImage.png',
-        alt: { nl: 'Treescend screenshot', en: 'Treescend screenshot' },
-      },
-      {
-        type: 'centered-text',
-        heading: {
-          nl: 'Testen, testen en testen',
-          en: 'Test, test and test again',
-        },
-        body: {
-          nl: 'Bij het ontwikkelen van games staat een ding vast: je zult bugs tegenkomen. Daarom was het key om je game door zoveel mogelijk mensen te laten testen. Ik had mijn games op sociale media gedeeld, naar echte game developers gestuurd en door vrienden laten testen. Hierdoor had ik al snel richting de 100 plays, waardoor ik veel data had om verder te itereren.',
-          en: 'When developing games, one thing is certain: you will run into bugs. That\'s why getting your game tested by as many people as possible is key. I shared my games on social media, sent them to actual game developers and had friends test them. This quickly brought me close to 100 plays, giving me plenty of data to iterate on.',
-        },
-      },
-      {
-        type: 'video-grid',
-        videos: [
+        // ── Game switcher — two self-contained games ──────────────────────
+        // Each game follows the standard rhythm: paragraph + picture →
+        // paragraph → picture(s) → trailer. The shared "asset design" and
+        // "testing" themes are folded into each game's second paragraph.
+        type: 'variants',
+        label: { nl: 'Kies een game', en: 'Select a game' },
+        variants: [
           {
-            youtube: 'https://www.youtube.com/watch?v=_2Voyxx44sM',
-            title: { nl: '8 Survivors — trailer', en: '8 Survivors — trailer' },
-            caption: { nl: '8 Survivors', en: '8 Survivors' },
+            id: '8survivors',
+            label: '8 Survivors',
+            thumb: '/projects/AppliedGameDesign/8survivorswristdeck.jpg',
+            tag: 'PSX horror',
+            sections: [
+              {
+                type: 'text-image',
+                heading: { nl: 'PSX-stijl & sfeer', en: 'PSX style & atmosphere' },
+                text: {
+                  nl: 'Met een strakke deadline van 4 weken was het belangrijk dat dit project goed gescoped werd. Met de PSX stijl als uitgangspunt kan je met vrij simpele assets toch een hele sterke sfeer neerzetten. Daardoor konden we in korte tijd veel content maken wat de storyline versterkte.',
+                  en: 'With a tight 4-week deadline, it was important to scope this project well. Using the PSX style as a starting point, you can create a strong atmosphere with relatively simple assets. This allowed us to produce a lot of content in a short time that reinforced the storyline.',
+                },
+                image: '/projects/AppliedGameDesign/8survivorsatmosphere.jpg',
+                imageAlt: { nl: '8 Survivors sfeerbeeld', en: '8 Survivors atmosphere' },
+              },
+              {
+                type: 'full-image',
+                src: '/projects/AppliedGameDesign/frame3.png',
+                alt: { nl: '8 Survivors screenshot', en: '8 Survivors screenshot' },
+              },
+              {
+                type: 'centered-text',
+                heading: { nl: 'Assets maken op een slimme manier', en: 'Making assets smartly' },
+                body: {
+                  nl: 'Voor een aantal assets heb ik modellen van het internet gedownload, en deze vervolgens aanzienlijk veranderd zodat ze logisch waren voor onze visie en narratief. Daarnaast hielp post processing ook heel veel om het gevoel van de PSX stijl nog meer te verkopen. Ik zou zeggen dat dit bijna belangrijker was dan de assets zelf, zoals je zag op de foto hierboven.',
+                  en: 'For some assets, I downloaded models from the internet and then significantly altered them to fit our vision and narrative. Additionally, post-processing played a crucial role in enhancing the PSX style feel. I would say this was almost more important than the assets themselves, as you can see in the photo above.',
+                },
+              },
+              {
+                type: 'image-grid',
+                images: [
+                  { src: '/projects/AppliedGameDesign/sfeerfoto.png', alt: { nl: '8 Survivors aanzicht', en: '8 Survivors view' } },
+                  { video: 'https://www.youtube.com/watch?v=_2Voyxx44sM', title: { nl: '8 Survivors — walkthrough', en: '8 Survivors — walkthrough' } },
+                ],
+              },
+            ],
           },
           {
-            youtube: 'https://www.youtube.com/watch?v=fBbrcejkDuI',
-            title: { nl: 'Treescend — trailer', en: 'Treescend — trailer' },
-            caption: { nl: 'Treescend', en: 'Treescend' },
+            id: 'treescend',
+            label: 'Treescend',
+            thumb: '/projects/AppliedGameDesign/treescendImage.png',
+            tag: 'Handgemaakte platformer',
+            sections: [
+              {
+                type: 'text-image',
+                heading: { nl: 'Mijn eeerste game', en: 'My first game' },
+                text: {
+                  nl: 'Treescend was mijn eerste game. De briefing was vrij simpel: maak een 2D platformer game. Dit was expres zo vrij, zodat je experimenteerde met elke rol en ontdekte wat jij leuk vond. Ik heb ervoor gekozen om een puzzle platformer te maken, met een art style geinspireerd op Neva en GRIS.',
+                  en: 'Treescend was my first game. The brief was quite simple: create a 2D platformer game. This was intentionally open-ended, allowing you to experiment with every role and discover what you enjoyed. I chose to create a puzzle platformer, with an art style inspired by Neva and GRIS.',
+                },
+                image: '/projects/AppliedGameDesign/treescendImage.png',
+                imageAlt: { nl: 'Treescend screenshot', en: 'Treescend screenshot' },
+              },
+              {
+                type: 'full-image',
+                src: '/projects/AppliedGameDesign/treescendEnd.jpg',
+                alt: { nl: 'Treescend eindscherm', en: 'Treescend end screen' },
+              },
+              {
+                type: 'centered-text',
+                heading: { nl: 'Testen, testen en testen', en: 'Test, test and test again' },
+                body: {
+                  nl: 'Treescend leerde me hoe belangrijk testen is. Ik deelde het op sociale media, stuurde het naar echte game developers en liet vrienden spelen. Richting de 100 plays gaf me genoeg data om te blijven itereren op allerij verschillende dingen. Daarnaast vond ik het ook een leuk proces om het te delen met de wereld.',
+                  en: 'Treescend taught me the importance of testing. I shared it on social media, sent it to real game developers, and had friends play it. By the time I reached 100 plays, I had enough data to continue iterating on various aspects. Additionally, I found it enjoyable to share the process with the world.',
+                },
+              },
+              {
+                type: 'video',
+                youtube: 'https://www.youtube.com/watch?v=fBbrcejkDuI',
+                title: { nl: 'Treescend — walkthrough', en: 'Treescend — walkthrough' },
+                caption: { nl: 'Treescend — walkthrough', en: 'Treescend — walkthrough' },
+              },
+            ],
           },
         ],
       },
     ],
   },
-  
+
   {
     slug: 'coduet',
-    num: '02',
+    num: '03',
     title: 'Coduet',
     tags: ['AI', 'Prototype'],
     date: 'Januari 2026',
@@ -272,12 +404,12 @@ export const projects: Project[] = [
 
   {
     slug: 'myjam',
-    num: '03',
+    num: '04',
     title: 'MyJam',
     tags: ['UX/UI', 'Backend'],
     date: 'April 2025',
     duration: { nl: '5 weken', en: '5 weeks' },
-    featured: true,
+    featured: false,
     heroImage: '/projects/myjam/myjamHero.png',
     heroBg: 'linear-gradient(135deg, #1a3a2e 0%, #0e2218 100%)',
     intro: {
@@ -331,7 +463,7 @@ export const projects: Project[] = [
 
   {
     slug: 'EP',
-    num: '04',
+    num: '05',
     title: 'Game Muziek EP',
     tags: ['Audio'],
     date: 'mei 2026',
@@ -397,7 +529,7 @@ export const projects: Project[] = [
 
    {
     slug: 'dynamo',
-    num: '05',
+    num: '06',
     title: 'Dynamo',
     tags: ['UX', 'Game Design'],
     date: 'September 2024',
@@ -463,7 +595,7 @@ export const projects: Project[] = [
 
   {
     slug: 'public-city-jazz',
-    num: '06',
+    num: '07',
     title: 'Public City Jazz',
     tags: ['Branding', 'UI'],
     date: 'November 2024',

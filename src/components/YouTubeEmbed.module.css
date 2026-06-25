@@ -54,18 +54,49 @@
 .playButton {
   position: relative;
   z-index: 1;
-  transform: scale(1);
-  transition: transform 0.25s var(--ease-game);
+  width: clamp(62px, 8.5vw, 90px);
+  height: clamp(62px, 8.5vw, 90px);
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s var(--ease-game);
+}
+
+/* Organic red paint disc with distressed, hand-printed edges */
+.playDisc {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  border-radius: 54% 46% 57% 43% / 49% 55% 45% 51%;
+  filter: url('#ink-rough');
+}
+
+/* Thin cream ring — a printed "stamp" outline around the disc */
+.playButton::before {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border: 1.5px solid var(--color-text);
+  border-radius: 50%;
+  opacity: 0.22;
+  transition: opacity 0.3s, transform 0.3s var(--ease-game);
+}
+
+/* Cream triangle, nudged right for optical centering */
+.playTri {
+  position: relative;
+  width: 30%;
+  height: auto;
+  margin-left: 9%;
+  fill: var(--color-text);
 }
 
 .poster:hover .playButton {
-  transform: scale(1.12);
+  transform: scale(1.1) rotate(-4deg);
 }
 
-/* YouTube play button — red bg turns to brand accent */
-.playBg {
-  fill: var(--color-accent);
-  opacity: 0.92;
+.poster:hover .playButton::before {
+  opacity: 0.5;
+  transform: scale(1.06);
 }
 
 /* ── Placeholder state ────────────────────────────────────────────────────── */

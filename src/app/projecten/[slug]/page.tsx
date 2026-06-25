@@ -1,12 +1,126 @@
+import type { Key, ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import PaintMark from '@/components/PaintMark';
 import ProjectAnimations from '@/components/ProjectAnimations';
 import Lightbox from '@/components/Lightbox';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
+import GameSwitcher from '@/components/GameSwitcher';
 import { projects, getProject, getRecommended, t } from '@/lib/projects';
-import type { Locale } from '@/lib/projects';
+import type { Locale, ContentSection } from '@/lib/projects';
 import styles from './page.module.css';
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * renderSection — renders a single content section. Shared by the main page
+ * flow (animate=true → scroll-reveal) and the GameSwitcher panels
+ * (animate=false → they fade in via the switcher's own transition).
+ * 'variants' is handled by the caller, not here.
+ * ────────────────────────────────────────────────────────────────────────── */
+function renderSection(
+  section: ContentSection,
+  key: Key,
+  locale: Locale,
+  animate: boolean,
+): ReactNode {
+  const anim = animate ? ' js-proj-section' : '';
+
+  switch (section.type) {
+    case 'text-image':
+      return (
+        <section key={key} className={`${styles.sectionTextImage}${anim}`}>
+          <div className={styles.sectionText}>
+            {section.heading && (
+              <h3 className={styles.sectionHeading}>{t(section.heading, locale)}</h3>
+            )}
+            <p className={styles.sectionBody}>{t(section.text, locale)}</p>
+          </div>
+          <div className={styles.sectionImageWrap}>
+            {section.video ? (
+              <YouTubeEmbed
+                youtubeId={section.video.youtube}
+                title={section.video.title ? t(section.video.title, locale) : undefined}
+              />
+            ) : (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={section.image}
+                alt={section.imageAlt ? t(section.imageAlt, locale) : ''}
+                className={`${styles.sectionImg} js-zoomable`}
+              />
+            )}
+          </div>
+        </section>
+      );
+
+    case 'full-image':
+      return (
+        <section key={key} className={`${styles.sectionFullImage}${anim}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={section.src} alt={t(section.alt, locale)} className="js-zoomable" />
+          {section.caption && <p className={styles.caption}>{t(section.caption, locale)}</p>}
+        </section>
+      );
+
+    case 'video':
+      return (
+        <section key={key} className={`${styles.sectionVideo}${anim}`}>
+          <YouTubeEmbed
+            youtubeId={section.youtube}
+            title={section.title ? t(section.title, locale) : undefined}
+          />
+          {section.caption && <p className={styles.caption}>{t(section.caption, locale)}</p>}
+        </section>
+      );
+
+    case 'video-grid':
+      return (
+        <section key={key} className={`${styles.sectionGrid}${anim}`}>
+          {section.videos.map((v, j) => (
+            <div key={j} className={styles.gridVideo}>
+              <YouTubeEmbed
+                youtubeId={v.youtube}
+                title={v.title ? t(v.title, locale) : undefined}
+              />
+              {v.caption && <p className={styles.gridCaption}>{t(v.caption, locale)}</p>}
+            </div>
+          ))}
+        </section>
+      );
+
+    case 'centered-text':
+      return (
+        <section key={key} className={`${styles.sectionCentered}${anim}`}>
+          <h3 className={styles.centeredHeading}>{t(section.heading, locale)}</h3>
+          <p className={styles.centeredBody}>{t(section.body, locale)}</p>
+        </section>
+      );
+
+    case 'image-grid':
+      return (
+        <section key={key} className={`${styles.sectionGrid}${anim}`}>
+          {section.images.map((item, j) =>
+            'video' in item ? (
+              <div key={j} className={styles.gridVideo}>
+                <YouTubeEmbed
+                  youtubeId={item.video}
+                  title={item.title ? t(item.title, locale) : undefined}
+                />
+              </div>
+            ) : (
+              <div key={j} className={styles.gridImage}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={item.src} alt={t(item.alt, locale)} className="js-zoomable" />
+              </div>
+            ),
+          )}
+        </section>
+      );
+
+    default:
+      // 'variants' is rendered by the caller; nothing else to handle here.
+      return null;
+  }
+}
 
 /* ── Static params — tells Next.js which slugs to pre-render ── */
 export async function generateStaticParams() {
@@ -129,90 +243,24 @@ export default async function ProjectPage({
       {/* ══════════════════════ CONTENT SECTIONS ══════════════════════════ */}
       <div className={styles.sections}>
         {project.sections.map((section, i) => {
-
-          if (section.type === 'text-image') return (
-            <section key={i} className={`${styles.sectionTextImage} js-proj-section`}>
-              <div className={styles.sectionText}>
-                {section.heading && (
-                  <h3 className={styles.sectionHeading}>{t(section.heading, locale)}</h3>
-                )}
-                <p className={styles.sectionBody}>{t(section.text, locale)}</p>
-              </div>
-              <div className={styles.sectionImageWrap}>
-                {section.video ? (
-                  <YouTubeEmbed
-                    youtubeId={section.video.youtube}
-                    title={section.video.title ? t(section.video.title, locale) : undefined}
-                  />
-                ) : (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={section.image}
-                    alt={section.imageAlt ? t(section.imageAlt, locale) : ''}
-                    className={`${styles.sectionImg} js-zoomable`}
-                  />
-                )}
-              </div>
-            </section>
-          );
-
-          if (section.type === 'full-image') return (
-            <section key={i} className={`${styles.sectionFullImage} js-proj-section`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={section.src} alt={t(section.alt, locale)} className="js-zoomable" />
-              {section.caption && (
-                <p className={styles.caption}>{t(section.caption, locale)}</p>
-              )}
-            </section>
-          );
-
-          if (section.type === 'video') return (
-            <section key={i} className={`${styles.sectionVideo} js-proj-section`}>
-              <YouTubeEmbed
-                youtubeId={section.youtube}
-                title={section.title ? t(section.title, locale) : undefined}
+          // The game/character-select switcher renders each variant's sections
+          // (without scroll-reveal — the switcher fades them in itself).
+          if (section.type === 'variants') return (
+            <div key={i} className={`${styles.sectionVariants} js-proj-section`}>
+              <GameSwitcher
+                label={section.label ? t(section.label, locale) : undefined}
+                variants={section.variants.map((v) => ({
+                  id: v.id,
+                  label: v.label,
+                  thumb: v.thumb,
+                  tag: v.tag,
+                  content: <>{v.sections.map((s, j) => renderSection(s, j, locale, false))}</>,
+                }))}
               />
-              {section.caption && (
-                <p className={styles.caption}>{t(section.caption, locale)}</p>
-              )}
-            </section>
+            </div>
           );
 
-          if (section.type === 'video-grid') return (
-            <section key={i} className={`${styles.sectionGrid} js-proj-section`}>
-              {section.videos.map((v, j) => (
-                <div key={j} className={styles.gridVideo}>
-                  <YouTubeEmbed
-                    youtubeId={v.youtube}
-                    title={v.title ? t(v.title, locale) : undefined}
-                  />
-                  {v.caption && (
-                    <p className={styles.gridCaption}>{t(v.caption, locale)}</p>
-                  )}
-                </div>
-              ))}
-            </section>
-          );
-
-          if (section.type === 'centered-text') return (
-            <section key={i} className={`${styles.sectionCentered} js-proj-section`}>
-              <h3 className={styles.centeredHeading}>{t(section.heading, locale)}</h3>
-              <p className={styles.centeredBody}>{t(section.body, locale)}</p>
-            </section>
-          );
-
-          if (section.type === 'image-grid') return (
-            <section key={i} className={`${styles.sectionGrid} js-proj-section`}>
-              {section.images.map((img, j) => (
-                <div key={j} className={styles.gridImage}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img.src} alt={t(img.alt, locale)} className="js-zoomable" />
-                </div>
-              ))}
-            </section>
-          );
-
-          return null;
+          return renderSection(section, i, locale, true);
         })}
       </div>
 

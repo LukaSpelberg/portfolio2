@@ -1,0 +1,298 @@
+.wrap {
+  position: relative;
+  scroll-margin-top: 90px;  /* clears the fixed nav when the hand-off scrolls up */
+}
+
+/* ── Header — centered prompt with flanking rules, breaks the page rhythm ──── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.headerLine {
+  height: 1px;
+  width: clamp(40px, 12vw, 140px);
+  background: rgba(246, 242, 228, 0.18);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  white-space: nowrap;
+}
+
+/* ── Selector cards ───────────────────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 56px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-surface);
+  border: 1px solid rgba(246, 242, 228, 0.12);
+  /* Unselected cards sit back: dimmed + desaturated */
+  opacity: 0.55;
+  filter: saturate(0.6);
+  transition: opacity 0.3s, filter 0.3s, border-color 0.3s, transform 0.3s var(--ease-game);
+}
+
+.card:hover {
+  opacity: 0.85;
+  filter: saturate(0.85);
+  transform: translateY(-3px);
+  border-color: rgba(246, 242, 228, 0.28);
+}
+
+.cardActive,
+.cardActive:hover {
+  opacity: 1;
+  filter: none;
+  border-color: var(--color-accent);
+  transform: none;
+}
+
+/* Red corner flag on the selected card */
+.cardActive::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-accent);
+  z-index: 2;
+}
+
+.cardThumb {
+  display: block;
+  width: 100%;
+  height: clamp(120px, 18vw, 200px);
+  background-size: cover;
+  background-position: center;
+}
+
+.cardBar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  text-align: left;
+}
+
+.cardNum {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.5;
+}
+
+.cardActive .cardNum {
+  opacity: 1;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cardName {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(20px, 2.6vw, 32px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.cardTag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.cardState {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cardActive .cardState {
+  color: var(--color-accent);
+}
+
+/* ── Panels — both stay mounted; only the active one shows ────────────────── */
+.panelHidden {
+  display: none;
+}
+
+.panelActive {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  animation: panelIn 0.5s var(--ease-game);
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Hand-off — a thumbnail banner of the next game, matches the cards ─────── */
+.nextBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  min-height: 132px;
+  margin-top: 56px;
+  padding: 0 36px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid rgba(246, 242, 228, 0.14);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.3s, transform 0.3s var(--ease-game);
+}
+
+/* Next game's thumbnail, dimmed, fills the banner */
+.nextThumb {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  filter: saturate(0.65);
+  transition: opacity 0.35s, transform 0.5s var(--ease-game);
+}
+
+/* Left-weighted scrim keeps the label legible over the image */
+.nextScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(11, 30, 27, 0.94) 0%,
+    rgba(11, 30, 27, 0.6) 55%,
+    rgba(11, 30, 27, 0.3) 100%
+  );
+}
+
+.nextBtn:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.nextBtn:hover .nextThumb {
+  opacity: 0.6;
+  transform: scale(1.05);
+}
+
+/* Red flag along the top, like the active card */
+.nextBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-accent);
+  z-index: 2;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-game);
+}
+
+.nextBtn:hover::after {
+  transform: scaleX(1);
+}
+
+.nextInner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nextLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.nextName {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.nextArrow {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-game);
+}
+
+.nextArrow svg {
+  display: block;
+  width: clamp(36px, 5vw, 52px);
+  height: auto;
+}
+
+.nextBtn:hover .nextArrow {
+  transform: translateX(8px);
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .cardThumb { height: 140px; }
+  .cardState { display: none; }
+  .panel { gap: 48px; }
+  .nextBtn { min-height: 100px; padding: 0 22px; }
+}

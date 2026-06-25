@@ -251,6 +251,11 @@
   margin: 0 auto;
 }
 
+/* ── Variants switcher wrapper — full content width ── */
+.sectionVariants {
+  width: 100%;
+}
+
 /* ── C: Centered text ── */
 .sectionCentered {
   max-width: 640px;
@@ -282,11 +287,19 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+  align-items: start;  /* keep mixed image/video cells top-aligned */
 }
 
 .gridImage img {
   width: 100%;
   display: block;
+}
+
+/* Only when an image shares a 2-up row with a 16:9 video: match the video's
+   shape so the two sit neatly together. Pure-image grids stay natural. */
+.sectionGrid:has(.gridVideo) .gridImage img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 /* Video cell inside a 2-up grid */

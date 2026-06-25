@@ -169,6 +169,10 @@ export const projects: Project[] = [
           label: { nl: 'Bekijk de DesignRationale', en: 'View the DesignRationale' },
           href: 'https://docs.google.com/document/d/1opFDAsGA1EDJSLZXDtCzWEcVZtQgOLCDgFfcWiWjYjg/edit?tab=t.0#heading=h.buamc98bkldi',
         },
+        {
+          label: { nl: 'Bekijk de productbiografie', en: 'View the product biography' },
+          href: 'https://docs.google.com/document/d/12jKGyvdYFYHnshWusQPwMDr0N7VjuJdRZmO213-hVSQ/edit?usp=sharing',
+        },
       ],
     },
     sections: [

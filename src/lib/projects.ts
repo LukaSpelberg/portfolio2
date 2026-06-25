@@ -255,7 +255,7 @@ export const projects: Project[] = [
             id: '8survivors',
             label: '8 Survivors',
             thumb: '/projects/AppliedGameDesign/8survivorswristdeck.jpg',
-            tag: 'PSX horror',
+            tag: 'PSX cautionary tale',
             sections: [
               {
                 type: 'text-image',

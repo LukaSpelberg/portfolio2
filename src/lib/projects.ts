@@ -197,7 +197,7 @@ export const projects: Project[] = [
           en: 'Assets and contrast',
         },
         body: {
-          nl: 'Het planetarium van Artis heeft een laag contrast en een lage helderheid. Daarom moesten we hier constant rekening mee houden bij het maken van de assets. We hebben alle assets getexture paint en met shader graphs gewerkt. We hadden tenslotte met een zelfgemaakte Dome Calibrator ultieme controle over de kleuren en het contrast van onze assets',
+          nl: 'Het planetarium van Artis heeft een laag contrast en een lage helderheid. Daarom moesten we hier constant rekening mee houden bij het maken van de assets. We hebben alle assets getexture paint en met shader graphs gewerkt. We hadden tenslotte met een Dome Calibrator ultieme controle over de kleuren en het contrast van onze assets',
           en: 'The Artis planetarium has low contrast and low brightness. Therefore, we had to constantly take this into account when creating the assets. We texture painted all assets and worked with shader graphs. After all, with a self-made Dome Calibrator, we had ultimate control over the colors and contrast of our assets.',
         },
       },
@@ -269,7 +269,7 @@ export const projects: Project[] = [
               },
               {
                 type: 'full-image',
-                src: '/projects/AppliedGameDesign/frame3.png',
+                src: '/projects/AppliedGameDesign/Frame3.png',
                 alt: { nl: '8 Survivors screenshot', en: '8 Survivors screenshot' },
               },
               {

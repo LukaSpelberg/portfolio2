@@ -152,7 +152,7 @@ export const projects: Project[] = [
     date: 'Mei 2026',
     duration: { nl: '5 weken', en: '5 weeks' },
     featured: true,
-    heroImage: '/projects/DomeDivers/sfeerfotoDome.webp',
+    heroImage: '/projects/DomeDivers/domeDivers.jpeg',
     heroImageNatural: true,
     heroBg: 'linear-gradient(135deg, #18183a 0%, #0b141a 100%)',
     intro: {

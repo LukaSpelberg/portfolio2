@@ -274,10 +274,10 @@ export const projects: Project[] = [
               },
               {
                 type: 'centered-text',
-                heading: { nl: 'Assets maken op een slimme manier', en: 'Making assets smartly' },
+                heading: { nl: 'Veder dan 3D assets', en: 'More than 3D assets' },
                 body: {
-                  nl: 'Voor een aantal assets heb ik modellen van het internet gedownload, en deze vervolgens aanzienlijk veranderd zodat ze logisch waren voor onze visie en narratief. Daarnaast hielp post processing ook heel veel om het gevoel van de PSX stijl nog meer te verkopen. Ik zou zeggen dat dit bijna belangrijker was dan de assets zelf, zoals je zag op de foto hierboven.',
-                  en: 'For some assets, I downloaded models from the internet and then significantly altered them to fit our vision and narrative. Additionally, post-processing played a crucial role in enhancing the PSX style feel. I would say this was almost more important than the assets themselves, as you can see in the photo above.',
+                  nl: 'In dit project ontdekte ik dat assets verder gaan dan puur 3d modellen. Dingen zoals lighting en post-processing zijn minstens net zo belangrijk. Deze onderdelen hebben dit project dan ook naar een hoger niveau getilt.',
+                  en: 'In this project I discovered that assets go beyond just 3D models. Elements like lighting and post-processing are equally important. These components elevated this project to a higher level.',
                 },
               },
               {

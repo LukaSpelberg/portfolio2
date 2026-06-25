@@ -187,7 +187,7 @@ export const projects: Project[] = [
       },
       { 
       type: 'video',
-      youtube: 'https://youtu.be/lyXokJO-upw',  
+      youtube: 'https://youtu.be/cCfBLPOqoxY',  
       title:   { nl: 'planetarium gameplay', en: 'planetarium gameplay' },
       },
       {

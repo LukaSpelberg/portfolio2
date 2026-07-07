@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Bebas_Neue, Courier_Prime } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import PaintMark from '@/components/PaintMark';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
@@ -146,6 +147,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
